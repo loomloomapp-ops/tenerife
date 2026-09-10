@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Апартаменти | SVOYI Tenerife</title>
+<meta name="description" content="Апартаменти на Тенеріфе: фото, зручності, правила заселення, карта і бронювання онлайн.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="index.html"><img src="images/logo.png" alt=""><span><b>SVOYI</b><small>Tenerife</small></span></a>
+    <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="topnav">
+      <svg class="ic" aria-hidden="true"><use href="#i-list"></use></svg>
+    </button>
+    <nav class="top-nav" id="topnav">
+      <a href="catalog.html">Апартаменти</a>
+      <a href="index.html#lead">Підбір житла</a>
+      <a href="index.html#work">Як ми працюємо</a>
+      <a class="top-phone" href="tel:+380984776927">
+        <svg class="ic" aria-hidden="true"><use href="#i-phone"></use></svg>098 477 69 27
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="apt"></main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="" style="width:52px;height:52px">
+      <span><b style="font-size:26px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+    </a>
+    <nav class="foot-nav">
+      <a href="catalog.html">Апартаменти</a>
+      <a href="index.html#lead">Підбір житла</a>
+      <a href="index.html#work">Як ми працюємо</a>
+    </nav>
+    <div class="foot-cts">
+      <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
+    <span>Тенеріфе, Канарські острови</span>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Фотографії апартаментів">
+  <div class="lb-in">
+    <button class="x" type="button" id="lbClose" aria-label="Закрити">✕</button>
+    <div class="lb-stage"><img id="lbImg" alt=""></div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+  </div>
+</dialog>
+
+<script src="vendor/leaflet/leaflet.min.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/apartment.js"></script>
+</body>
+</html>

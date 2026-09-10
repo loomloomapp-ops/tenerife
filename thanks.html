@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заявку прийнято | SVOYI Tenerife</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="index.html"><img src="images/logo.png" alt=""><span><b>SVOYI</b><small>Tenerife</small></span></a>
+    <nav class="top-nav" id="topnav">
+      <a href="catalog.html">Апартаменти</a>
+      <a class="top-phone" href="tel:+380984776927">
+        <svg class="ic" aria-hidden="true"><use href="#i-phone"></use></svg>098 477 69 27
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap sec">
+  <div style="max-width:720px">
+    <div class="sec-h">
+      <h2>Заявку прийнято</h2>
+      <p>Менеджер передзвонить протягом години в робочий час, підтвердить обʼєкт і відповість на питання. До підтвердження нічого оплачувати не треба.</p>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:14px">Номер заявки: <b id="oid" style="color:var(--ink)"></b></p>
+    <div id="recap"></div>
+    <div class="row-end" style="margin-top:26px">
+      <a class="btn btn-gold btn-sq" id="tgLink" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener">
+        <svg class="ic"><use href="#i-telegram"></use></svg>Продублювати в Telegram
+      </a>
+      <a class="btn btn-ghost btn-sq" href="catalog.html">Повернутись до каталогу</a>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="" style="width:52px;height:52px">
+      <span><b style="font-size:26px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+    </a>
+    <div class="foot-cts">
+      <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
+    <span>Тенеріфе, Канарські острови</span>
+  </div>
+</footer>
+
+<script src="js/icons.js"></script>
+<script>
+/* Дані заявки кладе сюди крок "Готово" з core.js. */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+  const p = new URLSearchParams(location.search);
+  let o = null;
+  try { o = JSON.parse(sessionStorage.getItem('svoyi_order')); } catch {}
+  document.getElementById('oid').textContent = (o && o.id) || p.get('id') || '';
+  if (o && o.rows){
+    document.getElementById('recap').innerHTML =
+      '<div class="recap">' + o.rows.map(r => `<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join('') + '</div>';
+    document.getElementById('tgLink').href =
+      'https://t.me/SVOYI_Tenerife?text=' + encodeURIComponent(o.text);
+  }
+  /* Тут спрацьовує піксель конверсії, коли його підключать:
+     значення замовлення лежить у p.get('value'), тип у p.get('type'). */
+});
+</script>
+</body>
+</html>
