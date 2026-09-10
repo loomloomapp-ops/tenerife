@@ -9,7 +9,7 @@ if (!apt){
       <div class="empty">
         <h3>Такого обʼєкта немає</h3>
         <p>Схоже, посилання застаріло або обʼєкт зняли з публікації. Подивіться, що вільне зараз.</p>
-        <a class="btn btn-gold" href="catalog.html">Відкрити каталог</a>
+        <a class="btn btn-blue" href="catalog.html">Відкрити каталог</a>
       </div>
     </div>`;
 } else {
@@ -133,13 +133,13 @@ function render(){
         <div id="cOut" role="button" tabindex="0"><label>Виїзд</label><div class="dfield${S.out ? '' : ' ph'}" id="sOut">${S.out ? fmt(S.out) : 'Оберіть дату'}</div></div>
       </div>
       ${calcHTML()}
-      <button class="btn btn-gold btn-sq btn-block" type="button" id="toBook" style="margin-top:16px"${n ? '' : ' disabled'}>Забронювати</button>
+      <button class="btn btn-blue btn-block" type="button" id="toBook" style="margin-top:16px"${n ? '' : ' disabled'}>Забронювати</button>
       <p class="bb-note">Оплата лише після підтвердження бронювання</p>
     </aside>
   </div>
 
   <!-- 5. Інші апартаменти -->
-  <div class="sec sec-sand2">
+  <div class="sec sec-paper2">
     <div class="wrap">
       <div class="sec-h sec-top">
         <div>
@@ -158,7 +158,7 @@ function render(){
       <b>${n ? `${total} EUR` : `${apt.price} EUR`}</b>
       <span>${n ? `${fmt(S.in)} - ${fmt(S.out)}, ${n} ${plural(n, ['ніч', 'ночі', 'ночей'])}` : 'за ніч, оберіть дати'}</span>
     </div>
-    <button class="btn btn-gold btn-sq" type="button" id="barBook">${n ? 'Забронювати' : 'Обрати дати'}</button>
+    <button class="btn btn-blue" type="button" id="barBook">${n ? 'Забронювати' : 'Обрати дати'}</button>
   </div>`;
 
   wireGallery();

@@ -58,6 +58,23 @@ function initChrome(){
       burger.setAttribute('aria-expanded', String(open));
     };
   }
+  /* шапка над героєм прозора, після скролу темніє. Слідкуємо через
+     IntersectionObserver, а не через обробник прокрутки. */
+  const top = $('#top'), sentinel = $('#topSentinel');
+  if (top && top.classList.contains('on-hero')){
+    /* висота шапки їде разом із брейкпоінтами, тому міряємо, а не хардкодимо */
+    const setH = () => document.documentElement.style.setProperty('--top-h', top.offsetHeight + 'px');
+    setH();
+    if ('ResizeObserver' in window) new ResizeObserver(setH).observe(top);
+    else addEventListener('resize', setH, { passive: true });
+  }
+  if (top && sentinel && 'IntersectionObserver' in window){
+    new IntersectionObserver(
+      ([e]) => top.classList.toggle('stuck', !e.isIntersecting),
+      { threshold: 0 }
+    ).observe(sentinel);
+  }
+
   const page = location.pathname.split('/').pop() || 'index.html';
   $$('.top-nav a[href]').forEach(a => {
     if (a.getAttribute('href') === page) a.setAttribute('aria-current', 'page');
@@ -302,8 +319,8 @@ function stepContacts(){
       </div>
       <div class="fld"><label for="bNote">Побажання (не обовʼязково)</label><textarea id="bNote" placeholder="Летимо з дитиною, потрібне дитяче ліжечко"></textarea></div>
       <div class="row-end">
-        <button class="btn btn-ghost btn-sq" type="button" data-close>Скасувати</button>
-        <button class="btn btn-gold btn-sq" type="button" id="next1">Далі</button>
+        <button class="btn btn-ghost" type="button" data-close>Скасувати</button>
+        <button class="btn btn-blue" type="button" id="next1">Далі</button>
       </div>
     </div>`;
   wireClose();
@@ -339,8 +356,8 @@ function stepCars(){
           </span>
         </button>`).join('')}</div>
       <div class="row-end">
-        <button class="btn btn-ghost btn-sq" type="button" id="skipCar">${S.apt ? 'Поки без авто' : 'Пропустити'}</button>
-        <button class="btn btn-gold btn-sq" type="button" id="next2">Готово</button>
+        <button class="btn btn-ghost" type="button" id="skipCar">${S.apt ? 'Поки без авто' : 'Пропустити'}</button>
+        <button class="btn btn-blue" type="button" id="next2">Готово</button>
       </div>
     </div>`;
   wireClose();

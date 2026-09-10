@@ -15,7 +15,9 @@
 </head>
 <body>
 
-<header class="top">
+<span id="topSentinel" aria-hidden="true"></span>
+
+<header class="top on-hero" id="top">
   <div class="top-in">
     <a class="brand" href="index.html"><img src="images/logo.png" alt=""><span><b>SVOYI</b><small>Tenerife</small></span></a>
     <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="topnav">
@@ -25,9 +27,7 @@
       <a href="catalog.html">Апартаменти</a>
       <a href="#lead">Підбір житла</a>
       <a href="#work">Як ми працюємо</a>
-      <a class="top-phone" href="tel:+380984776927">
-        <svg class="ic" aria-hidden="true"><use href="#i-phone"></use></svg>098 477 69 27
-      </a>
+      <a class="top-phone" href="tel:+380984776927">098 477 69 27</a>
     </nav>
   </div>
 </header>
@@ -38,12 +38,14 @@
     <video src="media/hero.mp4" poster="images/apt/p5.webp" autoplay muted loop playsinline
            aria-label="Апартаменти на узбережжі Тенеріфе"></video>
   </div>
+  <div class="hero-arcs" aria-hidden="true"><span></span><span></span></div>
+  <p class="hero-mark" aria-hidden="true">Tenerife</p>
   <div class="hero-in">
     <div class="hero-copy">
-      <h1>Житло на Тенеріфе,<br>яке ми бачили <i>власними очима</i></h1>
-      <p>Оберіть дати і побачите лише те, що <b>справді вільне</b>. Далі менеджер передзвонить і підтвердить.</p>
+      <p class="lede">Житло, яке ми бачили власними очима. Оберіть дати і побачите лише те, що справді вільне на них.</p>
+      <h1>Знайдіть своє житло<br><span>на Тенеріфе</span></h1>
     </div>
-    <div class="searchbar on-hero">
+    <div class="searchbar">
       <div class="sb-in" id="sbIn">
         <div class="sb-f"><label id="lIn">Заїзд</label><div class="dfield ph" id="fIn" role="button" tabindex="0" aria-labelledby="lIn">Оберіть дату</div></div>
         <div class="sb-f"><label id="lOut">Виїзд</label><div class="dfield ph" id="fOut" role="button" tabindex="0" aria-labelledby="lOut">Оберіть дату</div></div>
@@ -63,12 +65,16 @@
   </div>
 </section>
 
+<!-- Лічильники: усе рахується з js/data.js, вигаданих цифр немає -->
+<div class="stats" id="stats"></div>
+
 <!-- 2. Топ апартаменти -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-h sec-top rv">
       <div>
-        <h2>Те, що бронюють найчастіше</h2>
+        <span class="slash">Обране</span>
+        <h2>Те, що бронюють<br>найчастіше</h2>
         <p>Перевірені обʼєкти, до яких гості повертаються наступного сезону.</p>
       </div>
       <div class="rail-nav" aria-hidden="true">
@@ -77,18 +83,18 @@
       </div>
     </div>
     <div class="rail rv rv-1" id="topRail"></div>
-    <p style="margin-top:26px">
+    <p style="margin-top:34px">
       <a class="link-more" href="catalog.html">Весь каталог і карта <svg class="ic"><use href="#i-arrow-right"></use></svg></a>
     </p>
   </div>
 </section>
 
 <!-- 3. Апартаменти біля визначних місць -->
-<section class="sec sec-sand2">
+<section class="sec sec-paper2">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="eyebrow">Визначні місця</span>
-      <h2>Поруч із тим, заради чого їдуть</h2>
+      <span class="slash">Визначні місця</span>
+      <h2>Поруч із тим,<br>заради чого їдуть</h2>
     </div>
     <div class="places">
       <div class="place-tabs" id="placeTabs" role="tablist" aria-label="Визначні місця"></div>
@@ -105,6 +111,7 @@
   <div class="wrap">
     <div class="sec-h sec-top rv">
       <div>
+        <span class="slash">Перша лінія</span>
         <h2>До океану пішки</h2>
         <p>Варіанти, від яких до води не більше десяти хвилин. Час рахуємо кроком, а не автомобілем.</p>
       </div>
@@ -114,12 +121,13 @@
 </section>
 
 <!-- 5. Заявка на підбір -->
-<section class="sec sec-navy" id="lead">
+<section class="sec sec-ink" id="lead">
   <div class="wrap">
     <div class="lead">
       <div class="rv">
         <div class="sec-h">
-          <h2>Не знаєте, який район ваш?</h2>
+          <span class="slash">Підбір</span>
+          <h2>Не знаєте,<br>який район ваш?</h2>
           <p>Напишіть, з ким і коли летите. Підберемо житло під бюджет і маршрут і чесно скажемо, де вам буде краще.</p>
         </div>
         <div class="lead-points">
@@ -143,7 +151,7 @@
         <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
         <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
         <div class="fld"><label for="lNote">Коли летите і скільки вас</label><textarea id="lNote" name="note" placeholder="Двоє дорослих і дитина, друга половина жовтня, хочемо тихо і біля води"></textarea></div>
-        <button class="btn btn-gold btn-sq btn-block" type="submit">Надіслати заявку</button>
+        <button class="btn btn-blue btn-block" type="submit">Надіслати заявку</button>
         <p class="form-note">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
       </form>
     </div>
@@ -153,7 +161,10 @@
 <!-- 6. Як ми працюємо -->
 <section class="sec" id="work">
   <div class="wrap">
-    <div class="sec-h rv"><h2>Як ми працюємо</h2></div>
+    <div class="sec-h rv">
+      <span class="slash">Процес</span>
+      <h2>Як ми працюємо</h2>
+    </div>
     <div class="steps">
       <div class="step"><em>онлайн</em><h3>Обираєте дати</h3><p>Календар показує лише вільні дні. Зайняті закреслені, помилитися неможливо.</p></div>
       <div class="step"><em>дві хвилини</em><h3>Лишаєте заявку</h3><p>Потрібні тільки імʼя і контакт. Нічого не оплачуєте на цьому кроці.</p></div>
@@ -163,14 +174,23 @@
   </div>
 </section>
 
+<!-- Смуга-заява перед відгуками -->
+<section class="band">
+  <img src="images/apt/p7.webp" alt="" loading="lazy">
+  <div class="circle" aria-hidden="true"><p>Острів більший, ніж здається</p></div>
+  <div class="band-in">
+    <h2 class="sr">Острів більший, ніж здається</h2>
+  </div>
+</section>
+
 <!-- 7. Відеовідгуки
      TODO: замінити media/hero.mp4 на справжні вертикальні відео гостей (9:16)
-     і покласти власні кадри-обкладинки в images/reviews/. Тексти й авторів
-     редагувати в js/data.js, масив REVIEWS. -->
-<section class="sec sec-navy">
+     і покласти власні кадри-обкладинки. Тексти й авторів редагувати
+     в js/data.js, масив REVIEWS. -->
+<section class="sec sec-ink">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="eyebrow">Відгуки гостей</span>
+      <span class="slash">Відгуки гостей</span>
       <h2>Як це виглядало у них</h2>
       <p>Знято на телефон під час поїздок. Без сценарію і без монтажу.</p>
     </div>
@@ -181,8 +201,8 @@
 <footer class="foot">
   <div class="foot-in">
     <a class="brand" href="index.html">
-      <img src="images/logo.png" alt="" style="width:52px;height:52px">
-      <span><b style="font-size:26px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+      <img src="images/logo.png" alt="" style="width:56px;height:56px">
+      <span><b style="font-size:24px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
     </a>
     <nav class="foot-nav">
       <a href="catalog.html">Апартаменти</a>
@@ -195,6 +215,7 @@
       <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
     </div>
   </div>
+  <p class="foot-mark" aria-hidden="true">SVOYI</p>
   <div class="foot-bot">
     <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
     <span>Тенеріфе, Канарські острови</span>

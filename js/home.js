@@ -4,6 +4,22 @@
 /* ---------- пошук у герої ---------- */
 initSearchbar({ onSearch: () => { saveState(); location.href = 'catalog.html'; } });
 
+/* ---------- лічильники ----------
+   Усі цифри рахуються з масиву апартаментів, вигаданих серед них немає. */
+(function stats(){
+  const box = $('#stats');
+  if (!box) return;
+  const all = items();
+  const rows = [
+    [String(all.length), '', `${plural(all.length, ['апартамент', 'апартаменти', 'апартаментів'])} у добірці, кожен бачили особисто`],
+    [String(Math.min(...all.map(a => a.price))), '€', 'найнижча ціна за ніч у добірці'],
+    [String(Math.min(...all.map(a => a.sea))), '', `${plural(Math.min(...all.map(a => a.sea)), ['хвилина', 'хвилини', 'хвилин'])} до океану від найближчого обʼєкта`],
+    [String(Math.max(...all.map(a => a.guests))), '', `максимум ${plural(Math.max(...all.map(a => a.guests)), ['гість', 'гості', 'гостей'])} в одному обʼєкті`]
+  ];
+  box.innerHTML = rows.map(([n, suf, label]) => `
+    <div class="stat"><b>${n}${suf ? `<i>${suf}</i>` : ''}</b><span>${label}</span></div>`).join('');
+})();
+
 /* ---------- топ апартаменти ---------- */
 (function topRail(){
   const rail = $('#topRail');
