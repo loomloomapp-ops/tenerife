@@ -58,7 +58,14 @@
 
 <section class="split">
   <div>
-    <div class="filters" id="chips" role="group" aria-label="Швидкі фільтри"></div>
+    <div class="toolbar">
+      <button class="fbtn" id="fbtn" type="button" aria-expanded="false" aria-controls="fpanel">
+        <svg class="ic" aria-hidden="true"><use href="#i-sliders"></use></svg>
+        <span>Фільтри</span><b id="fcount" hidden>0</b>
+      </button>
+      <div class="fpills" id="fpills" aria-live="polite"></div>
+    </div>
+    <div class="fpanel" id="fpanel" hidden></div>
     <div class="results-head">
       <div>
         <b id="cnt" aria-live="polite">10 апартаментів</b> <span id="cntSub">· усі вільні дати</span>

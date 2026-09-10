@@ -158,14 +158,26 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
     linear-gradient(180deg,rgba(36,31,25,.72) 0%,rgba(36,31,25,.30) 34%,rgba(36,31,25,.94) 100%),
     linear-gradient(90deg,rgba(36,31,25,.62) 0%,rgba(36,31,25,.10) 60%,rgba(36,31,25,0) 100%)
 }
-/* тонкі напрямні дуги */
-.hero-arcs{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.16}
+/* тонкі дуги: повільно пульсують і трохи йдуть за курсором.
+   --mx/--my проставляє core.js, --d задає глибину кожного кільця */
+.hero-arcs{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .hero-arcs span{
-  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
-  border:1px solid rgba(255,255,255,.7);border-radius:50%
+  position:absolute;left:50%;top:44%;
+  transform:translate(
+    calc(-50% + var(--mx,0px) * var(--d,1)),
+    calc(-50% + var(--my,0px) * var(--d,1))
+  );
+  border:1px solid rgba(255,255,255,.55);border-radius:50%;
+  transition:transform .55s var(--ease);
+  animation:arcPulse 7s var(--ease) infinite
 }
-.hero-arcs span:nth-child(1){width:min(96vw,1180px);aspect-ratio:1}
-.hero-arcs span:nth-child(2){width:min(128vw,1560px);aspect-ratio:1}
+.hero-arcs span:nth-child(1){width:min(70vw,860px);aspect-ratio:1;opacity:.22}
+.hero-arcs span:nth-child(2){width:min(96vw,1180px);aspect-ratio:1;opacity:.16;animation-delay:-2.3s}
+.hero-arcs span:nth-child(3){width:min(128vw,1560px);aspect-ratio:1;opacity:.11;animation-delay:-4.6s}
+@keyframes arcPulse{
+  0%,100%{scale:1;border-color:rgba(255,255,255,.4)}
+  50%    {scale:1.045;border-color:rgba(255,255,255,.85)}
+}
 /* велика прозора назва позаду */
 .hero-mark{
   position:absolute;left:0;right:0;top:clamp(120px,17vh,210px);z-index:-1;text-align:center;
@@ -286,19 +298,25 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 /* ---------- смуга з фото на всю ширину ---------- */
 .band{position:relative;min-height:clamp(340px,42vw,540px);display:grid;place-items:center;overflow:hidden;isolation:isolate}
 .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.band::after{content:'';position:absolute;inset:0;background:rgba(36,31,25,.58);z-index:-1}
-.band-in{text-align:center;padding:clamp(48px,6vw,90px) var(--gut);max-width:1100px}
-.band h2{color:var(--white);margin-bottom:26px}
-/* синє коло як у референсу */
+.band::after{content:'';position:absolute;inset:0;background:rgba(36,31,25,.32);z-index:-1}
+/* синє коло: головний акцент смуги, тому лежить поверх затемнення */
 .circle{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;
-  width:min(70vw,420px);aspect-ratio:1;border-radius:50%;background:var(--blue);
-  display:grid;place-items:center;padding:38px
+  position:relative;z-index:1;width:min(74vw,440px);aspect-ratio:1;border-radius:50%;
+  background:var(--blue);display:grid;place-items:center;padding:40px;
+  box-shadow:0 30px 80px -30px rgba(0,44,243,.9)
 }
-.circle p{
-  font-family:var(--disp);font-weight:700;text-transform:uppercase;color:var(--white);
-  font-size:clamp(16px,1.9vw,25px);line-height:1.08;text-align:center
+.circle h2{
+  color:var(--white);font-size:clamp(17px,2vw,27px);line-height:1.08;text-align:center;margin:0
 }
+
+/* підпис до чужого кадру: вимога ліцензії CC BY-SA, не декор */
+.credit{
+  position:absolute;right:var(--gut);bottom:14px;z-index:2;
+  font-size:10.5px;letter-spacing:.06em;color:rgba(255,255,255,.5)
+}
+.credit a{color:rgba(255,255,255,.75);text-decoration:underline}
+.credit a:hover{color:var(--white)}
+.hero .credit{bottom:10px}
 
 /* ---------- послуги / переваги ---------- */
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -475,6 +493,78 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .skel u:last-child{width:40%;margin-bottom:26px}
 .skel i,.skel u{animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ---------- панель фільтрів ---------- */
+.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.fbtn{
+  display:inline-flex;align-items:center;gap:10px;flex:none;border:1px solid var(--ink);
+  background:var(--ink);color:var(--white);border-radius:100px;padding:12px 20px;cursor:pointer;
+  font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  transition:background .2s,border-color .2s
+}
+.fbtn:hover{background:var(--blue);border-color:var(--blue)}
+.fbtn svg.ic{width:15px;height:15px}
+.fbtn b{
+  min-width:20px;height:20px;border-radius:100px;background:var(--blue);color:var(--white);
+  font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 6px;line-height:1
+}
+/* display:grid вище перебиває атрибут hidden, тому вимикаємо явно */
+.fbtn b[hidden]{display:none}
+.fbtn[aria-expanded="true"]{background:var(--blue);border-color:var(--blue)}
+.fbtn[aria-expanded="true"] b{background:var(--white);color:var(--blue)}
+
+/* активні фільтри окремими пігулками, клік знімає */
+.fpills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.fpill{
+  display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:var(--white);
+  border-radius:100px;padding:9px 13px 9px 16px;cursor:pointer;font-family:var(--ui);font-size:12px;
+  font-weight:500;color:var(--ink);transition:border-color .2s
+}
+.fpill:hover{border-color:var(--ink)}
+.fpill::after{content:'✕';font-size:10px;color:var(--ink-3)}
+.fpill:hover::after{color:var(--ink)}
+
+.fpanel{
+  border:1px solid var(--line);border-radius:var(--r);background:var(--white);
+  padding:clamp(20px,2.2vw,30px);margin-bottom:22px
+}
+.fp-row{display:grid;grid-template-columns:minmax(210px,1.3fr) repeat(3,minmax(150px,1fr));gap:clamp(20px,2.4vw,34px)}
+.fp-g label,.fp-g>span{
+  display:block;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:14px
+}
+.fp-amen{margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+
+/* сегментований перемикач */
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{
+  border:1px solid var(--line);background:transparent;border-radius:100px;padding:9px 15px;
+  font-family:var(--ui);font-size:12px;font-weight:500;color:var(--ink);cursor:pointer;transition:all .2s
+}
+.seg button:hover{border-color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+
+/* повзунок діапазону цін: два інпути поверх спільної шкали */
+.range{position:relative;height:30px;margin-top:-2px}
+.range-bar{position:absolute;top:13px;left:9px;right:9px;height:3px;background:var(--line);border-radius:3px}
+.range-fill{position:absolute;top:0;height:100%;background:var(--blue);border-radius:3px}
+.range input{
+  position:absolute;top:0;left:0;width:100%;height:30px;margin:0;padding:0;background:none;border:0;
+  -webkit-appearance:none;appearance:none;pointer-events:none
+}
+.range input:focus{outline:0}
+.range input::-webkit-slider-thumb{
+  -webkit-appearance:none;pointer-events:auto;width:18px;height:18px;border-radius:50%;
+  background:var(--white);border:2px solid var(--blue);cursor:grab;box-shadow:0 2px 7px rgba(36,31,25,.28)
+}
+.range input::-webkit-slider-thumb:active{cursor:grabbing}
+.range input::-moz-range-thumb{
+  pointer-events:auto;width:18px;height:18px;border-radius:50%;background:var(--white);
+  border:2px solid var(--blue);cursor:grab;box-shadow:0 2px 7px rgba(36,31,25,.28)
+}
+.range input:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(0,44,243,.25)}
+.range-val{display:block;margin-top:10px;font-size:14px;font-weight:600;color:var(--ink)}
+.range-val i{font-style:normal;color:var(--ink-3);font-weight:400}
 
 /* ---------- сторінка апартаментів ---------- */
 .apt-head{padding-block:clamp(24px,2.6vw,38px) 0}
@@ -761,6 +851,9 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .apt-main{grid-template-columns:1fr}
   .vids{grid-template-columns:repeat(3,1fr)}
 }
+@media(max-width:1180px){
+  .fp-row{grid-template-columns:1fr 1fr}
+}
 @media(max-width:980px){
   .steps,.stats{grid-template-columns:1fr 1fr}
   .lead{grid-template-columns:1fr}
@@ -824,6 +917,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 }
 @media(max-width:700px){
   .steps,.stats,.tiles{grid-template-columns:1fr}
+  .fp-row{grid-template-columns:1fr;gap:22px}
   .step+.step{padding-left:0}
   .step p{max-width:none}
   .more-g{grid-template-columns:1fr}
@@ -842,4 +936,5 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .js .rv{opacity:1;transform:none}
   .step::before{width:100%}
+  .hero-arcs span{animation:none;transition:none}
 }

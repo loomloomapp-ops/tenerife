@@ -35,10 +35,15 @@
 <!-- 1. Герой із пошуком: дати, гості, район -->
 <section class="hero">
   <div class="hero-bg">
-    <video src="media/hero.mp4" poster="images/apt/p5.webp" autoplay muted loop playsinline
-           aria-label="Апартаменти на узбережжі Тенеріфе"></video>
+    <video poster="images/places/hero-poster.webp" autoplay muted loop playsinline
+           aria-label="Узбережжя Тенеріфе біля Mesa del Mar">
+      <source src="media/hero.webm" type="video/webm">
+      <source src="media/hero.mp4" type="video/mp4">
+    </video>
   </div>
-  <div class="hero-arcs" aria-hidden="true"><span></span><span></span></div>
+  <div class="hero-arcs" id="heroArcs" aria-hidden="true">
+    <span style="--d:1"></span><span style="--d:1.7"></span><span style="--d:2.4"></span>
+  </div>
   <p class="hero-mark" aria-hidden="true">Tenerife</p>
   <div class="hero-in">
     <div class="hero-copy">
@@ -62,6 +67,7 @@
         </button>
       </div>
     </div>
+    <p class="credit">Відео: Mike Peel, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
   </div>
 </section>
 
@@ -176,11 +182,9 @@
 
 <!-- Смуга-заява перед відгуками -->
 <section class="band">
-  <img src="images/apt/p7.webp" alt="" loading="lazy">
-  <div class="circle" aria-hidden="true"><p>Острів більший, ніж здається</p></div>
-  <div class="band-in">
-    <h2 class="sr">Острів більший, ніж здається</h2>
-  </div>
+  <img src="images/places/teide.webp" alt="Національний парк Тейде на Тенеріфе" loading="lazy">
+  <div class="circle"><h2>Острів більший,<br>ніж здається</h2></div>
+  <p class="credit">Фото: Diego Delso, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
 </section>
 
 <!-- 7. Відеовідгуки

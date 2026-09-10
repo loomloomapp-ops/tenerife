@@ -82,6 +82,30 @@ function initChrome(){
   $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 }
 
+/* ================= дуги в герої ================= */
+/* Кільця трохи йдуть за курсором. Значення пишемо в CSS-змінні через
+   requestAnimationFrame, щоб не смикати layout на кожен рух миші. */
+function initHeroArcs(){
+  const hero = $('.hero'), arcs = $('#heroArcs');
+  if (!hero || !arcs) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let raf = 0, x = 0, y = 0;
+  const apply = () => {
+    arcs.style.setProperty('--mx', x.toFixed(1) + 'px');
+    arcs.style.setProperty('--my', y.toFixed(1) + 'px');
+    raf = 0;
+  };
+  hero.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    const r = hero.getBoundingClientRect();
+    x = ((e.clientX - r.left) / r.width  - .5) * 44;
+    y = ((e.clientY - r.top)  / r.height - .5) * 30;
+    if (!raf) raf = requestAnimationFrame(apply);
+  }, { passive: true });
+  hero.addEventListener('pointerleave', () => { x = 0; y = 0; if (!raf) raf = requestAnimationFrame(apply); });
+}
+
 /* ================= поява при скролі ================= */
 function initReveal(){
   const els = $$('.rv, .step');
@@ -421,5 +445,6 @@ function initLeadForm(){
 document.addEventListener('DOMContentLoaded', () => {
   initChrome();
   initReveal();
+  initHeroArcs();
   initLeadForm();
 });
