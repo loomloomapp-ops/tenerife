@@ -186,7 +186,7 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .hero-in{position:relative;width:100%;max-width:var(--wrap);margin:0 auto;padding:150px var(--gut) 34px}
 .hero-copy{max-width:min(1180px,94%);margin-bottom:clamp(30px,3.6vw,54px)}
 .hero .lede{
-  color:var(--white);font-size:15px;line-height:1.5;max-width:38ch;margin-bottom:22px;font-weight:500
+  color:var(--white);font-size:15px;line-height:1.5;max-width:60ch;margin-bottom:22px;font-weight:500
 }
 .hero h1{color:var(--white)}
 .hero h1 span{color:rgba(255,255,255,.9)}
