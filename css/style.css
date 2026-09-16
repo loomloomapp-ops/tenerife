@@ -837,13 +837,13 @@ dialog::backdrop{background:rgba(58,32,15,.82);-webkit-backdrop-filter:blur(6px)
 
 /* ---------- футер ---------- */
 .foot{background:var(--ink);color:var(--white);padding-top:clamp(52px,5vw,80px);overflow:hidden}
-/* логотип зліва, телефон і соцмережі справа, навігація рядком нижче */
+/* логотип зліва; справа контакти й соцмережі, під ними навігація */
 .foot-in{
-  max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);display:grid;gap:30px;
-  grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand cts" "nav nav";align-items:center
+  max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);display:grid;gap:14px 30px;
+  grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand cts" "brand nav";align-items:start
 }
 .foot-in>.brand{grid-area:brand}
-.foot-nav{grid-area:nav;display:flex;flex-wrap:wrap;gap:10px}
+.foot-nav{grid-area:nav;display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
 .foot-nav a{
   border:1px solid var(--line-d);border-radius:100px;padding:11px 18px;font-size:11.5px;font-weight:500;
   letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.8);text-decoration:none;transition:all .2s
@@ -959,7 +959,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .more-g{grid-template-columns:1fr}
   .rules{grid-template-columns:1fr 1fr}
   .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "cts" "nav"}
-  .foot-cts{justify-content:flex-start}
+  .foot-cts,.foot-nav{justify-content:flex-start}
 }
 @media(max-width:620px){
   .grid,.bento{grid-template-columns:1fr}
