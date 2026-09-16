@@ -146,11 +146,14 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .burger svg.ic{width:20px;height:20px}
 
 /* ---------- герой ---------- */
+/* overflow у героя не ріжемо: інакше випадні списки й календар пошуку
+   ховаються за нижнім краєм. Обрізаються лише декоративні шари всередині.
+   z-index піднімає героя над блоком послуг, куди розкривається список. */
 .hero{
-  position:relative;min-height:min(880px,100svh);display:flex;align-items:flex-end;
-  overflow:hidden;background:var(--ink);isolation:isolate
+  position:relative;z-index:2;min-height:min(880px,100svh);display:flex;align-items:flex-end;
+  background:var(--ink);isolation:isolate
 }
-.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
 .hero-bg video,.hero-bg img{width:100%;height:100%;object-fit:cover}
 .hero-bg::after{
   content:'';position:absolute;inset:0;
@@ -160,7 +163,7 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 }
 /* тонкі дуги: повільно пульсують і трохи йдуть за курсором.
    --mx/--my проставляє core.js, --d задає глибину кожного кільця */
-.hero-arcs{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-arcs{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .hero-arcs span{
   position:absolute;left:50%;top:44%;
   transform:translate(
@@ -183,7 +186,7 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
   position:absolute;left:0;right:0;top:clamp(120px,17vh,210px);z-index:-1;text-align:center;
   font-family:var(--disp);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;
   font-size:min(19vw,270px);line-height:.8;color:rgba(255,255,255,.09);
-  user-select:none;pointer-events:none;white-space:nowrap
+  user-select:none;pointer-events:none;white-space:nowrap;overflow-x:clip
 }
 .hero-in{position:relative;width:100%;max-width:var(--wrap);margin:0 auto;padding:150px var(--gut) 34px}
 .hero-copy{max-width:min(1180px,94%);margin-bottom:clamp(30px,3.6vw,54px)}
