@@ -27,18 +27,18 @@ function distKm(aLat, aLng, bLat, bLng){
 }
 
 /* ================= стан ================= */
-/* Дати, гості й район живуть у sessionStorage, тому пошук із головної
+/* Дати, кількість людей, тип житла й район живуть у sessionStorage, тому пошук із головної
    переноситься в каталог і далі на сторінку апартаментів. */
-const DEF = { in: '', out: '', guests: 2, area: '', sort: 'rec' };
+const DEF = { in: '', out: '', guests: 2, type: '', area: '', sort: 'rec' };
 const S = Object.assign({}, DEF, (() => {
   try { return JSON.parse(sessionStorage.getItem('svoyi_search')) || {}; } catch { return {}; }
 })(), { apt: null, car: null });
 
 function saveState(){
-  const { in: i, out, guests, area, sort } = S;
-  try { sessionStorage.setItem('svoyi_search', JSON.stringify({ in: i, out, guests, area, sort })); } catch {}
+  const { in: i, out, guests, type, area, sort } = S;
+  try { sessionStorage.setItem('svoyi_search', JSON.stringify({ in: i, out, guests, type, area, sort })); } catch {}
 }
-const isDefault = () => !S.in && !S.out && !S.area && S.guests === 2 && S.sort === 'rec';
+const isDefault = () => !S.in && !S.out && !S.type && !S.area && S.guests === 2 && S.sort === 'rec';
 
 /* дані: адмінка може перекрити масив із data.js */
 const items = () => { try { return JSON.parse(localStorage.getItem('svoyi_apts')) || APARTMENTS; } catch { return APARTMENTS; } };
@@ -158,7 +158,7 @@ function dressSelect(el, options, onPick){
   if (!el) return;
   const cur = () => (options.find(o => o[0] === el.dataset.value) || options[0])[1];
   el.innerHTML = `
-    <button type="button" class="sel-btn">${cur()}${icon('caret-down')}</button>
+    <button type="button" class="sel-btn"><span class="sel-v">${esc(cur())}</span>${icon('caret-down')}</button>
     <div class="sel-list" hidden>${options.map(o => `
       <button type="button" data-v="${esc(o[0])}" aria-selected="${o[0] === el.dataset.value}">
         <i>${icon('check')}</i>${esc(o[1])}
@@ -180,7 +180,7 @@ function dressSelect(el, options, onPick){
 }
 function setSelect(el, value, options){
   el.dataset.value = value;
-  el.querySelector('.sel-btn').childNodes[0].nodeValue = (options.find(o => o[0] === value) || options[0])[1];
+  el.querySelector('.sel-v').textContent = (options.find(o => o[0] === value) || options[0])[1];
   el.querySelectorAll('[data-v]').forEach(x => x.setAttribute('aria-selected', String(x.dataset.v === value)));
 }
 function closeAllPopovers(){
@@ -260,7 +260,7 @@ function openCal(host, booked, onChange, opts = {}){
 }
 
 /* ================= рядок пошуку ================= */
-const guestWord = n => `${n} ${plural(n, ['гість','гості','гостей'])}`;
+const guestWord = n => `${n} ${plural(n, ['людина','людини','людей'])}`;
 function labelDate(el, v){ if (!el) return; el.textContent = v ? fmt(v) : 'Оберіть дату'; el.classList.toggle('ph', !v); }
 
 /* onSearch викликається кнопкою "Знайти"; onChange - будь-якою зміною полів */
@@ -282,6 +282,13 @@ function initSearchbar({ onSearch, onChange } = {}){
     S.guests = Math.min(10, Math.max(1, S.guests + (+b.dataset.g)));
     saveState(); sync(); onChange && onChange();
   });
+  const type = $('#fType');
+  if (type){
+    type.dataset.value = S.type;
+    dressSelect(type, [['', 'Будь-який'], ...APT_TYPES], v => {
+      S.type = v; saveState(); onChange && onChange();
+    });
+  }
   const area = $('#fArea');
   if (area){
     area.dataset.value = S.area;
@@ -296,8 +303,8 @@ function initSearchbar({ onSearch, onChange } = {}){
 
 /* ================= флоу бронювання ================= */
 /* Крок 1 контакти, крок 2 авто, крок 3 підтвердження. Живе в <dialog id="dlg">. */
-function openBooking(apt){
-  S.apt = apt || null; S.car = null;
+function openBooking(apt, car){
+  S.apt = apt || null; S.car = car || null;
   if (!$('#dlg')){
     const d = document.createElement('dialog');
     d.id = 'dlg';
@@ -317,7 +324,7 @@ function recapRows(){
   const rows = a ? [
     ['Апартаменти', `${a.name}, ${a.area}`],
     ['Дати', n ? `${fmt(S.in)} - ${fmt(S.out)} · ${n} ${plural(n, ['ніч','ночі','ночей'])}` : 'уточнимо в розмові'],
-    ['Гостей', String(S.guests)]
+    ['Кількість людей', String(S.guests)]
   ] : [['Послуга', 'Оренда авто']];
   if (a && n) rows.push(['Житло', `${n * a.price + CLEANING} EUR`]);
   return rows;
@@ -370,7 +377,7 @@ function stepCars(){
       <h2>${S.apt ? 'Додати авто на ці ж дати?' : 'Яке авто вам потрібне?'}</h2>
       <p class="sub">Машина чекатиме в аеропорту в день прильоту, документи готуємо заздалегідь. Без авто половина острова залишиться недоступною.</p>
       <div class="cars">${CARS.map(c => `
-        <button class="car" type="button" data-car="${c.id}">
+        <button class="car${S.car && S.car.id === c.id ? ' sel' : ''}" type="button" data-car="${c.id}">
           <span class="car-ph"><img src="${c.photo}" alt="${esc(c.name)}" loading="lazy"></span>
           <span class="car-b">
             <h4>${esc(c.name)}</h4><em>${esc(c.model)}</em>
@@ -428,6 +435,7 @@ function initLeadForm(){
     /* Тут місце для відправки на бекенд або в Telegram-бота.
        Зараз заявка лише зберігається локально, щоб нічого не загубилось. */
     const payload = {
+      service: f.dataset.service || 'Підбір житла',
       name: $('#lName').value.trim(), phone: $('#lPhone').value.trim(),
       note: $('#lNote') ? $('#lNote').value.trim() : '', at: new Date().toISOString()
     };

@@ -32,7 +32,7 @@
   </div>
 </header>
 
-<!-- 1. Герой із пошуком: дати, гості, район -->
+<!-- 1. Герой із пошуком: дати, кількість людей, тип житла, район -->
 <section class="hero">
   <div class="hero-bg">
     <video poster="images/places/hero-poster.webp" autoplay muted loop playsinline
@@ -54,13 +54,14 @@
       <div class="sb-in" id="sbIn">
         <div class="sb-f"><label id="lIn">Заїзд</label><div class="dfield ph" id="fIn" role="button" tabindex="0" aria-labelledby="lIn">Оберіть дату</div></div>
         <div class="sb-f"><label id="lOut">Виїзд</label><div class="dfield ph" id="fOut" role="button" tabindex="0" aria-labelledby="lOut">Оберіть дату</div></div>
-        <div class="sb-f"><label>Гості</label>
+        <div class="sb-f"><label>Кількість людей</label>
           <div class="stepper">
-            <button type="button" data-g="-1" aria-label="Менше гостей">−</button>
-            <output id="fGuests">2 гостя</output>
-            <button type="button" data-g="1" aria-label="Більше гостей">+</button>
+            <button type="button" data-g="-1" aria-label="Менше людей">−</button>
+            <output id="fGuests">2 людини</output>
+            <button type="button" data-g="1" aria-label="Більше людей">+</button>
           </div>
         </div>
+        <div class="sb-f"><label>Тип апартаментів</label><div class="sel bare" id="fType" data-value=""></div></div>
         <div class="sb-f"><label>Район</label><div class="sel bare" id="fArea" data-value=""></div></div>
         <button class="sb-go" id="btnSearch" type="button">
           <svg class="ic" aria-hidden="true"><use href="#i-magnifying-glass"></use></svg>Знайти
@@ -71,8 +72,33 @@
   </div>
 </section>
 
-<!-- Лічильники: усе рахується з js/data.js, вигаданих цифр немає -->
-<div class="stats" id="stats"></div>
+<!-- Додаткові послуги: кожна кнопка веде на окрему сторінку -->
+<nav class="svc" aria-label="Додаткові послуги">
+  <a class="svc-btn" href="car-rental.html">
+    <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg>
+    <b>Оренда авто</b>
+    <span>Машина чекає в аеропорту в день прильоту</span>
+    <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
+  </a>
+  <a class="svc-btn" href="transfer.html">
+    <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>
+    <b>Трансфер</b>
+    <span>З аеропорту до дверей апартаментів і назад</span>
+    <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
+  </a>
+  <a class="svc-btn" href="excursions.html">
+    <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>
+    <b>Екскурсії</b>
+    <span>Тейде, Маска, Лос-Гігантес і кити в океані</span>
+    <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
+  </a>
+  <a class="svc-btn" href="tours.html">
+    <svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg>
+    <b>Організація турів</b>
+    <span>Поїздка під ключ: житло, авто, маршрут</span>
+    <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
+  </a>
+</nav>
 
 <!-- 2. Топ апартаменти -->
 <section class="sec">
@@ -212,6 +238,10 @@
       <a href="catalog.html">Апартаменти</a>
       <a href="#lead">Підбір житла</a>
       <a href="#work">Як ми працюємо</a>
+      <a href="car-rental.html">Оренда авто</a>
+      <a href="transfer.html">Трансфер</a>
+      <a href="excursions.html">Екскурсії</a>
+      <a href="tours.html">Організація турів</a>
     </nav>
     <div class="foot-cts">
       <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>

@@ -5,6 +5,7 @@
 
    Поля апартаментів:
      id       унікальний ключ, він же адреса сторінки: apartment.html?id=sb-01
+     type     тип житла, один із ключів APT_TYPES нижче: studio, 1br, 2br, townhouse, villa
      photos   шляхи до фото. Перше фото використовується в картці й на карті.
      sea      скільки хвилин пішки до океану
      top      true, якщо об'єкт показувати в блоці "Топ апартаменти" на головній
@@ -14,7 +15,7 @@
 
 const APARTMENTS = [
   {
-    id: 'sb-01', name: 'Summer Breeze', area: 'Puerto de Santiago',
+    id: 'sb-01', type: '1br', name: 'Summer Breeze', area: 'Puerto de Santiago',
     lat: 28.2384, lng: -16.8412, price: 85, guests: 4, bedrooms: 1, baths: 1,
     sea: 5, top: true,
     photos: ['images/apt/p1.webp', 'images/apt/p4.webp', 'images/apt/p5.webp'],
@@ -26,7 +27,7 @@ const APARTMENTS = [
     booked: [['2026-09-14', '2026-09-21'], ['2026-10-03', '2026-10-10']]
   },
   {
-    id: 'ar-02', name: 'La Arena, перша лінія', area: 'Playa de la Arena',
+    id: 'ar-02', type: '1br', name: 'La Arena, перша лінія', area: 'Playa de la Arena',
     lat: 28.2305, lng: -16.8399, price: 95, guests: 4, bedrooms: 1, baths: 1,
     sea: 1, top: true,
     photos: ['images/apt/p3.webp', 'images/apt/p2.webp', 'images/apt/p6.webp'],
@@ -38,7 +39,7 @@ const APARTMENTS = [
     booked: [['2026-09-11', '2026-09-18']]
   },
   {
-    id: 'cs-03', name: 'Callao Salvaje Duplex', area: 'Callao Salvaje',
+    id: 'cs-03', type: 'townhouse', name: 'Callao Salvaje Duplex', area: 'Callao Salvaje',
     lat: 28.1311, lng: -16.7779, price: 110, guests: 5, bedrooms: 2, baths: 2,
     sea: 7, top: true,
     photos: ['images/apt/p2.webp', 'images/apt/p1.webp', 'images/apt/p7.webp'],
@@ -50,7 +51,7 @@ const APARTMENTS = [
     booked: [['2026-09-25', '2026-10-02']]
   },
   {
-    id: 'lg-04', name: 'Los Gigantes Panorama', area: 'Los Gigantes',
+    id: 'lg-04', type: '1br', name: 'Los Gigantes Panorama', area: 'Los Gigantes',
     lat: 28.2461, lng: -16.8395, price: 90, guests: 3, bedrooms: 1, baths: 1,
     sea: 2, top: true,
     photos: ['images/apt/p5.webp', 'images/apt/p3.webp', 'images/apt/p4.webp'],
@@ -62,7 +63,7 @@ const APARTMENTS = [
     booked: [['2026-09-16', '2026-09-23'], ['2026-11-01', '2026-11-08']]
   },
   {
-    id: 'ca-05', name: 'Costa Adeje Garden', area: 'Costa Adeje',
+    id: 'ca-05', type: '2br', name: 'Costa Adeje Garden', area: 'Costa Adeje',
     lat: 28.0875, lng: -16.7364, price: 120, guests: 4, bedrooms: 2, baths: 1,
     sea: 8, top: false,
     photos: ['images/apt/p6.webp', 'images/apt/p1.webp', 'images/apt/p2.webp'],
@@ -74,7 +75,7 @@ const APARTMENTS = [
     booked: []
   },
   {
-    id: 'lc-06', name: 'Los Cristianos Studio', area: 'Los Cristianos',
+    id: 'lc-06', type: 'studio', name: 'Los Cristianos Studio', area: 'Los Cristianos',
     lat: 28.0530, lng: -16.7176, price: 65, guests: 2, bedrooms: 1, baths: 1,
     sea: 6, top: false,
     photos: ['images/apt/p3.webp', 'images/apt/p4.webp', 'images/apt/p8.webp'],
@@ -86,7 +87,7 @@ const APARTMENTS = [
     booked: [['2026-09-10', '2026-09-15'], ['2026-09-28', '2026-10-05']]
   },
   {
-    id: 'pa-07', name: 'Las Américas Pool', area: 'Playa de las Américas',
+    id: 'pa-07', type: '1br', name: 'Las Américas Pool', area: 'Playa de las Américas',
     lat: 28.0607, lng: -16.7318, price: 75, guests: 4, bedrooms: 1, baths: 1,
     sea: 5, top: false,
     photos: ['images/apt/p7.webp', 'images/apt/p2.webp', 'images/apt/p3.webp'],
@@ -98,7 +99,7 @@ const APARTMENTS = [
     booked: [['2026-10-12', '2026-10-19']]
   },
   {
-    id: 'pc-08', name: 'Puerto de la Cruz Classic', area: 'Puerto de la Cruz',
+    id: 'pc-08', type: '2br', name: 'Puerto de la Cruz Classic', area: 'Puerto de la Cruz',
     lat: 28.4163, lng: -16.5539, price: 70, guests: 4, bedrooms: 2, baths: 1,
     sea: 9, top: false,
     photos: ['images/apt/p1.webp', 'images/apt/p2.webp', 'images/apt/p6.webp'],
@@ -110,7 +111,7 @@ const APARTMENTS = [
     booked: []
   },
   {
-    id: 'em-09', name: 'El Médano Surf', area: 'El Médano',
+    id: 'em-09', type: '1br', name: 'El Médano Surf', area: 'El Médano',
     lat: 28.0466, lng: -16.5726, price: 68, guests: 3, bedrooms: 1, baths: 1,
     sea: 3, top: false,
     photos: ['images/apt/p8.webp', 'images/apt/p3.webp', 'images/apt/p1.webp'],
@@ -122,7 +123,7 @@ const APARTMENTS = [
     booked: [['2026-09-19', '2026-09-26']]
   },
   {
-    id: 'lcal-10', name: 'La Caleta Villa', area: 'La Caleta',
+    id: 'lcal-10', type: 'villa', name: 'La Caleta Villa', area: 'La Caleta',
     lat: 28.1012, lng: -16.7561, price: 140, guests: 6, bedrooms: 3, baths: 2,
     sea: 4, top: true,
     photos: ['images/apt/p2.webp', 'images/apt/p3.webp', 'images/apt/p7.webp'],
@@ -173,6 +174,15 @@ const REVIEWS = [
     quote: 'Менеджер передзвонив за двадцять хвилин і сам запропонував кращий варіант.' },
   { id: 'r5', author: 'Ірина Ткач',      city: 'Дніпро',  apt: 'cs-03',   src: 'media/hero.mp4', poster: 'images/apt/p7.webp',
     quote: 'Тераса більша за вітальню. Вечеряли надворі всі десять днів.' }
+];
+
+/* Типи житла для поля "Тип апартаментів" у пошуку. Ключ пишеться в поле type обʼєкта. */
+const APT_TYPES = [
+  ['studio',    'Студія'],
+  ['1br',       'Односпальні апартаменти'],
+  ['2br',       'Двоспальні апартаменти'],
+  ['townhouse', 'Townhouse'],
+  ['villa',     'Вілла']
 ];
 
 const AREAS = [...new Set(APARTMENTS.map(a => a.area))].sort();

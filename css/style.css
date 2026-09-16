@@ -224,16 +224,30 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .stepper button:hover{border-color:var(--blue);background:var(--blue);color:var(--white)}
 .stepper output{font-size:15px;font-weight:600;color:var(--ink);text-align:center;flex:1;min-width:62px;white-space:nowrap}
 
-/* ---------- лічильники ---------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-block:1px solid var(--line)}
-.stat{background:var(--paper);padding:clamp(26px,2.6vw,40px) clamp(18px,2vw,30px)}
-.sec-white .stat{background:var(--white)}
-.stat b{
-  display:block;font-family:var(--disp);font-weight:700;font-size:clamp(38px,4.4vw,62px);
-  line-height:1;color:var(--ink);margin-bottom:12px
+/* ---------- кнопки послуг під героєм ---------- */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-block:1px solid var(--line)}
+.svc-btn{
+  position:relative;display:flex;flex-direction:column;align-items:flex-start;background:var(--paper);
+  padding:clamp(26px,2.6vw,40px) clamp(18px,2vw,30px);text-decoration:none;color:var(--ink);
+  transition:background .25s,color .25s
 }
-.stat b i{font-style:normal;color:var(--blue)}
-.stat span{display:block;font-size:13.5px;line-height:1.45;color:var(--ink-3);max-width:24ch}
+.svc-btn>svg.ic{width:clamp(34px,3vw,44px);height:clamp(34px,3vw,44px);color:var(--blue);margin-bottom:22px;transition:color .25s}
+.svc-btn b{
+  display:block;font-family:var(--disp);font-weight:700;font-size:clamp(22px,2vw,30px);line-height:1.02;
+  text-transform:uppercase;margin-bottom:12px
+}
+.svc-btn span{display:block;font-size:13.5px;line-height:1.45;color:var(--ink-3);max-width:26ch;margin-bottom:26px;transition:color .25s}
+.svc-btn em{
+  margin-top:auto;display:inline-flex;align-items:center;gap:10px;font-style:normal;font-size:11.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);border-radius:100px;padding:10px 16px;
+  transition:all .25s
+}
+.svc-btn em svg.ic{width:13px;height:13px;transition:transform .25s}
+.svc-btn:hover{background:var(--ink);color:var(--white)}
+.svc-btn:hover>svg.ic{color:#7B90FF}
+.svc-btn:hover span{color:rgba(255,255,255,.6)}
+.svc-btn:hover em{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.svc-btn:hover em svg.ic{transform:translateX(3px)}
 
 /* ---------- рейка ---------- */
 .rail{
@@ -329,6 +343,40 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .tile h3{margin-bottom:12px}
 .tile p{color:var(--ink-3);font-size:14.5px;line-height:1.6;margin-bottom:24px}
 .tile .link-more{margin-top:auto;align-self:flex-start}
+
+/* ---------- сторінки послуг ---------- */
+.svc-head{padding-block:clamp(24px,2.6vw,38px) clamp(56px,6vw,96px)}
+.svc-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(30px,4vw,72px);align-items:stretch}
+.svc-copy{display:flex;flex-direction:column;justify-content:center;padding-block:clamp(10px,2vw,30px)}
+.svc-copy h1{font-size:clamp(36px,5vw,72px);margin-bottom:24px}
+.svc-copy h1 span{color:var(--ink-3)}
+.svc-lede{font-size:clamp(15px,1.2vw,18px);line-height:1.62;color:var(--ink-2);max-width:56ch;margin-bottom:28px}
+.svc-acts{display:flex;flex-wrap:wrap;gap:12px}
+/* права частина першого екрана: фото або темна плашка з кільцями, як у банері головної */
+.svc-vis{
+  position:relative;min-height:clamp(320px,34vw,520px);border-radius:var(--r);overflow:hidden;
+  background:var(--ink);display:grid;place-items:center;isolation:isolate
+}
+.svc-vis>i{
+  position:absolute;left:50%;top:50%;translate:-50% -50%;aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(255,255,255,.5);animation:arcPulse 7s var(--ease) infinite;z-index:-1
+}
+.svc-vis>i:nth-of-type(1){width:46%;opacity:.3}
+.svc-vis>i:nth-of-type(2){width:74%;opacity:.2;animation-delay:-2.3s}
+.svc-vis>i:nth-of-type(3){width:104%;opacity:.12;animation-delay:-4.6s}
+.svc-vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.svc-vis.has-ph::after{content:'';position:absolute;inset:0;background:rgba(36,31,25,.28);z-index:-1}
+.svc-vis-ic{
+  width:clamp(120px,12vw,168px);aspect-ratio:1;border-radius:50%;background:var(--blue);
+  display:grid;place-items:center;box-shadow:0 30px 80px -30px rgba(0,44,243,.9)
+}
+.svc-vis-ic svg.ic{width:44%;height:44%;color:var(--white)}
+.svc-vis .credit{bottom:12px;right:18px}
+.svc-cars{margin-bottom:0}
+.svc-more{padding-top:clamp(40px,4vw,64px);background:var(--paper)}
+.svc-more .slash{margin-bottom:22px}
+.svc-btn[aria-current="page"]{background:var(--paper-2);pointer-events:none}
+.svc-btn[aria-current="page"] em{border-color:var(--ink);color:var(--ink)}
 
 /* ---------- біля визначного місця ---------- */
 .places{display:grid;grid-template-columns:minmax(240px,300px) 1fr;gap:clamp(24px,3vw,52px);align-items:start}
@@ -727,6 +775,7 @@ dialog::backdrop{background:rgba(36,31,25,.82);-webkit-backdrop-filter:blur(6px)
   letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-align:left;font-family:inherit
 }
 .sel-btn:hover{border-color:var(--ink)}
+.sel-v{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sel-btn svg.ic{width:12px;height:12px;color:var(--ink-3);margin-left:auto;transition:transform .2s}
 .sel.open .sel-btn svg.ic{transform:rotate(180deg)}
 .sel.bare .sel-btn{border:0;background:transparent;padding:0;font-size:15px;border-radius:0;text-transform:none;letter-spacing:0;font-weight:600}
@@ -855,8 +904,10 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .fp-row{grid-template-columns:1fr 1fr}
 }
 @media(max-width:980px){
-  .steps,.stats{grid-template-columns:1fr 1fr}
+  .steps,.svc{grid-template-columns:1fr 1fr}
   .lead{grid-template-columns:1fr}
+  .svc-hero{grid-template-columns:1fr}
+  .svc-vis{min-height:300px}
   .places{grid-template-columns:1fr}
   .place-tabs{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:8px}
   .place-tab{
@@ -916,7 +967,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .bookbar .btn{flex:none}
 }
 @media(max-width:700px){
-  .steps,.stats,.tiles{grid-template-columns:1fr}
+  .steps,.svc,.tiles{grid-template-columns:1fr}
   .fp-row{grid-template-columns:1fr;gap:22px}
   .step+.step{padding-left:0}
   .step p{max-width:none}

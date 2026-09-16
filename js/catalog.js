@@ -33,7 +33,7 @@ const SEGS = {
   sea:  { label: 'До океану',  opts: [['', 'Будь-яка'], ['3', 'до 3 хв'], ['5', 'до 5 хв'], ['8', 'до 8 хв']] }
 };
 
-/* стан панелі. Дати, гості й район живуть окремо, в S */
+/* стан панелі. Дати, кількість людей, тип і район живуть окремо, в S */
 const F = { min: P_MIN, max: P_MAX, bed: '', bath: '', sea: '', amen: new Set() };
 const priceTouched = () => F.min > P_MIN || F.max < P_MAX;
 const activeCount = () =>
@@ -42,6 +42,7 @@ const activeCount = () =>
 function filtered(){
   let r = items().filter(a =>
     a.guests >= S.guests &&
+    (!S.type || a.type === S.type) &&
     (!S.area || a.area === S.area) &&
     free(a) &&
     a.price >= F.min && a.price <= F.max &&
@@ -127,6 +128,7 @@ function drawPills(){
     p.push([k, `${SEGS[k].label}: ${t}`]);
   });
   F.amen.forEach(k => p.push(['a:' + k, AMENITIES.find(a => a[0] === k)[1]]));
+  if (S.type) p.push(['type', APT_TYPES.find(t => t[0] === S.type)[1]]);
   if (S.area) p.push(['area', S.area]);
 
   $('#fpills').innerHTML = p.map(([k, t]) =>
@@ -140,6 +142,7 @@ function drawPills(){
 
 function dropFilter(key){
   if (key === 'price'){ F.min = P_MIN; F.max = P_MAX; }
+  else if (key === 'type'){ S.type = ''; saveState(); $('#fType').dataset.value = ''; }
   else if (key === 'area'){ S.area = ''; saveState(); $('#fArea').dataset.value = ''; }
   else if (key.startsWith('a:')) F.amen.delete(key.slice(2));
   else F[key] = '';
@@ -221,10 +224,11 @@ dressSelect($('#sort'), SORTS, v => { S.sort = v; saveState(); render(); });
 initSearchbar({ onSearch: render, onChange: render });
 
 $('#reset').onclick = () => {
-  S.in = ''; S.out = ''; S.guests = 2; S.area = ''; S.sort = 'rec';
+  S.in = ''; S.out = ''; S.guests = 2; S.type = ''; S.area = ''; S.sort = 'rec';
   F.min = P_MIN; F.max = P_MAX; F.bed = ''; F.bath = ''; F.sea = ''; F.amen.clear();
   saveState();
   setSelect($('#sort'), 'rec', SORTS);
+  $('#fType').dataset.value = '';
   $('#fArea').dataset.value = '';
   buildPanel();
   initSearchbar({ onSearch: render, onChange: render });
