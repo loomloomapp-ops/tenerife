@@ -117,35 +117,27 @@
 </section>
 
 <!-- Заявка на послугу -->
-<section class="sec sec-ink" id="order">
+<section class="sec sec-ink lead-sec" id="order">
   <div class="wrap">
     <div class="lead">
-      <div class="rv">
-        <div class="sec-h">
-          <span class="slash">Заявка</span>
-          <h2>Що хочете<br>побачити?</h2>
-          <p>Напишіть, де зупинились і що цікавить. Складемо програму, яка не зʼїсть половину відпустки на дорогу.</p>
-        </div>
-        <div class="lead-points">
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-map-pin"></use></svg>
-            <div><b>З урахуванням району</b><span>З півночі ближче до Лоро Парку, з півдня до Сіам Парку і Лос-Гігантес.</span></div>
-          </div>
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>
-            <div><b>Дорога до старту</b><span>Можна додати трансфер або взяти авто в оренду на цей день.</span></div>
-          </div>
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-headset"></use></svg>
-            <div><b>Звʼязок українською</b><span>Менеджер живе на острові. Різниця в часі одна година.</span></div>
-          </div>
-        </div>
+      <div class="sec-h rv">
+        <span class="slash">Заявка</span>
+        <h2>Що хочете<br>побачити?</h2>
+        <p>Напишіть, де зупинились і що цікавить. Складемо програму, яка не зʼїсть половину відпустки на дорогу.</p>
       </div>
       <form class="lead-form rv rv-1" id="leadForm" data-service="Екскурсії" novalidate>
-        <h3>Заявка на екскурсію</h3>
         <p>Залиште контакт, решту зʼясуємо в розмові.</p>
-        <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
-        <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
+        <div class="f2">
+          <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
+          <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
+        </div>
+        <fieldset class="fld fld-choice">
+          <legend>Чи маєте в наявності квитки?</legend>
+          <div class="choice">
+            <label><input type="radio" name="tickets" value="Так"><span>Так</span></label>
+            <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
+          </div>
+        </fieldset>
         <div class="fld"><label for="lNote">Що цікавить і коли</label><textarea id="lNote" name="note" placeholder="Хочемо на Тейде і до китів, живемо в Costa Adeje з 3 по 10 березня, двоє дорослих"></textarea></div>
         <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
         <p class="form-note">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>

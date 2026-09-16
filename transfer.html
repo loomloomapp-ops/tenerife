@@ -101,35 +101,27 @@
 </section>
 
 <!-- Заявка на послугу -->
-<section class="sec sec-ink" id="order">
+<section class="sec sec-ink lead-sec" id="order">
   <div class="wrap">
     <div class="lead">
-      <div class="rv">
-        <div class="sec-h">
-          <span class="slash">Заявка</span>
-          <h2>Коли<br>прилітаєте?</h2>
-          <p>Напишіть дату, рейс і куди їхати. Вартість залежить від маршруту й кількості людей, називаємо її до підтвердження.</p>
-        </div>
-        <div class="lead-points">
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg>
-            <div><b>Номер рейсу</b><span>За ним узгоджуємо час зустрічі, щоб нікому не чекати.</span></div>
-          </div>
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>
-            <div><b>В обидва боки</b><span>Можна замовити тільки зустріч або одразу зустріч і дорогу назад.</span></div>
-          </div>
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-headset"></use></svg>
-            <div><b>Звʼязок українською</b><span>Менеджер живе на острові. Різниця в часі одна година.</span></div>
-          </div>
-        </div>
+      <div class="sec-h rv">
+        <span class="slash">Заявка</span>
+        <h2>Коли<br>прилітаєте?</h2>
+        <p>Напишіть дату, рейс і куди їхати. Вартість залежить від маршруту й кількості людей, називаємо її до підтвердження.</p>
       </div>
       <form class="lead-form rv rv-1" id="leadForm" data-service="Трансфер" novalidate>
-        <h3>Заявка на трансфер</h3>
         <p>Залиште контакт, решту зʼясуємо в розмові.</p>
-        <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
-        <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
+        <div class="f2">
+          <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
+          <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
+        </div>
+        <fieldset class="fld fld-choice">
+          <legend>Чи маєте в наявності квитки?</legend>
+          <div class="choice">
+            <label><input type="radio" name="tickets" value="Так"><span>Так</span></label>
+            <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
+          </div>
+        </fieldset>
         <div class="fld"><label for="lNote">Дата, рейс, звідки й куди</label><textarea id="lNote" name="note" placeholder="15 листопада, рейс з Кракова, Тенеріфе-Південь до Los Cristianos, двоє дорослих і дитина"></textarea></div>
         <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
         <p class="form-note">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
