@@ -482,6 +482,41 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .intro h1{font-size:clamp(28px,3.5vw,50px);max-width:18ch}
 .intro p{color:var(--ink-3);font-size:15px;line-height:1.6;max-width:400px}
 .intro p b{color:var(--ink);font-weight:600}
+/* клімат узимку: заголовок, дві картки (північ, південь) і рекомендація на всю ширину */
+.climate{
+  max-width:var(--wrap);margin:0 auto 34px;padding:0 var(--gut);display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:stretch
+}
+.climate-head{align-self:center;padding-right:clamp(0px,2vw,24px)}
+.climate-head h2{font-size:clamp(24px,2.4vw,34px);margin-bottom:12px}
+.climate-head .slash{margin-bottom:12px}
+.climate-head p{color:var(--ink-3);font-size:14.5px;line-height:1.6;max-width:44ch}
+.climate-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(20px,2vw,28px);display:flex;flex-direction:column
+}
+.climate-card.is-warm{background:var(--accent-soft);border-color:#F2D3B6}
+.climate-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.climate-top svg.ic{width:28px;height:28px;color:var(--ink-3)}
+.climate-card.is-warm .climate-top svg.ic{color:var(--accent)}
+.climate-top b{font-family:var(--disp);font-weight:700;font-size:17px;text-transform:uppercase;color:var(--ink)}
+.climate-t{font-family:var(--disp);font-weight:700;font-size:clamp(32px,3vw,44px);line-height:1;color:var(--ink);margin-bottom:16px}
+.climate-card.is-warm .climate-t{color:var(--accent)}
+.climate-t small{
+  display:block;font-family:var(--ui);font-size:10.5px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:8px
+}
+.climate-card ul{list-style:none;display:grid;gap:8px;margin-top:auto}
+.climate-card li{display:flex;gap:10px;font-size:14.5px;line-height:1.45;color:var(--ink-2)}
+.climate-card li::before{content:'';flex:none;width:6px;height:6px;border-radius:50%;background:var(--ink-3);margin-top:.5em}
+.climate-card.is-warm li::before{background:var(--accent)}
+.climate-tip{
+  grid-column:1/-1;display:flex;align-items:center;gap:16px;background:var(--ink);color:var(--white);
+  border-radius:var(--r);padding:18px clamp(20px,2vw,28px);font-size:clamp(15px,1.2vw,17px);line-height:1.45
+}
+.climate-tip svg.ic{width:26px;height:26px;color:var(--accent-light);flex:none}
+.climate-tip b{color:var(--accent-light);font-weight:600}
+
 .split{
   max-width:var(--wrap);margin:0 auto;padding:0 var(--gut) 70px;display:grid;
   grid-template-columns:1fr 40%;gap:28px;align-items:start
@@ -890,10 +925,17 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .bento .card:first-child{grid-column:span 2;grid-row:auto}
   .bento .card:first-child .card-ph{aspect-ratio:16/9;min-height:0}
   .apt-main{grid-template-columns:1fr}
+  .climate{grid-template-columns:1fr 1fr}
+  .climate-head{grid-column:1/-1;padding-right:0}
   .vids{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:1180px){
   .fp-row{grid-template-columns:1fr 1fr}
+  /* з довгими підписами пошук у рядок не вміщається, тож переходимо на дві колонки */
+  .sb-in{flex-wrap:wrap;border-radius:28px;padding:10px}
+  .sb-f{flex:1 1 45%;padding:10px 16px}
+  .sb-f+.sb-f::before{display:none}
+  .sb-go{flex:1 1 100%;justify-content:center;margin-top:6px}
 }
 @media(max-width:980px){
   .steps,.svc{grid-template-columns:1fr 1fr}
@@ -912,10 +954,6 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .top-nav.open a{text-align:center;padding:15px;font-size:13px;border-color:var(--line-d);color:var(--white)}
   .burger{display:inline-flex}
   .top-in{position:relative}
-  .sb-in{flex-wrap:wrap;border-radius:28px;padding:10px}
-  .sb-f{flex:1 1 45%;padding:10px 16px}
-  .sb-f+.sb-f::before{display:none}
-  .sb-go{flex:1 1 100%;justify-content:center;margin-top:6px}
   .split{grid-template-columns:1fr;padding-bottom:48px}
   .grid{grid-template-columns:1fr 1fr}
   .mapwrap{
@@ -958,6 +996,8 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .step p{max-width:none}
   .more-g{grid-template-columns:1fr}
   .rules{grid-template-columns:1fr 1fr}
+  .climate{grid-template-columns:1fr}
+  .climate-tip{align-items:flex-start}
   .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "nav" "cts"}
   .foot-cts,.foot-nav{justify-content:flex-start}
 }
