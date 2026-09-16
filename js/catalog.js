@@ -191,7 +191,7 @@ function render(){
   drawPills();
 
   g.innerHTML = list.length
-    ? list.map(a => cardHTML(a, `<span class="sea-badge">${icon('waves')}${a.sea} хв</span>`)).join('')
+    ? list.map(a => cardHTML(a)).join('')
     : `<div class="empty">
          <h3>Нічого не підійшло</h3>
          <p>Спробуйте зняти частину фільтрів або зсунути дати на кілька днів. Якщо умови незмінні, зателефонуйте: у нас є варіанти, яких ще немає на сайті.</p>

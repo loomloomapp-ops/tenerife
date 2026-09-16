@@ -129,7 +129,7 @@ function cardHTML(a, extra = ''){
     <div class="card-body">
       <h3>${esc(a.name)}</h3>
       <p class="card-loc">${icon('map-pin')}${esc(a.area)}</p>
-      <p class="card-meta">${a.guests} ${plural(a.guests, ['гість','гості','гостей'])}, ${a.bedrooms} ${plural(a.bedrooms, ['спальня','спальні','спалень'])} · ${a.sea} хв до океану</p>
+      <p class="card-meta">${a.guests} ${plural(a.guests, ['гість','гості','гостей'])}, ${a.bedrooms} ${plural(a.bedrooms, ['спальня','спальні','спалень'])}</p>
       <div class="card-foot">
         <p class="card-price"><b>${a.price} EUR</b> <span>/ ніч</span></p>
         <span class="card-cta">Детальніше</span>

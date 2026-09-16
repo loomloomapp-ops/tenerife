@@ -13,8 +13,7 @@ initSearchbar({ onSearch: () => { saveState(); location.href = 'catalog.html'; }
   const list = items().filter(view)
     .sort((a, b) => (b.top - a.top) || (a.sea - b.sea))
     .slice(0, 5);
-  grid.innerHTML = list.map(a =>
-    cardHTML(a, `<span class="sea-badge">${icon('waves')}${a.sea} хв</span>`)).join('');
+  grid.innerHTML = list.map(a => cardHTML(a)).join('');
 })();
 
 /* ---------- відеовідгуки ---------- */
