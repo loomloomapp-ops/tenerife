@@ -47,7 +47,8 @@ const byId = id => items().find(a => a.id === id);
 const nights = () => (S.in && S.out) ? Math.max(0, Math.round((new Date(S.out) - new Date(S.in)) / 864e5)) : 0;
 /* обʼєкт вільний, якщо обраний діапазон не перетинається з жодним зайнятим */
 const free = a => !(S.in && S.out) || !a.booked.some(([b, e]) => S.in < e && b < S.out);
-const CLEANING = 35;
+/* генеральне прибирання: одноразовий платіж при виселенні */
+const CLEANING = 70;
 
 /* ================= шапка й футер ================= */
 function initChrome(){

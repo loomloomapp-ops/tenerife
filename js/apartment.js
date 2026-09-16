@@ -1,5 +1,8 @@
 /* Сторінка одного обʼєкта: apartment.html?id=sb-01
-   Блоки: фото і головне, деталі, відеовідгуки, бронювання, інші варіанти. */
+   Блоки: фото і головне, деталі, бронювання, інші варіанти.
+   Відеовідгуки тимчасово приховані: щоб повернути, SHOW_REVIEWS = true. */
+
+const SHOW_REVIEWS = false;
 
 const apt = byId(new URLSearchParams(location.search).get('id'));
 
@@ -26,7 +29,7 @@ function calcHTML(){
   const sum = n * apt.price;
   return `<div class="calc">
     <div><span>${apt.price} EUR × ${n} ${plural(n, ['ніч', 'ночі', 'ночей'])}</span><span>${sum} EUR</span></div>
-    <div><span>Прибирання</span><span>${CLEANING} EUR</span></div>
+    <div><span>Генеральне прибирання, одноразово</span><span>${CLEANING} EUR</span></div>
     <div class="total"><span>Разом</span><span>${sum + CLEANING} EUR</span></div>
   </div>`;
 }
@@ -90,7 +93,6 @@ function render(){
         <span>${icon('users')}${apt.guests} ${plural(apt.guests, ['гість', 'гості', 'гостей'])}</span>
         <span>${icon('bed')}${apt.bedrooms} ${plural(apt.bedrooms, ['спальня', 'спальні', 'спалень'])}</span>
         <span>${icon('bath')}${apt.baths} ${plural(apt.baths, ['санвузол', 'санвузли', 'санвузлів'])}</span>
-        <span>${icon('waves')}${apt.sea} хв до океану</span>
       </div>
       <div class="apt-desc"><p>${esc(apt.desc)}</p></div>
 
@@ -102,7 +104,7 @@ function render(){
 
       <div class="blk">
         <h2>Зручності</h2>
-        <ul class="feats">${apt.features.map(f => `<li>${icon('check')}${esc(f)}</li>`).join('')}</ul>
+        <ul class="feats">${[...new Set([...apt.features, ...BASICS])].map(f => `<li>${icon('check')}${esc(f)}</li>`).join('')}</ul>
       </div>
 
       <div class="blk">
@@ -110,9 +112,8 @@ function render(){
         <div class="rules">
           <div class="rule"><span>Заїзд</span><b>з ${apt.rules.in}</b></div>
           <div class="rule"><span>Виїзд</span><b>до ${apt.rules.out}</b></div>
-          <div class="rule"><span>Мінімум</span><b>${apt.rules.min} ${plural(apt.rules.min, ['ніч', 'ночі', 'ночей'])}</b></div>
-          <div class="rule"><span>Тварини</span><b>${esc(apt.rules.pets)}</b></div>
           <div class="rule"><span>Паління</span><b>${esc(apt.rules.smoke)}</b></div>
+          <div class="rule rule-fee"><span>Генеральне прибирання</span><b>${CLEANING} €</b><em>Одноразовий платіж при виселенні</em></div>
         </div>
       </div>
 
@@ -121,8 +122,8 @@ function render(){
         <div class="minimap" id="minimap"></div>
       </div>
 
-      <!-- 3. Відеовідгуки -->
-      ${reviewsHTML()}
+      <!-- 3. Відеовідгуки (приховані, див. SHOW_REVIEWS) -->
+      ${SHOW_REVIEWS ? reviewsHTML() : ''}
     </div>
 
     <!-- 4. Бронювання: праворуч на компʼютері, знизу екрана на телефоні -->
