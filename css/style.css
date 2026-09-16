@@ -1024,7 +1024,13 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .cal-m:nth-child(2){display:none}
   .cal-m{width:100%}
   .cars,.f2,.feats,.vids{grid-template-columns:1fr}
-  .vids{grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);overflow-x:auto;scroll-snap-type:x mandatory}
+  /* grid-template-columns:none обовʼязково: інакше явна колонка 1fr стискається до нуля
+     і перший відгук зникає. Стрічка йде до країв екрана, смуга прокрутки нижче карток */
+  .vids{
+    grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);
+    overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) 22px;scroll-padding-inline:var(--gut)
+  }
   .vid{scroll-snap-align:start}
   .gal{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr);height:40svh}
   .gal button:nth-child(n+2){display:none}
@@ -1050,12 +1056,29 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .rules>:nth-child(3){grid-column:1/-1}
   .climate{grid-template-columns:1fr}
   .climate-tip{align-items:flex-start}
-  .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "nav" "cts"}
-  .foot-cts,.foot-nav{justify-content:flex-start}
+  .foot{padding-top:48px}
+  .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "nav" "cts";justify-items:center;gap:22px}
+  .foot-in>.brand{flex-direction:column;gap:14px;text-align:center;margin-bottom:22px}
+  .foot-cts,.foot-nav{justify-content:center}
+  .foot-mark{margin-top:40px}
+  .foot-bot{
+    flex-direction:column;align-items:center;gap:8px;text-align:center;
+    padding:20px var(--gut) calc(24px + env(safe-area-inset-bottom))
+  }
 }
 @media(max-width:620px){
   .grid,.bento{grid-template-columns:1fr}
   .bento .card:first-child{grid-column:auto}
+  /* вид на океан: при прокрутці наступна картка наїжджає на попередню,
+     а верхній край кожної попередньої трохи виглядає з-під неї */
+  .bento .card{
+    position:sticky;top:calc(var(--top-h,79px) + 14px + var(--i,0) * 12px);
+    box-shadow:0 -14px 30px -22px rgba(58,32,15,.45)
+  }
+  .bento .card:nth-child(2){--i:1}
+  .bento .card:nth-child(3){--i:2}
+  .bento .card:nth-child(4){--i:3}
+  .bento .card:nth-child(5){--i:4}
   .vid:nth-child(even){margin-top:0}
   /* назва стоїть одразу під шапкою, а контент завжди починається нижче за неї:
      на невисоких екранах герой росте, а не підсуває текст на назву.
