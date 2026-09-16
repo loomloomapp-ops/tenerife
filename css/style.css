@@ -213,9 +213,12 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .sb-f+.sb-f::before{content:'';position:absolute;left:0;top:22%;height:56%;width:1px;background:var(--line)}
 .sb-f:hover{background:var(--paper-2)}
 .sb-f label{
-  display:block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink-3);margin-bottom:4px
+  display:block;font-size:10px;line-height:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:5px
 }
+/* рядок значення однакової висоти в усіх полях: дата, лічильник і селект
+   інакше мають різну висоту, і підписи та розділювачі стоять на різних рівнях */
+.sb-f .dfield,.sb-f .stepper,.sb-f .sel.bare .sel-btn{height:28px;display:flex;align-items:center;line-height:1}
 .sb-go{
   flex:none;background:var(--accent);border:0;border-radius:100px;padding:17px 32px;
   font-family:var(--ui);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
