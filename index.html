@@ -12,8 +12,31 @@
 <meta property="og:locale" content="uk_UA">
 <link rel="icon" href="images/logo.png">
 <link rel="stylesheet" href="css/style.css">
+<link rel="preload" as="image" href="images/logo.png">
+<script>
+/* Заставка лише при вході ззовні: з переходів сайтом (той самий домен у referrer)
+   її не показуємо, щоб не змушувати чекати щоразу. ?intro показує завжди.
+   Запасний таймер знімає її, навіть якщо js/preloader.js не спрацював. */
+(function(){
+  var d = document.documentElement, internal = false;
+  try { internal = !!document.referrer && new URL(document.referrer).host === location.host; } catch (e) {}
+  if (internal && !/[?&]intro\b/.test(location.search)) return;
+  d.classList.add('pl-on');
+  setTimeout(function(){ d.classList.remove('pl-on'); }, 9000);
+})();
+</script>
 </head>
 <body>
+
+<!-- Заставка: логітип, кільце прогресу по його контуру, відкриття вгору. Логіка в js/preloader.js -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pl-mark">
+    <img class="pl-logo" src="images/logo.png" alt="" width="512" height="512">
+    <svg class="pl-ring" viewBox="0 0 100 100" focusable="false"><circle cx="50" cy="50" r="50" pathLength="1"/></svg>
+  </div>
+  <p class="pl-cap">Discover Tenerife</p>
+</div>
+<script src="js/preloader.js"></script>
 
 <span id="topSentinel" aria-hidden="true"></span>
 

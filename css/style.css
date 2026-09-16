@@ -102,6 +102,45 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .sec-ink .link-more{color:var(--white)}
 .link-more svg.ic{width:14px;height:14px}
 
+/* ---------- заставка ---------- */
+/* Видима лише з класом pl-on на <html> (ставить скрипт у <head>), тож без JS її немає.
+   Відкриття: clip-path з inset(0) до inset(0 0 100% 0), кремовий екран піднімається вгору. */
+.preloader{display:none}
+html.pl-on{overflow:hidden}
+html.pl-on .preloader{
+  --pl-size:240px;--pl-gap:10px;
+  display:block;position:fixed;left:0;top:0;width:100%;height:100vh;height:100dvh;z-index:5000;
+  background:#F4EBDD;
+  -webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0);
+  transition:clip-path 1s cubic-bezier(.76,0,.24,1),-webkit-clip-path 1s cubic-bezier(.76,0,.24,1)
+}
+html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset(0 0 100% 0)}
+.pl-mark{
+  position:absolute;left:50%;top:50%;width:var(--pl-size);height:var(--pl-size);
+  margin:calc(var(--pl-size) / -2) 0 0 calc(var(--pl-size) / -2)
+}
+.pl-logo{display:block;width:100%;height:100%;opacity:0;will-change:transform,opacity,filter}
+/* кільце на відстані --pl-gap від краю логотипу, старт зверху, рух за годинниковою */
+.pl-ring{
+  position:absolute;left:calc(var(--pl-gap) * -1);top:calc(var(--pl-gap) * -1);
+  width:calc(100% + var(--pl-gap) * 2);height:calc(100% + var(--pl-gap) * 2);
+  overflow:visible;transform:rotate(-90deg);pointer-events:none
+}
+.pl-ring circle{
+  /* товщину в 1.25px перераховує js/preloader.js під розмір кільця:
+     vector-effect:non-scaling-stroke у Chrome ламає pathLength і пунктир */
+  fill:none;stroke:#391C0C;stroke-width:.5;stroke-dasharray:1;stroke-dashoffset:1
+}
+.pl-cap{
+  position:absolute;left:0;right:0;top:calc(50% + var(--pl-size) / 2 + var(--pl-gap) + clamp(40px,7vh,64px));
+  text-align:center;font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:.26em;
+  text-transform:uppercase;color:#391C0C;opacity:0;margin:0
+}
+@media(max-width:640px){
+  html.pl-on .preloader{--pl-size:clamp(150px,44vw,176px);--pl-gap:8px}
+  .pl-cap{font-size:10px}
+}
+
 /* ---------- шапка ---------- */
 .top{
   position:sticky;top:0;z-index:900;background:var(--paper);border-bottom:1px solid var(--line);
