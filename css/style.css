@@ -69,6 +69,8 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
   max-width:56ch;margin-top:18px
 }
 .sec-ink .sec-h p{color:rgba(255,255,255,.6)}
+/* заголовок і підзаголовок кожен в один рядок, поки дозволяє ширина */
+.sec-h-line p{max-width:none}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;flex-wrap:wrap}
 
 /* ---------- кнопки ---------- */
