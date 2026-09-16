@@ -30,7 +30,7 @@
 })();
 </script>
 </head>
-<body>
+<body data-seo="home">
 
 <!-- Заставка: логітип, кільце прогресу по його контуру, відкриття вгору. Логіка в js/preloader.js -->
 <div class="preloader" id="preloader" aria-hidden="true">
@@ -54,7 +54,7 @@
       <a href="catalog.html">Апартаменти</a>
       <a href="#lead">Підбір житла</a>
       <a href="#work">Як ми працюємо</a>
-      <a class="top-phone" href="tel:+380984776927">098 477 69 27</a>
+      <a class="top-phone" data-contact="phone" href="tel:+380984776927">098 477 69 27</a>
     </nav>
   </div>
 </header>
@@ -62,7 +62,7 @@
 <!-- 1. Герой із пошуком: дати, кількість людей, тип житла, район -->
 <section class="hero">
   <div class="hero-bg">
-    <video poster="images/places/hero-poster.webp" autoplay muted loop playsinline
+    <video data-hero-video poster="images/places/hero-poster.webp" autoplay muted loop playsinline
            aria-label="Узбережжя Тенеріфе біля Mesa del Mar">
       <source src="media/hero.webm" type="video/webm">
       <source src="media/hero.mp4" type="video/mp4">
@@ -74,8 +74,8 @@
   <p class="hero-mark" aria-hidden="true">Tenerife</p>
   <div class="hero-in">
     <div class="hero-copy">
-      <p class="lede">Житло, яке ми бачили власними очима<br>Оберіть дати і побачите лише те, що справді вільне на них</p>
-      <h1>Знайдіть своє житло<br><span>на Тенеріфе</span></h1>
+      <p class="lede" data-c="home.heroLede">Житло, яке ми бачили власними очима<br>Оберіть дати і побачите лише те, що справді вільне на них</p>
+      <h1 data-c="home.heroTitle" data-accent="home.heroAccent">Знайдіть своє житло<br><span>на Тенеріфе</span></h1>
     </div>
     <div class="searchbar">
       <div class="sb-in" id="sbIn">
@@ -95,34 +95,26 @@
         </button>
       </div>
     </div>
-    <p class="credit">Відео: Mike Peel, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
+    <p class="credit" data-c="home.heroCredit">Відео: Mike Peel, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
   </div>
 </section>
 
 <!-- 2. Додаткові послуги: кожна кнопка веде на окрему сторінку -->
-<nav class="svc" aria-label="Додаткові послуги">
+<nav class="svc" aria-label="Додаткові послуги" data-list="services" data-tpl="svc">
   <a class="svc-btn" href="car-rental.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg>
-    <b>Оренда авто</b>
-    <span>Машина чекає в аеропорту в день прильоту</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><b>Оренда авто</b><span>Машина чекає в аеропорту в день прильоту</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
   <a class="svc-btn" href="transfer.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>
-    <b>Трансфер</b>
-    <span>З аеропорту до дверей апартаментів і назад</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg><b>Трансфер</b><span>З аеропорту до дверей апартаментів і назад</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
   <a class="svc-btn" href="excursions.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>
-    <b>Екскурсії</b>
-    <span>Тейде, Маска, Лос-Гігантес і кити в океані</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg><b>Екскурсії</b><span>Тейде, Маска, Лос-Гігантес і кити в океані</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
   <a class="svc-btn" href="tours.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg>
-    <b>Організація турів</b>
-    <span>Поїздка під ключ: житло, авто, маршрут</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg><b>Організація турів</b><span>Поїздка під ключ: житло, авто, маршрут</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
 </nav>
@@ -132,12 +124,12 @@
   <div class="wrap">
     <div class="lead">
       <div class="sec-h rv">
-        <span class="slash">Підбір</span>
-        <h2>Підберемо житло<br>під ваші дати</h2>
-        <p>Напишіть, з ким і коли летите. Запропонуємо варіанти під бюджет і маршрут.</p>
+        <span class="slash" data-c="home.lead.label">Підбір</span>
+        <h2 data-c="home.lead.title">Підберемо житло<br>під ваші дати</h2>
+        <p data-c="home.lead.text">Напишіть, з ким і коли летите. Запропонуємо варіанти під бюджет і маршрут.</p>
       </div>
       <form class="lead-form rv rv-1" id="leadForm" novalidate>
-        <p>Залиште контакт, решту зʼясуємо в розмові.</p>
+        <p data-c="settings.formIntro">Залиште контакт, решту зʼясуємо в розмові.</p>
         <div class="f2">
           <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
           <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
@@ -149,9 +141,9 @@
             <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
           </div>
         </fieldset>
-        <div class="fld"><label for="lNote">Коли летите і скільки вас</label><textarea id="lNote" name="note" placeholder="Двоє дорослих і дитина, друга половина жовтня, хочемо тихо і біля води"></textarea></div>
+        <div class="fld"><label for="lNote" data-c="home.lead.noteLabel">Коли летите і скільки вас</label><textarea id="lNote" name="note" data-attr="placeholder:home.lead.notePlaceholder" placeholder="Двоє дорослих і дитина, друга половина жовтня, хочемо тихо і біля води"></textarea></div>
         <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
-        <p class="form-note">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
+        <p class="form-note" data-c="settings.formNote">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
       </form>
     </div>
   </div>
@@ -162,11 +154,11 @@
   <div class="wrap">
     <div class="sec-h sec-top rv">
       <div>
-        <span class="slash">Вид на океан</span>
-        <h2>Апартаменти, які найчастіше<br>обирають з видом на океан</h2>
-        <p>Перевірені обʼєкти, з яких видно воду.</p>
+        <span class="slash" data-c="home.sea.label">Вид на океан</span>
+        <h2 data-c="home.sea.title">Апартаменти, які найчастіше<br>обирають з видом на океан</h2>
+        <p data-c="home.sea.text">Перевірені обʼєкти, з яких видно воду.</p>
       </div>
-      <a class="link-more" href="catalog.html">Весь каталог і карта <svg class="ic"><use href="#i-arrow-right"></use></svg></a>
+      <a class="link-more" href="catalog.html"><span data-c="home.sea.link">Весь каталог і карта</span> <svg class="ic"><use href="#i-arrow-right"></use></svg></a>
     </div>
     <div class="bento rv rv-1" id="seaGrid"></div>
   </div>
@@ -179,9 +171,9 @@
 <section class="sec sec-ink">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="slash">Відгуки гостей</span>
-      <h2>Як це виглядало у них</h2>
-      <p>Знято на телефон під час поїздок. Без сценарію і без монтажу.</p>
+      <span class="slash" data-c="home.reviews.label">Відгуки гостей</span>
+      <h2 data-c="home.reviews.title">Як це виглядало у них</h2>
+      <p data-c="home.reviews.text">Знято на телефон під час поїздок. Без сценарію і без монтажу.</p>
     </div>
     <div class="vids rv rv-1" id="vids"></div>
   </div>
@@ -191,10 +183,10 @@
 <section class="sec" id="work">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="slash">Процес</span>
-      <h2>Як ми працюємо</h2>
+      <span class="slash" data-c="home.work.label">Процес</span>
+      <h2 data-c="home.work.title">Як ми працюємо</h2>
     </div>
-    <div class="steps">
+    <div class="steps" data-list="home.work.steps" data-tpl="step">
       <div class="step"><em>онлайн</em><h3>Обираєте дати</h3><p>Календар показує лише вільні дні. Зайняті закреслені, помилитися неможливо.</p></div>
       <div class="step"><em>дві хвилини</em><h3>Лишаєте заявку</h3><p>Потрібні тільки імʼя і контакт. Нічого не оплачуєте на цьому кроці.</p></div>
       <div class="step"><em>протягом години</em><h3>Підтверджуємо</h3><p>Менеджер передзвонює, перевіряє обʼєкт і за потреби пропонує кращий варіант.</p></div>
@@ -207,7 +199,7 @@
   <div class="foot-in">
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="" style="width:56px;height:56px">
-      <span><b style="font-size:24px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+      <span><b style="font-size:24px">SVOYI</b><small data-c="settings.tagline">Твій комфорт у кожній подорожі</small></span>
     </a>
     <nav class="foot-nav">
       <a href="catalog.html">Апартаменти</a>
@@ -215,16 +207,16 @@
       <a href="#work">Як ми працюємо</a>
     </nav>
     <div class="foot-cts">
-      <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
-      <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
-      <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
-      <a class="ct" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
+      <a class="ct" data-contact="phone" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" data-contact="instagram" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+      <a class="ct" data-contact="tiktok" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
     </div>
   </div>
   <p class="foot-mark" aria-hidden="true">SVOYI</p>
   <div class="foot-bot">
-    <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
-    <span>Тенеріфе, Канарські острови</span>
+    <span>© <span data-year></span> <span data-c="settings.footerNote">SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span></span>
+    <span data-c="settings.footerPlace">Тенеріфе, Канарські острови</span>
   </div>
 </footer>
 

@@ -195,7 +195,7 @@ function render(){
     : `<div class="empty">
          <h3>Нічого не підійшло</h3>
          <p>Спробуйте зняти частину фільтрів або зсунути дати на кілька днів. Якщо умови незмінні, зателефонуйте: у нас є варіанти, яких ще немає на сайті.</p>
-         <a class="btn btn-accent" href="tel:+380984776927">Зателефонувати 098 477 69 27</a>
+         <a class="btn btn-accent" href="${CONTACTS.phone()[0]}">Зателефонувати ${esc(SET.phoneLabel)}</a>
        </div>`;
 
   $$('.card').forEach(c => {

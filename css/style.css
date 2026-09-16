@@ -35,6 +35,7 @@ img{max-width:100%;display:block}
 button,input,select,textarea{font-family:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+[hidden]{display:none !important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- каркас ---------- */
@@ -963,6 +964,19 @@ html:not(.js) .rv{opacity:1 !important;transform:none !important}
 /* ---------- іконки (Phosphor, MIT) ---------- */
 svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inline-block;vertical-align:-.14em}
 
+/* ---------- нижнє меню на телефоні ----------
+   Показується до 900px. Каталог і кнопка звʼязку, над нею шторка з контактами. */
+.dock{display:none}
+/* панель режиму перегляду чернетки з адмінки */
+.preview-bar{
+  position:sticky;top:0;z-index:950;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 16px;
+  padding:10px var(--gut);background:var(--accent);color:var(--white);font-size:13px;text-align:center
+}
+.preview-bar button{
+  border:1px solid rgba(255,255,255,.7);background:transparent;color:var(--white);border-radius:100px;
+  padding:7px 14px;font:600 11px var(--ui);letter-spacing:.08em;text-transform:uppercase;cursor:pointer
+}
+
 /* ============================================================
    АДАПТИВ
    ============================================================ */
@@ -997,6 +1011,44 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .svc-hero{grid-template-columns:1fr}
   .svc-vis{min-height:300px}
   .more-g{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  :root{--dock-h:calc(66px + env(safe-area-inset-bottom))}
+  body.has-dock{padding-bottom:var(--dock-h)}
+  .dock{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:890;
+    padding:9px var(--gut) calc(9px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);box-shadow:0 -10px 30px -24px rgba(58,32,15,.6)
+  }
+  .dock-btn{
+    display:flex;align-items:center;justify-content:center;gap:9px;height:48px;border-radius:100px;
+    border:1px solid var(--line);background:var(--white);color:var(--ink);text-decoration:none;cursor:pointer;
+    font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase
+  }
+  .dock-btn svg.ic{width:19px;height:19px}
+  .dock-btn[aria-current="page"]{border-color:var(--ink)}
+  .dock-call{background:var(--accent);border-color:var(--accent);color:var(--white)}
+  .dock-call[aria-expanded="true"]{background:var(--accent-deep);border-color:var(--accent-deep)}
+  .dock-sheet{
+    position:absolute;left:var(--gut);right:var(--gut);bottom:calc(100% + 10px);display:grid;gap:2px;padding:8px;
+    background:var(--white);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-lg);
+    animation:dockIn .22s var(--ease)
+  }
+  .dock-sheet a{
+    display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;color:var(--ink);
+    text-decoration:none;font-size:15px;font-weight:600
+  }
+  .dock-sheet a:active,.dock-sheet a:hover{background:var(--paper-2)}
+  .dock-sheet a svg.ic{width:22px;height:22px;color:var(--accent)}
+  .dock-sheet small{display:block;font-size:12px;font-weight:500;color:var(--ink-3);margin-top:2px}
+  @keyframes dockIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  /* елементи, що теж притиснуті до низу екрана, стоять над меню */
+  /* на сторінці апартаментів над меню ще й панель бронювання, тож низ сторінки не ховаємо під ними */
+  body.has-dock:has(.bookbar){padding-bottom:calc(var(--dock-h) + 82px)}
+  .has-dock .bookbar{bottom:var(--dock-h);padding-bottom:14px;box-shadow:0 -10px 30px -24px rgba(58,32,15,.6)}
+  .has-dock .map-toggle{bottom:calc(var(--dock-h) + 16px)}
+  .has-dock .mapwrap{bottom:var(--dock-h)}
 }
 @media(max-width:900px){
   .top-nav{display:none}

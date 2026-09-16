@@ -15,7 +15,7 @@
     <a class="brand" href="index.html"><img src="images/logo.png" alt=""><span><b>SVOYI</b><small>Tenerife</small></span></a>
     <nav class="top-nav" id="topnav">
       <a href="catalog.html">Апартаменти</a>
-      <a class="top-phone" href="tel:+380984776927">098 477 69 27</a>
+      <a class="top-phone" data-contact="phone" href="tel:+380984776927">098 477 69 27</a>
     </nav>
   </div>
 </header>
@@ -41,7 +41,7 @@
   <div class="foot-in">
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="" style="width:56px;height:56px">
-      <span><b style="font-size:24px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+      <span><b style="font-size:24px">SVOYI</b><small data-c="settings.tagline">Твій комфорт у кожній подорожі</small></span>
     </a>
     <nav class="foot-nav">
       <a href="catalog.html">Апартаменти</a>
@@ -49,20 +49,22 @@
       <a href="index.html#work">Як ми працюємо</a>
     </nav>
     <div class="foot-cts">
-      <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
-      <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
-      <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
-      <a class="ct" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
+      <a class="ct" data-contact="phone" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" data-contact="instagram" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+      <a class="ct" data-contact="tiktok" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
     </div>
   </div>
   <p class="foot-mark" aria-hidden="true">SVOYI</p>
   <div class="foot-bot">
-    <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
-    <span>Тенеріфе, Канарські острови</span>
+    <span>© <span data-year></span> <span data-c="settings.footerNote">SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span></span>
+    <span data-c="settings.footerPlace">Тенеріфе, Канарські острови</span>
   </div>
 </footer>
 
 <script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
 <script>
 /* Дані заявки кладе сюди крок "Готово" з core.js. */
 document.addEventListener('DOMContentLoaded', () => {

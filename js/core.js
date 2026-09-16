@@ -1,7 +1,26 @@
 /* SVOYI Tenerife - спільна логіка всіх сторінок:
-   стан пошуку, календар, селекти, картки, форма заявки, флоу бронювання. */
+   контент з адмінки, стан пошуку, календар, селекти, картки, форма заявки, флоу бронювання. */
 
 document.documentElement.classList.add('js');
+
+/* ================= дані ================= */
+/* Увесь контент лежить у SITE (js/data.js), його пише адмінка. Кнопка
+   "Переглянути" в адмінці кладе чернетку в localStorage і вмикає режим перегляду:
+   тоді сайт показує чернетку, але лише в цьому браузері. */
+const PREVIEW = (() => {
+  try { return localStorage.getItem('svoyi_preview') === '1' ? JSON.parse(localStorage.getItem('svoyi_draft')) : null; }
+  catch { return null; }
+})();
+const DATA = PREVIEW || SITE;
+const SET = DATA.settings;
+const APARTMENTS = DATA.apartments;
+const BASICS = DATA.basics;
+const CARS = DATA.cars.filter(c => !c.hidden);
+const REVIEWS = DATA.reviews;
+const APT_TYPES = DATA.types.map(t => [t.id, t.label]);
+const AREAS = [...new Set(APARTMENTS.filter(a => !a.hidden).map(a => a.area))].sort();
+/* генеральне прибирання: одноразовий платіж при виселенні */
+const CLEANING = +SET.cleaning || 0;
 
 /* ================= дрібні помічники ================= */
 const $  = (s, r = document) => r.querySelector(s);
@@ -40,15 +59,175 @@ function saveState(){
 }
 const isDefault = () => !S.in && !S.out && !S.type && !S.area && S.guests === 2 && S.sort === 'rec';
 
-/* дані: адмінка може перекрити масив із data.js */
-const items = () => { try { return JSON.parse(localStorage.getItem('svoyi_apts')) || APARTMENTS; } catch { return APARTMENTS; } };
+/* приховані в адмінці обʼєкти не показуються ніде на сайті */
+const items = () => APARTMENTS.filter(a => !a.hidden);
 const byId = id => items().find(a => a.id === id);
 
 const nights = () => (S.in && S.out) ? Math.max(0, Math.round((new Date(S.out) - new Date(S.in)) / 864e5)) : 0;
 /* обʼєкт вільний, якщо обраний діапазон не перетинається з жодним зайнятим */
-const free = a => !(S.in && S.out) || !a.booked.some(([b, e]) => S.in < e && b < S.out);
-/* генеральне прибирання: одноразовий платіж при виселенні */
-const CLEANING = 70;
+const free = a => !(S.in && S.out) || !(a.booked || []).some(([b, e]) => S.in < e && b < S.out);
+
+/* ================= тексти сторінок ================= */
+/* Розмітка сторінок містить тексти за замовчуванням, а атрибути кажуть, звідки
+   брати актуальні з DATA:
+     data-c="home.heroLede"            текст елемента (перенос рядка стає <br>)
+     data-accent="svc.accent"          другий рядок заголовка у <span>
+     data-attr="placeholder:svc.x"     атрибути, через ;
+     data-list="svc.tiles.items" data-tpl="tile"   список за шаблоном з TPL
+     data-show="svc.cars.show"         ховає блок, якщо значення порожнє
+     data-contact="phone"              телефон і соцмережі з налаштувань
+   Шлях svc.* веде до поточної послуги: data-svc на <body> або ?id= на service.html.
+   У текстах працюють **жирний** і [посилання](https://...). */
+const rich = s => esc(s == null ? '' : s)
+  .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, t, u) =>
+    `<a href="${u}"${/^https?:/.test(u) ? ' target="_blank" rel="noopener"' : ''}>${t}</a>`)
+  .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+  .replace(/\n/g, '<br>');
+
+const svcHref = s => s.href || `service.html?id=${encodeURIComponent(s.id)}`;
+function currentSvc(){
+  const b = document.body;
+  const id = b.dataset.svc || (b.hasAttribute('data-svc-query') ? new URLSearchParams(location.search).get('id') : '');
+  return id ? DATA.services.find(s => s.id === id) : null;
+}
+function getPath(path){
+  const parts = path.split('.');
+  let v = parts[0] === 'svc' ? currentSvc() : DATA[parts[0]];
+  for (const k of parts.slice(1)) v = v == null ? undefined : v[k];
+  return v;
+}
+const filled = v => Array.isArray(v) ? v.length > 0 : !!v;
+
+const TPL = {
+  fact: f => `<span>${icon(f.icon)}${esc(f.text)}</span>`,
+  tile: t => `<div class="tile">${icon(t.icon)}<h3>${esc(t.title)}</h3><p>${rich(t.text)}</p></div>`,
+  step: s => `<div class="step"><em>${esc(s.label)}</em><h3>${esc(s.title)}</h3><p>${rich(s.text)}</p></div>`,
+  li: s => `<li>${esc(s)}</li>`,
+  svc: s => {
+    const here = currentSvc() === s;
+    return `<a class="svc-btn" href="${esc(svcHref(s))}"${here ? ' aria-current="page"' : ''}>
+      ${icon(s.icon)}<b>${esc(s.name)}</b><span>${esc(s.short)}</span>
+      <em>${here ? 'Ви тут' : `Детальніше ${icon('arrow-right')}`}</em>
+    </a>`;
+  }
+};
+
+const CONTACTS = {
+  phone:     () => ['tel:' + SET.phone.replace(/[^\d+]/g, ''), SET.phoneLabel],
+  telegram:  () => [SET.telegram],
+  instagram: () => [SET.instagram],
+  tiktok:    () => [SET.tiktok]
+};
+
+function applyContent(){
+  const svcPage = document.body.hasAttribute('data-svc') || document.body.hasAttribute('data-svc-query');
+  if (svcPage && !currentSvc()){ location.replace('index.html'); return; }
+
+  $$('[data-c]').forEach(el => {
+    const v = getPath(el.dataset.c);
+    if (typeof v !== 'string') return;
+    const acc = el.dataset.accent ? getPath(el.dataset.accent) : '';
+    el.innerHTML = rich(v) + (acc ? `<br><span>${rich(acc)}</span>` : '');
+    el.hidden = !v && !acc;
+  });
+  $$('[data-attr]').forEach(el => el.dataset.attr.split(';').forEach(pair => {
+    const [name, path] = pair.split(':');
+    const v = getPath(path);
+    if (v != null) el.setAttribute(name, v);
+  }));
+  $$('[data-list]').forEach(el => {
+    const list = getPath(el.dataset.list);
+    if (Array.isArray(list)) el.innerHTML = list.filter(x => !(x && x.hidden)).map(TPL[el.dataset.tpl]).join('');
+  });
+  $$('[data-show]').forEach(el => { el.hidden = !filled(getPath(el.dataset.show)); });
+  $$('[data-contact]').forEach(el => {
+    const [href, label] = CONTACTS[el.dataset.contact]();
+    el.hidden = !href || href === 'tel:';
+    el.href = href;
+    if (label){
+      const t = [...el.childNodes].reverse().find(n => n.nodeType === 3 && n.textContent.trim());
+      t ? (t.textContent = label) : el.append(label);
+    }
+  });
+
+  /* банер послуги: фото з підписом або декоративні кільця з іконкою */
+  const vis = $('[data-vis]'), svc = currentSvc();
+  if (vis && svc){
+    vis.classList.toggle('has-ph', !!svc.image);
+    vis.innerHTML = svc.image
+      ? `<img src="${esc(svc.image)}" alt="${esc(svc.imageAlt || svc.name)}"><span class="svc-vis-ic">${icon(svc.icon)}</span>${svc.imageCredit ? `<p class="credit">${rich(svc.imageCredit)}</p>` : ''}`
+      : `<i></i><i></i><i></i><span class="svc-vis-ic">${icon(svc.icon)}</span>`;
+  }
+  const lf = $('#leadForm');
+  if (lf && svc) lf.dataset.service = svc.name;
+
+  /* відео в банері головної: якщо в адмінці поставили інший файл, лишаємо тільки його */
+  const hv = $('[data-hero-video]');
+  if (hv && DATA.home){
+    const { heroVideo: src, heroPoster: poster } = DATA.home;
+    if (poster) hv.poster = poster;
+    const cur = hv.querySelector('source[type="video/mp4"]');
+    if (src && (!cur || cur.getAttribute('src') !== src)){
+      hv.innerHTML = `<source src="${esc(src)}"${/\.webm$/i.test(src) ? ' type="video/webm"' : ''}>`;
+      hv.load();
+    }
+  }
+
+  const seo = document.body.dataset.seo;
+  const seoObj = seo === 'svc' ? svc : seo ? DATA[seo] : null;
+  if (seoObj){
+    if (seoObj.seoTitle) document.title = seoObj.seoTitle;
+    [['meta[name="description"]', seoObj.seoDescription], ['meta[property="og:title"]', seoObj.seoTitle],
+     ['meta[property="og:description"]', seoObj.seoDescription]]
+      .forEach(([sel, v]) => { const m = $(sel); if (m && v) m.content = v; });
+  }
+
+  if (PREVIEW){
+    const bar = document.createElement('div');
+    bar.className = 'preview-bar';
+    bar.innerHTML = `<span>Перегляд чернетки з адмінки. Відвідувачі бачать опубліковану версію.</span><button type="button">Вийти з перегляду</button>`;
+    bar.querySelector('button').onclick = () => { try { localStorage.removeItem('svoyi_preview'); } catch {} location.reload(); };
+    document.body.prepend(bar);
+  }
+}
+
+/* ================= нижнє меню на телефоні ================= */
+function initDock(){
+  const page = location.pathname.split('/').pop() || 'index.html';
+  const links = [
+    ['phone', 'phone', `Подзвонити <small>${esc(SET.phoneLabel)}</small>`],
+    ['telegram', 'telegram', 'Telegram'],
+    ['instagram', 'instagram', 'Instagram'],
+    ['tiktok', 'tiktok', 'TikTok']
+  ];
+  const dock = document.createElement('nav');
+  dock.className = 'dock';
+  dock.setAttribute('aria-label', 'Швидкі дії');
+  dock.innerHTML = `
+    <div class="dock-sheet" id="dockSheet" hidden>${links.map(([k, ic, t]) =>
+      `<a href="#" data-contact="${k}"${k === 'phone' ? '' : ' target="_blank" rel="noopener"'}>${icon(ic)}<span>${t}</span></a>`).join('')}
+    </div>
+    <a class="dock-btn" href="catalog.html"${page === 'catalog.html' ? ' aria-current="page"' : ''}>${icon('bed')}<span>Каталог</span></a>
+    <button class="dock-btn dock-call" type="button" aria-expanded="false" aria-controls="dockSheet">${icon('phone')}<span>Звʼязатися</span></button>`;
+  document.body.appendChild(dock);
+  document.body.classList.add('has-dock');
+
+  /* посилання в шторці заповнюються тими ж контактами, що й по сайту */
+  dock.querySelectorAll('[data-contact]').forEach(el => {
+    const [href] = CONTACTS[el.dataset.contact]();
+    el.href = href || '#';
+    el.hidden = !href || href === 'tel:';
+  });
+  const sheet = dock.querySelector('.dock-sheet'), btn = dock.querySelector('.dock-call');
+  btn.onclick = e => {
+    e.stopPropagation();
+    const open = sheet.hidden;
+    closeAllPopovers();
+    sheet.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  sheet.onclick = e => e.stopPropagation();
+}
 
 /* ================= шапка й футер ================= */
 function initChrome(){
@@ -186,6 +365,7 @@ function setSelect(el, value, options){
 }
 function closeAllPopovers(){
   $$('.sel-list').forEach(l => { l.hidden = true; l.parentElement.classList.remove('open'); });
+  $$('.dock-sheet').forEach(d => { d.hidden = true; d.parentElement.querySelector('.dock-call').setAttribute('aria-expanded', 'false'); });
   $$('.cal').forEach(c => c.remove());
 }
 addEventListener('click', () => closeAllPopovers());
@@ -447,11 +627,15 @@ function initLeadForm(){
       localStorage.setItem('svoyi_leads', JSON.stringify(all));
     } catch {}
     f.innerHTML = `<div class="form-ok"><b>Заявку прийнято.</b> Менеджер передзвонить протягом години в робочий час.</div>
-      <p class="form-note">Якщо питання термінове, телефонуйте одразу: <a href="tel:+380984776927">098 477 69 27</a></p>`;
+      <p class="form-note">Якщо питання термінове, телефонуйте одразу: <a href="${CONTACTS.phone()[0]}">${esc(SET.phoneLabel)}</a></p>`;
   });
 }
 
 /* ================= старт ================= */
+/* скрипти стоять у кінці <body>, тож розмітка вже є: тексти ставимо одразу,
+   до першого малювання, щоб не блимали */
+applyContent();
+initDock();
 document.addEventListener('DOMContentLoaded', () => {
   initChrome();
   initReveal();

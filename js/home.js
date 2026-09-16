@@ -20,7 +20,7 @@ initSearchbar({ onSearch: () => { saveState(); location.href = 'catalog.html'; }
 (function reviews(){
   const box = $('#vids');
   if (!box) return;
-  box.innerHTML = REVIEWS.map(r => `
+  box.innerHTML = REVIEWS.filter(r => !r.hidden).map(r => `
     <button class="vid" type="button" data-src="${r.src}" aria-label="Відгук: ${esc(r.author)}, ${esc(r.city)}">
       <img src="${r.poster}" alt="" loading="lazy">
       <span class="vid-play">${icon('play')}</span>

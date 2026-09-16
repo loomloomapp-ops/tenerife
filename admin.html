@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Адмінка | SVOYI Tenerife</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.min.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- Вхід -->
+<section class="login" id="login" hidden>
+  <form class="login-card" id="loginForm" novalidate>
+    <img src="images/logo.png" alt="" width="64" height="64">
+    <h1>Адмінка SVOYI</h1>
+    <p class="muted" id="loginNote">Увійдіть, щоб змінювати контент сайту.</p>
+
+    <div id="loginPass">
+      <label class="f"><span>Пароль</span><input type="password" id="lpPass" autocomplete="current-password" required></label>
+      <button class="b b-acc b-block" type="submit">Увійти</button>
+    </div>
+
+    <details class="login-alt" id="loginToken">
+      <summary>Увійти через GitHub-токен</summary>
+      <p class="muted small">Для випадку, коли пароль у Vercel ще не налаштовано. Токен зберігається лише в цьому браузері.</p>
+      <label class="f"><span>GitHub-токен</span><input type="password" id="ltToken" autocomplete="off" placeholder="github_pat_..."></label>
+      <div class="f2">
+        <label class="f"><span>Репозиторій</span><input id="ltRepo" value="loomloomapp-ops/tenerife"></label>
+        <label class="f"><span>Гілка</span><input id="ltBranch" value="main"></label>
+      </div>
+      <label class="chk"><input type="checkbox" id="ltRemember" checked> Запамʼятати на цьому пристрої</label>
+      <button class="b b-ink b-block" type="button" id="ltGo">Увійти з токеном</button>
+    </details>
+
+    <button class="linkbtn" type="button" id="localGo">Відкрити без публікації (лише перегляд і експорт)</button>
+    <p class="err" id="loginErr" hidden></p>
+  </form>
+</section>
+
+<!-- Робоча область -->
+<div class="adm" id="app" hidden>
+  <aside class="side">
+    <a class="side-brand" href="index.html" target="_blank" rel="noopener">
+      <img src="images/logo.png" alt=""><span><b>SVOYI</b><small>Адмінка</small></span>
+    </a>
+    <nav class="side-nav" id="sideNav"></nav>
+    <div class="side-foot">
+      <span class="mode" id="modeLbl"></span>
+      <button class="linkbtn" type="button" id="logout">Вийти</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="bar">
+      <div class="bar-t">
+        <h1 id="pageTitle">Адмінка</h1>
+        <span class="state" id="state"></span>
+      </div>
+      <div class="bar-acts">
+        <button class="b b-ghost" type="button" id="btnPreview" title="Відкрити сайт із незбереженими змінами">Переглянути</button>
+        <button class="b b-ghost" type="button" id="btnDiscard" hidden>Скасувати зміни</button>
+        <button class="b b-acc" type="button" id="btnPublish">Опублікувати</button>
+      </div>
+    </header>
+    <div class="view" id="view"></div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<dialog class="dlg" id="dlg"><div id="dlgIn"></div></dialog>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="vendor/leaflet/leaflet.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

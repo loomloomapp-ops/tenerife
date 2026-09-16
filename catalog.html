@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-seo="catalog">
 
 <header class="top" id="top">
   <div class="top-in">
@@ -25,7 +25,7 @@
       <a href="catalog.html">Апартаменти</a>
       <a href="index.html#lead">Підбір житла</a>
       <a href="index.html#work">Як ми працюємо</a>
-      <a class="top-phone" href="tel:+380984776927">098 477 69 27</a>
+      <a class="top-phone" data-contact="phone" href="tel:+380984776927">098 477 69 27</a>
     </nav>
   </div>
 </header>
@@ -52,25 +52,25 @@
 
 <section class="intro">
   <div>
-    <h1>Житло, яке ми бачили<br>власними очима</h1>
+    <h1 data-c="catalog.introTitle">Житло, яке ми бачили<br>власними очима</h1>
   </div>
-  <p>Оберіть дати і побачите тільки те, що <b>справді вільне</b> на них. Далі менеджер передзвонить, підтвердить і за потреби запропонує кращий варіант під ваш бюджет</p>
+  <p data-c="catalog.introText">Оберіть дати і побачите тільки те, що <b>справді вільне</b> на них. Далі менеджер передзвонить, підтвердить і за потреби запропонує кращий варіант під ваш бюджет</p>
 </section>
 
 <!-- Клімат узимку: різниця між північчю і півднем острова -->
 <section class="climate" aria-labelledby="climateH">
   <div class="climate-head">
-    <span class="slash">Клімат узимку</span>
-    <h2 id="climateH">Північ чи південь?</h2>
-    <p>Острів невеликий, але взимку погода на півночі й півдні помітно різниться<br>Варто вирішити це ще до вибору житла</p>
+    <span class="slash" data-c="catalog.climate.label">Клімат узимку</span>
+    <h2 id="climateH" data-c="catalog.climate.title">Північ чи південь?</h2>
+    <p data-c="catalog.climate.text">Острів невеликий, але взимку погода на півночі й півдні помітно різниться<br>Варто вирішити це ще до вибору житла</p>
   </div>
   <div class="climate-card">
     <div class="climate-top">
       <svg class="ic" aria-hidden="true"><use href="#i-cloud-rain"></use></svg>
-      <b>Північ острова</b>
+      <b data-c="catalog.climate.north.title">Північ острова</b>
     </div>
-    <p class="climate-t"><small>взимку приблизно</small>+12…+16°C</p>
-    <ul>
+    <p class="climate-t"><small data-c="catalog.climate.north.note">взимку приблизно</small><span data-c="catalog.climate.north.temp">+12…+16°C</span></p>
+    <ul data-list="catalog.climate.north.items" data-tpl="li">
       <li>Частіші опади</li>
       <li>Прохолодніша та вологіша погода</li>
     </ul>
@@ -78,17 +78,17 @@
   <div class="climate-card is-warm">
     <div class="climate-top">
       <svg class="ic" aria-hidden="true"><use href="#i-sun"></use></svg>
-      <b>Південь острова</b>
+      <b data-c="catalog.climate.south.title">Південь острова</b>
     </div>
-    <p class="climate-t"><small>взимку приблизно</small>+24°C</p>
-    <ul>
+    <p class="climate-t"><small data-c="catalog.climate.south.note">взимку приблизно</small><span data-c="catalog.climate.south.temp">+24°C</span></p>
+    <ul data-list="catalog.climate.south.items" data-tpl="li">
       <li>Тепліше</li>
       <li>Значно комфортніше для пляжного відпочинку</li>
     </ul>
   </div>
   <p class="climate-tip">
     <svg class="ic" aria-hidden="true"><use href="#i-umbrella"></use></svg>
-    <span>Якщо мета поїздки взимку — <b>море та пляжний відпочинок</b>, рекомендуємо розглядати саме <b>південь острова</b></span>
+    <span data-c="catalog.climate.tip">Якщо мета поїздки взимку — <b>море та пляжний відпочинок</b>, рекомендуємо розглядати саме <b>південь острова</b></span>
   </p>
 </section>
 
@@ -125,7 +125,7 @@
   <div class="foot-in">
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="" style="width:56px;height:56px">
-      <span><b style="font-size:24px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+      <span><b style="font-size:24px">SVOYI</b><small data-c="settings.tagline">Твій комфорт у кожній подорожі</small></span>
     </a>
     <nav class="foot-nav">
       <a href="catalog.html">Апартаменти</a>
@@ -133,16 +133,16 @@
       <a href="index.html#work">Як ми працюємо</a>
     </nav>
     <div class="foot-cts">
-      <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
-      <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
-      <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
-      <a class="ct" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
+      <a class="ct" data-contact="phone" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" data-contact="instagram" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+      <a class="ct" data-contact="tiktok" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
     </div>
   </div>
   <p class="foot-mark" aria-hidden="true">SVOYI</p>
   <div class="foot-bot">
-    <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
-    <span>Тенеріфе, Канарські острови</span>
+    <span>© <span data-year></span> <span data-c="settings.footerNote">SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span></span>
+    <span data-c="settings.footerPlace">Тенеріфе, Канарські острови</span>
   </div>
 </footer>
 

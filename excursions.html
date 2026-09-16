@@ -13,7 +13,7 @@
 <link rel="icon" href="images/logo.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-svc="excursions" data-seo="svc">
 
 <header class="top" id="top">
   <div class="top-in">
@@ -25,89 +25,79 @@
       <a href="catalog.html">Апартаменти</a>
       <a href="index.html#lead">Підбір житла</a>
       <a href="index.html#work">Як ми працюємо</a>
-      <a class="top-phone" href="tel:+380984776927">098 477 69 27</a>
+      <a class="top-phone" data-contact="phone" href="tel:+380984776927">098 477 69 27</a>
     </nav>
   </div>
 </header>
 
 <main>
-<!-- Перший екран послуги -->
+<!-- Перший екран послуги. Усі тексти й списки на цій сторінці беруться з js/data.js (services)
+     і редагуються в адмінці. Розмітка нижче лише значення за замовчуванням. -->
 <section class="svc-head">
   <div class="wrap">
     <nav class="crumbs" aria-label="Навігація">
-      <a href="index.html">Головна</a><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span>Послуги</span><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span aria-current="page">Екскурсії</span>
+      <a href="index.html">Головна</a><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span>Послуги</span><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span aria-current="page" data-c="svc.name">Екскурсії</span>
     </nav>
     <div class="svc-hero">
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
-        <h1>Екскурсії<br><span>на Тенеріфе</span></h1>
-        <p class="svc-lede">Острів більший, ніж здається: за один день можна піднятися до вулкана, а наступного вийти в океан до китів. Підкажемо, що варто побачити саме з вашого району, і організуємо дорогу.</p>
-        <div class="facts"><span><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>Природа й парки</span><span><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg>Океан</span><span><svg class="ic" aria-hidden="true"><use href="#i-map-pin"></use></svg>Під ваш район</span></div>
+        <h1 data-c="svc.title" data-accent="svc.accent">Екскурсії<br><span>на Тенеріфе</span></h1>
+        <p class="svc-lede" data-c="svc.lede">Острів більший, ніж здається: за один день можна піднятися до вулкана, а наступного вийти в океан до китів. Підкажемо, що варто побачити саме з вашого району, і організуємо дорогу.</p>
+        <div class="facts" data-list="svc.facts" data-tpl="fact"><span><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>Природа й парки</span><span><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg>Океан</span><span><svg class="ic" aria-hidden="true"><use href="#i-map-pin"></use></svg>Під ваш район</span></div>
         <div class="svc-acts">
-          <a class="btn btn-accent" href="#order">Підібрати екскурсію</a>
-          <a class="btn btn-ghost" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
+          <a class="btn btn-accent" href="#order" data-c="svc.cta">Підібрати екскурсію</a>
+          <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
         </div>
       </div>
-      <div class="svc-vis has-ph">
-        <img src="images/places/teide.webp" alt="Національний парк Тейде на Тенеріфе">
-        <span class="svc-vis-ic"><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg></span>
-        <p class="credit">Фото: Diego Delso, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
+      <div class="svc-vis has-ph" data-vis>
+        <img src="images/places/teide.webp" alt="Національний парк Тейде на Тенеріфе"><span class="svc-vis-ic"><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg></span><p class="credit">Фото: Diego Delso, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Що входить -->
-<section class="sec sec-paper2">
+<section class="sec sec-paper2" data-show="svc.tiles.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
-      <span class="slash">Куди їдуть</span>
-      <h2>Головне на острові</h2>
-      <p>Формат, тривалість і вартість залежать від маршруту. Менеджер розпише варіанти під ваші дати.</p>
+      <span class="slash" data-c="svc.tiles.label">Куди їдуть</span>
+      <h2 data-c="svc.tiles.title">Головне на острові</h2>
+      <p data-c="svc.tiles.text">Формат, тривалість і вартість залежать від маршруту. Менеджер розпише варіанти під ваші дати.</p>
     </div>
-    <div class="tiles">
-      <div class="tile">
-        <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>
-        <h3>Вулкан Тейде</h3>
-        <p>Найвища точка Іспанії, 3715 метрів. Канатна дорога піднімає майже до вершини, навколо місячні пейзажі національного парку.</p>
-      </div>
-      <div class="tile">
-        <svg class="ic" aria-hidden="true"><use href="#i-compass"></use></svg>
-        <h3>Ущелина Маска</h3>
-        <p>Гірське селище на серпантині й маршрут ущелиною, що виходить просто до океану.</p>
-      </div>
-      <div class="tile">
-        <svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg>
-        <h3>Лос-Гігантес і кити</h3>
-        <p>Стіна скель заввишки шістсот метрів просто з океану. Звідси відходять човни на спостереження за китами й дельфінами.</p>
-      </div>
-      <div class="tile">
-        <svg class="ic" aria-hidden="true"><use href="#i-paw"></use></svg>
-        <h3>Лоро Парк</h3>
-        <p>Зоопарк і океанаріум на півночі острова, поруч із Puerto de la Cruz. Вистачить на цілий день.</p>
-      </div>
-      <div class="tile">
-        <svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg>
-        <h3>Сіам Парк</h3>
-        <p>Аквапарк, який регулярно очолює світові рейтинги. Поруч із Playa de las Américas.</p>
-      </div>
-      <div class="tile">
-        <svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg>
-        <h3>Ла-Гомера</h3>
-        <p>Сусідній острів із реліктовими лісами. Пором із порту Лос-Крістіанос іде близько години.</p>
-      </div>
+    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile">
+      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg><h3>Вулкан Тейде</h3><p>Найвища точка Іспанії, 3715 метрів. Канатна дорога піднімає майже до вершини, навколо місячні пейзажі національного парку.</p></div>
+      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-compass"></use></svg><h3>Ущелина Маска</h3><p>Гірське селище на серпантині й маршрут ущелиною, що виходить просто до океану.</p></div>
+      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg><h3>Лос-Гігантес і кити</h3><p>Стіна скель заввишки шістсот метрів просто з океану. Звідси відходять човни на спостереження за китами й дельфінами.</p></div>
+      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-paw"></use></svg><h3>Лоро Парк</h3><p>Зоопарк і океанаріум на півночі острова, поруч із Puerto de la Cruz. Вистачить на цілий день.</p></div>
+      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg><h3>Сіам Парк</h3><p>Аквапарк, який регулярно очолює світові рейтинги. Поруч із Playa de las Américas.</p></div>
+      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg><h3>Ла-Гомера</h3><p>Сусідній острів із реліктовими лісами. Пором із порту Лос-Крістіанос іде близько години.</p></div>
     </div>
   </div>
 </section>
 
+<!-- Автопарк: список з масиву cars, показується, якщо в послузі ввімкнено "Показувати автопарк" -->
+<section class="sec" data-show="svc.cars.show" hidden>
+  <div class="wrap">
+    <div class="sec-h sec-top rv">
+      <div>
+        <span class="slash" data-c="svc.cars.label"></span>
+        <h2 data-c="svc.cars.title"></h2>
+        <p data-c="svc.cars.text"></p>
+      </div>
+    </div>
+    <div class="cars svc-cars" id="carList"></div>
+  </div>
+</section>
+
 <!-- Як це працює -->
-<section class="sec">
+<section class="sec" data-show="svc.steps.items">
   <div class="wrap">
     <div class="sec-h rv">
-      <span class="slash">Процес</span>
-      <h2>Як це працює</h2>
+      <span class="slash" data-c="svc.steps.label">Процес</span>
+      <h2 data-c="svc.steps.title">Як це працює</h2>
+      <p data-c="svc.steps.text" hidden></p>
     </div>
-    <div class="steps">
+    <div class="steps" data-list="svc.steps.items" data-tpl="step">
       <div class="step"><em>онлайн</em><h3>Розповідаєте</h3><p>Де живете, скільки вас і що цікавить: гори, океан чи парки.</p></div>
       <div class="step"><em>протягом години</em><h3>Пропонуємо</h3><p>Менеджер радить маршрути під ваш район і дати, називає вартість.</p></div>
       <div class="step"><em>до поїздки</em><h3>Узгоджуємо</h3><p>Час, місце старту і дорогу туди, щоб ви не витрачали день на логістику.</p></div>
@@ -121,12 +111,12 @@
   <div class="wrap">
     <div class="lead">
       <div class="sec-h rv">
-        <span class="slash">Заявка</span>
-        <h2>Що хочете<br>побачити?</h2>
-        <p>Напишіть, де зупинились і що цікавить. Складемо програму, яка не зʼїсть половину відпустки на дорогу.</p>
+        <span class="slash" data-c="svc.lead.label">Заявка</span>
+        <h2 data-c="svc.lead.title">Що хочете<br>побачити?</h2>
+        <p data-c="svc.lead.text">Напишіть, де зупинились і що цікавить. Складемо програму, яка не зʼїсть половину відпустки на дорогу.</p>
       </div>
       <form class="lead-form rv rv-1" id="leadForm" data-service="Екскурсії" novalidate>
-        <p>Залиште контакт, решту зʼясуємо в розмові.</p>
+        <p data-c="settings.formIntro">Залиште контакт, решту зʼясуємо в розмові.</p>
         <div class="f2">
           <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
           <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
@@ -138,9 +128,9 @@
             <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
           </div>
         </fieldset>
-        <div class="fld"><label for="lNote">Що цікавить і коли</label><textarea id="lNote" name="note" placeholder="Хочемо на Тейде і до китів, живемо в Costa Adeje з 3 по 10 березня, двоє дорослих"></textarea></div>
+        <div class="fld"><label for="lNote" data-c="svc.lead.noteLabel">Що цікавить і коли</label><textarea id="lNote" name="note" data-attr="placeholder:svc.lead.notePlaceholder" placeholder="Хочемо на Тейде і до китів, живемо в Costa Adeje з 3 по 10 березня, двоє дорослих"></textarea></div>
         <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
-        <p class="form-note">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
+        <p class="form-note" data-c="settings.formNote">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
       </form>
     </div>
   </div>
@@ -149,29 +139,21 @@
 <!-- Інші послуги -->
 <section class="svc-more">
   <div class="wrap"><span class="slash">Інші послуги</span></div>
-  <nav class="svc" aria-label="Додаткові послуги">
+  <nav class="svc" aria-label="Додаткові послуги" data-list="services" data-tpl="svc">
   <a class="svc-btn" href="car-rental.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg>
-    <b>Оренда авто</b>
-    <span>Машина чекає в аеропорту в день прильоту</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><b>Оренда авто</b><span>Машина чекає в аеропорту в день прильоту</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
   <a class="svc-btn" href="transfer.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>
-    <b>Трансфер</b>
-    <span>З аеропорту до дверей апартаментів і назад</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg><b>Трансфер</b><span>З аеропорту до дверей апартаментів і назад</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
   <a class="svc-btn" href="excursions.html" aria-current="page">
-    <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>
-    <b>Екскурсії</b>
-    <span>Тейде, Маска, Лос-Гігантес і кити в океані</span>
-    <em>Ви тут </em>
+    <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg><b>Екскурсії</b><span>Тейде, Маска, Лос-Гігантес і кити в океані</span>
+    <em>Ви тут</em>
   </a>
   <a class="svc-btn" href="tours.html">
-    <svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg>
-    <b>Організація турів</b>
-    <span>Поїздка під ключ: житло, авто, маршрут</span>
+    <svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg><b>Організація турів</b><span>Поїздка під ключ: житло, авто, маршрут</span>
     <em>Детальніше <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></em>
   </a>
   </nav>
@@ -182,7 +164,7 @@
   <div class="foot-in">
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="" style="width:56px;height:56px">
-      <span><b style="font-size:24px">SVOYI</b><small>Твій комфорт у кожній подорожі</small></span>
+      <span><b style="font-size:24px">SVOYI</b><small data-c="settings.tagline">Твій комфорт у кожній подорожі</small></span>
     </a>
     <nav class="foot-nav">
       <a href="catalog.html">Апартаменти</a>
@@ -190,16 +172,16 @@
       <a href="index.html#work">Як ми працюємо</a>
     </nav>
     <div class="foot-cts">
-      <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
-      <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
-      <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
-      <a class="ct" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
+      <a class="ct" data-contact="phone" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" data-contact="instagram" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+      <a class="ct" data-contact="tiktok" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
     </div>
   </div>
   <p class="foot-mark" aria-hidden="true">SVOYI</p>
   <div class="foot-bot">
-    <span>© <span data-year></span> SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span>
-    <span>Тенеріфе, Канарські острови</span>
+    <span>© <span data-year></span> <span data-c="settings.footerNote">SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span></span>
+    <span data-c="settings.footerPlace">Тенеріфе, Канарські острови</span>
   </div>
 </footer>
 
