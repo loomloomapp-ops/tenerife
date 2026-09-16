@@ -370,6 +370,7 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 .lead-sec .fld{margin-bottom:14px}
 .lead-sec .fld textarea{min-height:76px}
 .lead-sec .form-note{margin-top:12px}
+.lead-sec .lead-form>p{margin-bottom:18px}
 /* вибір так/ні пігулками */
 .fld-choice{border:0;padding:0;min-width:0}
 .fld-choice legend{
