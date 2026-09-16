@@ -14,13 +14,17 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="preload" as="image" href="images/logo.png">
 <script>
-/* Заставка лише при вході ззовні: з переходів сайтом (той самий домен у referrer)
-   її не показуємо, щоб не змушувати чекати щоразу. ?intro показує завжди.
-   Запасний таймер знімає її, навіть якщо js/preloader.js не спрацював. */
+/* Заставка при кожному оновленні сторінки і при вході ззовні. Не показуємо лише
+   при переході на головну з інших сторінок сайту, щоб не чекати щоразу.
+   ?intro показує завжди. Запасний таймер знімає її, навіть якщо js/preloader.js не спрацював. */
 (function(){
-  var d = document.documentElement, internal = false;
+  var d = document.documentElement, internal = false, reload = false;
   try { internal = !!document.referrer && new URL(document.referrer).host === location.host; } catch (e) {}
-  if (internal && !/[?&]intro\b/.test(location.search)) return;
+  try {
+    var nav = performance.getEntriesByType('navigation')[0];
+    reload = nav ? nav.type === 'reload' : performance.navigation.type === 1;
+  } catch (e) {}
+  if (internal && !reload && !/[?&]intro\b/.test(location.search)) return;
   d.classList.add('pl-on');
   setTimeout(function(){ d.classList.remove('pl-on'); }, 9000);
 })();
