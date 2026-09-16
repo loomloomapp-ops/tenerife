@@ -351,7 +351,7 @@ function stepContacts(){
       <div class="fld"><label for="bNote">Побажання (не обовʼязково)</label><textarea id="bNote" placeholder="Летимо з дитиною, потрібне дитяче ліжечко"></textarea></div>
       <div class="row-end">
         <button class="btn btn-ghost" type="button" data-close>Скасувати</button>
-        <button class="btn btn-blue" type="button" id="next1">Далі</button>
+        <button class="btn btn-accent" type="button" id="next1">Далі</button>
       </div>
     </div>`;
   wireClose();
@@ -388,7 +388,7 @@ function stepCars(){
         </button>`).join('')}</div>
       <div class="row-end">
         <button class="btn btn-ghost" type="button" id="skipCar">${S.apt ? 'Поки без авто' : 'Пропустити'}</button>
-        <button class="btn btn-blue" type="button" id="next2">Готово</button>
+        <button class="btn btn-accent" type="button" id="next2">Готово</button>
       </div>
     </div>`;
   wireClose();
@@ -437,6 +437,7 @@ function initLeadForm(){
     const payload = {
       service: f.dataset.service || 'Підбір житла',
       name: $('#lName').value.trim(), phone: $('#lPhone').value.trim(),
+      tickets: (f.querySelector('[name="tickets"]:checked') || {}).value || '',
       note: $('#lNote') ? $('#lNote').value.trim() : '', at: new Date().toISOString()
     };
     try {

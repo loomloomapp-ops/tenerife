@@ -1,67 +1,18 @@
-/* Головна сторінка: рейка топових обʼєктів, добірка біля визначних місць,
-   бенто "до океану пішки" і відеовідгуки. */
+/* Головна сторінка: пошук, бенто "з видом на океан" і відеовідгуки. */
 
 /* ---------- пошук у герої ---------- */
 initSearchbar({ onSearch: () => { saveState(); location.href = 'catalog.html'; } });
 
-/* ---------- топ апартаменти ---------- */
-(function topRail(){
-  const rail = $('#topRail');
-  if (!rail) return;
-  const list = items().filter(a => a.top);
-  rail.innerHTML = list.map(a => cardHTML(a)).join('');
-
-  const nav = $$('[data-rail]');
-  const step = () => Math.max(280, rail.firstElementChild ? rail.firstElementChild.offsetWidth + 20 : 300);
-  nav.forEach(b => b.onclick = () => rail.scrollBy({ left: step() * (+b.dataset.rail), behavior: 'smooth' }));
-  const syncNav = () => {
-    const max = rail.scrollWidth - rail.clientWidth - 2;
-    nav.forEach(b => b.disabled = (+b.dataset.rail < 0) ? rail.scrollLeft <= 2 : rail.scrollLeft >= max);
-  };
-  rail.addEventListener('scroll', syncNav, { passive: true });
-  addEventListener('resize', syncNav, { passive: true });
-  syncNav();
-})();
-
-/* ---------- біля визначного місця ---------- */
-(function places(){
-  const tabs = $('#placeTabs'), note = $('#placeNote'), grid = $('#placeGrid');
-  if (!tabs) return;
-
-  /* найближчі обʼєкти рахуємо з координат, вручну нічого проставляти не треба */
-  const nearest = p => items()
-    .map(a => ({ a, km: distKm(a.lat, a.lng, p.lat, p.lng) }))
-    .sort((x, y) => x.km - y.km)
-    .slice(0, 3);
-
-  const kmLabel = km => km < 1 ? `${Math.round(km * 1000)} м` : `${km.toFixed(km < 10 ? 1 : 0)} км`;
-
-  tabs.innerHTML = PLACES.map((p, i) => `
-    <button class="place-tab" type="button" role="tab" id="tab-${p.id}"
-            aria-selected="${i === 0}" aria-controls="placeGrid" data-place="${p.id}">
-      <strong>${esc(p.name)}</strong>
-    </button>`).join('');
-
-  function show(id){
-    const p = PLACES.find(x => x.id === id);
-    $$('.place-tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.place === id)));
-    note.innerHTML = esc(p.note);
-    grid.innerHTML = nearest(p).map(({ a, km }) =>
-      cardHTML(a, `<span class="sea-badge">${icon('map-pin')}${kmLabel(km)}</span>`)).join('');
-  }
-
-  tabs.addEventListener('click', e => {
-    const b = e.target.closest('[data-place]');
-    if (b) show(b.dataset.place);
-  });
-  show(PLACES[0].id);
-})();
-
-/* ---------- до океану пішки ---------- */
+/* ---------- апартаменти з видом на океан ----------
+   Беремо обʼєкти, у зручностях яких є вид на океан або панорамний вид.
+   Спочатку ті, що позначені top (їх бронюють найчастіше), далі ближчі до води. */
 (function sea(){
   const grid = $('#seaGrid');
   if (!grid) return;
-  const list = [...items()].sort((a, b) => a.sea - b.sea).slice(0, 5);
+  const view = a => a.features.some(f => /вид на океан|панорамний вид/i.test(f));
+  const list = items().filter(view)
+    .sort((a, b) => (b.top - a.top) || (a.sea - b.sea))
+    .slice(0, 5);
   grid.innerHTML = list.map(a =>
     cardHTML(a, `<span class="sea-badge">${icon('waves')}${a.sea} хв</span>`)).join('');
 })();

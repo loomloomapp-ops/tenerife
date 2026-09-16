@@ -72,7 +72,7 @@
   </div>
 </section>
 
-<!-- Додаткові послуги: кожна кнопка веде на окрему сторінку -->
+<!-- 2. Додаткові послуги: кожна кнопка веде на окрему сторінку -->
 <nav class="svc" aria-label="Додаткові послуги">
   <a class="svc-btn" href="car-rental.html">
     <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg>
@@ -100,93 +100,62 @@
   </a>
 </nav>
 
-<!-- 2. Топ апартаменти -->
+<!-- 3. Заявка на підбір -->
+<section class="sec sec-ink lead-sec" id="lead">
+  <div class="wrap">
+    <div class="lead">
+      <div class="sec-h rv">
+        <span class="slash">Підбір</span>
+        <h2>Підберемо житло<br>під ваші дати</h2>
+        <p>Напишіть, з ким і коли летите. Запропонуємо варіанти під бюджет і передзвонимо протягом години в робочий час.</p>
+      </div>
+      <form class="lead-form rv rv-1" id="leadForm" novalidate>
+        <div class="f2">
+          <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
+          <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
+        </div>
+        <fieldset class="fld fld-choice">
+          <legend>Чи маєте в наявності квитки?</legend>
+          <div class="choice">
+            <label><input type="radio" name="tickets" value="Так"><span>Так</span></label>
+            <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
+          </div>
+        </fieldset>
+        <div class="fld"><label for="lNote">Коли летите і скільки вас</label><textarea id="lNote" name="note" placeholder="Двоє дорослих і дитина, друга половина жовтня, хочемо тихо і біля води"></textarea></div>
+        <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
+        <p class="form-note">Нічого не списуємо до підтвердження.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Апартаменти з видом на океан -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-h sec-top rv">
       <div>
-        <span class="slash">Обране</span>
-        <h2>Те, що бронюють<br>найчастіше</h2>
-        <p>Перевірені обʼєкти, до яких гості повертаються наступного сезону.</p>
+        <span class="slash">Вид на океан</span>
+        <h2>Апартаменти, які найчастіше<br>обирають з видом на океан</h2>
+        <p>Перевірені обʼєкти, з яких видно воду. На кожній картці час до океану пішки.</p>
       </div>
-      <div class="rail-nav" aria-hidden="true">
-        <button type="button" data-rail="-1" aria-label="Назад"><svg class="ic"><use href="#i-caret-left"></use></svg></button>
-        <button type="button" data-rail="1" aria-label="Далі"><svg class="ic"><use href="#i-caret-right"></use></svg></button>
-      </div>
-    </div>
-    <div class="rail rv rv-1" id="topRail"></div>
-    <p style="margin-top:34px">
       <a class="link-more" href="catalog.html">Весь каталог і карта <svg class="ic"><use href="#i-arrow-right"></use></svg></a>
-    </p>
-  </div>
-</section>
-
-<!-- 3. Апартаменти біля визначних місць -->
-<section class="sec sec-paper2">
-  <div class="wrap">
-    <div class="sec-h rv">
-      <span class="slash">Визначні місця</span>
-      <h2>Поруч із тим,<br>заради чого їдуть</h2>
-    </div>
-    <div class="places">
-      <div class="place-tabs" id="placeTabs" role="tablist" aria-label="Визначні місця"></div>
-      <div>
-        <p class="place-note" id="placeNote"></p>
-        <div class="place-grid" id="placeGrid"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. Апартаменти біля моря -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-h sec-top rv">
-      <div>
-        <span class="slash">Перша лінія</span>
-        <h2>До океану пішки</h2>
-        <p>Варіанти, від яких до води не більше десяти хвилин. Час рахуємо кроком, а не автомобілем.</p>
-      </div>
     </div>
     <div class="bento rv rv-1" id="seaGrid"></div>
   </div>
 </section>
 
-<!-- 5. Заявка на підбір -->
-<section class="sec sec-ink" id="lead">
+<!-- 5. Відеовідгуки
+     TODO: замінити media/hero.mp4 на справжні вертикальні відео гостей (9:16)
+     і покласти власні кадри-обкладинки. Тексти й авторів редагувати
+     в js/data.js, масив REVIEWS. -->
+<section class="sec sec-ink">
   <div class="wrap">
-    <div class="lead">
-      <div class="rv">
-        <div class="sec-h">
-          <span class="slash">Підбір</span>
-          <h2>Не знаєте,<br>який район ваш?</h2>
-          <p>Напишіть, з ким і коли летите. Підберемо житло під бюджет і маршрут і чесно скажемо, де вам буде краще.</p>
-        </div>
-        <div class="lead-points">
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>
-            <div><b>Район під маршрут</b><span>Північ, південь чи гори залежить від того, що ви плануєте побачити.</span></div>
-          </div>
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg>
-            <div><b>Авто і трансфер</b><span>Зустрічаємо в аеропорту, машину готуємо до вашого прильоту.</span></div>
-          </div>
-          <div class="lead-point">
-            <svg class="ic" aria-hidden="true"><use href="#i-headset"></use></svg>
-            <div><b>Звʼязок українською</b><span>Менеджер живе на острові. Різниця в часі одна година.</span></div>
-          </div>
-        </div>
-      </div>
-      <form class="lead-form rv rv-1" id="leadForm" novalidate>
-        <h3>Підбір за 15 хвилин</h3>
-        <p>Залиште контакт, решту зʼясуємо в розмові.</p>
-        <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
-        <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
-        <div class="fld"><label for="lNote">Коли летите і скільки вас</label><textarea id="lNote" name="note" placeholder="Двоє дорослих і дитина, друга половина жовтня, хочемо тихо і біля води"></textarea></div>
-        <button class="btn btn-blue btn-block" type="submit">Надіслати заявку</button>
-        <p class="form-note">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
-      </form>
+    <div class="sec-h rv">
+      <span class="slash">Відгуки гостей</span>
+      <h2>Як це виглядало у них</h2>
+      <p>Знято на телефон під час поїздок. Без сценарію і без монтажу.</p>
     </div>
+    <div class="vids rv rv-1" id="vids"></div>
   </div>
 </section>
 
@@ -203,28 +172,6 @@
       <div class="step"><em>протягом години</em><h3>Підтверджуємо</h3><p>Менеджер передзвонює, перевіряє обʼєкт і за потреби пропонує кращий варіант.</p></div>
       <div class="step"><em>у день прильоту</em><h3>Зустрічаємо</h3><p>Ключі, авто й підказки по околиці. Далі лишаємось на звʼязку всю поїздку.</p></div>
     </div>
-  </div>
-</section>
-
-<!-- Смуга-заява перед відгуками -->
-<section class="band">
-  <img src="images/places/teide.webp" alt="Національний парк Тейде на Тенеріфе" loading="lazy">
-  <div class="circle"><h2>Острів більший,<br>ніж здається</h2></div>
-  <p class="credit">Фото: Diego Delso, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
-</section>
-
-<!-- 7. Відеовідгуки
-     TODO: замінити media/hero.mp4 на справжні вертикальні відео гостей (9:16)
-     і покласти власні кадри-обкладинки. Тексти й авторів редагувати
-     в js/data.js, масив REVIEWS. -->
-<section class="sec sec-ink">
-  <div class="wrap">
-    <div class="sec-h rv">
-      <span class="slash">Відгуки гостей</span>
-      <h2>Як це виглядало у них</h2>
-      <p>Знято на телефон під час поїздок. Без сценарію і без монтажу.</p>
-    </div>
-    <div class="vids rv rv-1" id="vids"></div>
   </div>
 </section>
 
@@ -247,6 +194,7 @@
       <a class="ct" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
       <a class="ct" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
       <a class="ct" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+      <a class="ct" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
     </div>
   </div>
   <p class="foot-mark" aria-hidden="true">SVOYI</p>
