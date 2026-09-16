@@ -59,7 +59,7 @@ function filtered(){
 /* ================= панель ================= */
 function buildPanel(){
   const seg = (key, { label, opts }) => `
-    <div class="fp-g">
+    <div class="fp-g fp-g-${key}">
       <span>${label}</span>
       <div class="seg" data-seg="${key}">${opts.map(([v, t]) =>
         `<button type="button" data-v="${v}" aria-pressed="${F[key] === v}">${t}</button>`).join('')}</div>

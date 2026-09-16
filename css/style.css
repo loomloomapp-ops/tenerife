@@ -485,12 +485,12 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
 /* клімат узимку: заголовок, дві картки (північ, південь) і рекомендація на всю ширину */
 .climate{
   max-width:var(--wrap);margin:0 auto 34px;padding:0 var(--gut);display:grid;
-  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:stretch
+  grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:stretch
 }
 .climate-head{align-self:center;padding-right:clamp(0px,2vw,24px)}
 .climate-head h2{font-size:clamp(24px,2.4vw,34px);margin-bottom:12px}
 .climate-head .slash{margin-bottom:12px}
-.climate-head p{color:var(--ink-3);font-size:14.5px;line-height:1.6;max-width:44ch}
+.climate-head p{color:var(--ink-3);font-size:14.5px;line-height:1.6}
 .climate-card{
   background:var(--white);border:1px solid var(--line);border-radius:var(--r);
   padding:clamp(20px,2vw,28px);display:flex;flex-direction:column
@@ -601,11 +601,12 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
   border:1px solid var(--line);border-radius:var(--r);background:var(--white);
   padding:clamp(20px,2.2vw,30px);margin-bottom:22px
 }
-.fp-row{display:grid;grid-template-columns:minmax(210px,1.3fr) repeat(3,minmax(150px,1fr));gap:clamp(20px,2.4vw,34px)}
+.fp-row{display:grid;grid-template-columns:minmax(210px,1.3fr) repeat(2,minmax(150px,1fr));gap:clamp(20px,2.4vw,34px)}
 .fp-g label,.fp-g>span{
   display:block;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   color:var(--ink-3);margin-bottom:14px
 }
+.fp-g-sea{grid-column:1/-1}
 .fp-amen{margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
 
 /* сегментований перемикач */
@@ -917,6 +918,11 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 /* ============================================================
    АДАПТИВ
    ============================================================ */
+@media(max-width:1360px){
+  /* текст біля заголовка клімату в два рядки влазить у колонку лише на широкому екрані */
+  .climate{grid-template-columns:1fr 1fr}
+  .climate-head{grid-column:1/-1;padding-right:0}
+}
 @media(max-width:1180px){
   .split{grid-template-columns:1fr 44%}
   .grid{grid-template-columns:1fr}
@@ -925,8 +931,6 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .bento .card:first-child{grid-column:span 2;grid-row:auto}
   .bento .card:first-child .card-ph{aspect-ratio:16/9;min-height:0}
   .apt-main{grid-template-columns:1fr}
-  .climate{grid-template-columns:1fr 1fr}
-  .climate-head{grid-column:1/-1;padding-right:0}
   .vids{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:1180px){
