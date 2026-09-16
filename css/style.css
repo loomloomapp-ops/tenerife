@@ -545,6 +545,9 @@ h3{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.1;color:
   border:1px solid var(--line);background:#D9DEE6
 }
 #map{width:100%;height:100%}
+/* обгортка ставить підпис точно на точку: низом по центру, або центром (is-center) */
+.pin-at{position:absolute;left:0;top:0;transform:translate(-50%,-100%)}
+.pin-at.is-center{transform:translate(-50%,-50%)}
 .pin{
   background:var(--white);border:1px solid var(--ink);border-radius:100px;padding:6px 12px;font-size:12px;
   font-weight:600;color:var(--ink);white-space:nowrap;box-shadow:0 4px 14px rgba(58,32,15,.28);transition:all .18s

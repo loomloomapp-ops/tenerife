@@ -238,6 +238,7 @@ function drawMini(){
   const m = L.map(el, { scrollWheelZoom: false, zoomControl: true }).setView([apt.lat, apt.lng], 14);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(m);
   L.marker([apt.lat, apt.lng], {
-    icon: L.divIcon({ className: '', html: `<div class="pin on">${esc(apt.name)}</div>`, iconSize: [120, 26], iconAnchor: [60, 26] })
+    /* ширина підпису залежить від назви, тому розмір не фіксуємо, а центруємо через CSS */
+    icon: L.divIcon({ className: '', html: `<div class="pin-at is-center"><div class="pin on">${esc(apt.name)}</div></div>`, iconSize: [0, 0], iconAnchor: [0, 0] })
   }).addTo(m);
 }

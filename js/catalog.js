@@ -162,7 +162,7 @@ function drawMap(list){
   if (!list.length) return;
   list.forEach(a => {
     const m = L.marker([a.lat, a.lng], {
-      icon: L.divIcon({ className: '', html: `<div class="pin" data-id="${a.id}">${a.price} €</div>`, iconSize: [54, 26], iconAnchor: [27, 26] })
+      icon: L.divIcon({ className: '', html: `<div class="pin-at"><div class="pin" data-id="${a.id}">${a.price} €</div></div>`, iconSize: [0, 0], iconAnchor: [0, 0] })
     }).addTo(map);
     m.bindPopup(`<b>${esc(a.name)}</b>${esc(a.area)} · ${a.price} EUR за ніч<br>
       <a href="apartment.html?id=${a.id}">Відкрити сторінку</a>`);
