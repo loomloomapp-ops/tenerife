@@ -1060,7 +1060,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "nav" "cts";justify-items:center;gap:22px}
   .foot-in>.brand{flex-direction:column;gap:14px;text-align:center;margin-bottom:22px}
   .foot-cts,.foot-nav{justify-content:center}
-  .foot-mark{margin-top:40px}
+  .foot-mark{margin-top:40px;margin-bottom:28px}
   .foot-bot{
     flex-direction:column;align-items:center;gap:8px;text-align:center;
     padding:20px var(--gut) calc(24px + env(safe-area-inset-bottom))
