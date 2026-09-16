@@ -837,10 +837,10 @@ dialog::backdrop{background:rgba(58,32,15,.82);-webkit-backdrop-filter:blur(6px)
 
 /* ---------- футер ---------- */
 .foot{background:var(--ink);color:var(--white);padding-top:clamp(52px,5vw,80px);overflow:hidden}
-/* логотип зліва; справа контакти й соцмережі, під ними навігація */
+/* логотип зліва; справа навігація, під нею контакти й соцмережі */
 .foot-in{
   max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);display:grid;gap:14px 30px;
-  grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand cts" "brand nav";align-items:start
+  grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand nav" "brand cts";align-items:start
 }
 .foot-in>.brand{grid-area:brand}
 .foot-nav{grid-area:nav;display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
@@ -958,7 +958,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .step p{max-width:none}
   .more-g{grid-template-columns:1fr}
   .rules{grid-template-columns:1fr 1fr}
-  .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "cts" "nav"}
+  .foot-in{grid-template-columns:1fr;grid-template-areas:"brand" "nav" "cts"}
   .foot-cts,.foot-nav{justify-content:flex-start}
 }
 @media(max-width:620px){
