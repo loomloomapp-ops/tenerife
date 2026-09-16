@@ -1056,9 +1056,13 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 @media(max-width:620px){
   .grid,.bento{grid-template-columns:1fr}
   .bento .card:first-child{grid-column:auto}
-  .hero-in{padding-top:110px}
   .vid:nth-child(even){margin-top:0}
-  .hero-mark{font-size:23vw}
+  /* назва стоїть одразу під шапкою, а контент завжди починається нижче за неї:
+     на невисоких екранах герой росте, а не підсуває текст на назву.
+     висота рядка назви = 23vw * .8 */
+  .hero{--mk-top:calc(var(--top-h,79px) + 16px)}
+  .hero-mark{font-size:23vw;top:var(--mk-top)}
+  .hero-in{padding-top:calc(var(--mk-top) + 18.4vw + 36px)}
 }
 
 @media (prefers-reduced-motion:reduce){
