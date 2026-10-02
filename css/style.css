@@ -1100,8 +1100,13 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .kinds{grid-template-columns:1fr}
   .lead,.lead-sec .lead{grid-template-columns:1fr}
   .lead-sec .lead>.sec-h{position:static;padding-top:0}
-  .svc-hero{grid-template-columns:1fr}
+  .svc-hero{grid-template-columns:1fr;row-gap:0}
   .svc-vis{min-height:300px}
+  /* фото стоїть одразу під заголовком: блок тексту розкладаємо в сітку героя й ставимо фото після h1 */
+  .svc-copy{display:contents}
+  .svc-copy>*{order:3}
+  .svc-copy>.slash,.svc-copy>h1{order:1}
+  .svc-vis{order:2;margin-bottom:28px}
   .more-g{grid-template-columns:1fr 1fr}
 }
 @media(max-width:900px){
@@ -1197,6 +1202,10 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 }
 @media(max-width:700px){
   .svc,.tiles{grid-template-columns:1fr}
+  /* заголовок послуги зменшується разом з екраном, щоб рядки не розбивалися далі */
+  .svc-copy h1{font-size:min(36px,9.2vw)}
+  /* кнопки послуг на всю ширину екрана */
+  .svc-acts .btn{flex:1 1 100%;justify-content:center}
   /* кроки й на телефоні у дві колонки, як у макеті */
   .steps{gap:30px 18px}
   .step h3{font-size:18px}
