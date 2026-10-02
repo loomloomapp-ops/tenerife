@@ -289,6 +289,7 @@ function normalize(d){
   const home = obj(d, 'home', {});
   ['lead', 'sea', 'reviews', 'work'].forEach(k => obj(home, k, {}));
   obj(home.work, 'steps', []);
+  obj(home.work, 'contract', {});
   const cat = obj(d, 'catalog', {});
   const cl = obj(cat, 'climate', {});
   ['north', 'south'].forEach(k => obj(obj(cl, k, {}), 'items', []));
@@ -302,9 +303,9 @@ function normalize(d){
 }
 function normService(s){
   ['facts'].forEach(k => { if (!Array.isArray(s[k])) s[k] = []; });
-  ['tiles', 'steps', 'lead'].forEach(k => { if (!s[k] || typeof s[k] !== 'object') s[k] = {}; });
-  if (!Array.isArray(s.tiles.items)) s.tiles.items = [];
-  if (!Array.isArray(s.steps.items)) s.steps.items = [];
+  ['tiles', 'steps', 'lead', 'terms', 'kinds'].forEach(k => { if (!s[k] || typeof s[k] !== 'object') s[k] = {}; });
+  ['tiles', 'steps', 'terms', 'kinds'].forEach(k => { if (!Array.isArray(s[k].items)) s[k].items = []; });
+  if (!s.booking || typeof s.booking !== 'object') s.booking = { label: 'Бронювання', title: '', text: '', button: 'Забронювати авто', show: false };
   if (!s.cars || typeof s.cars !== 'object') s.cars = { label: 'Автопарк', title: 'Оберіть клас авто', text: '', show: false };
   return s;
 }
@@ -537,16 +538,16 @@ const FIELDS = {
   },
   icon(obj, def){
     const n = el(`<div class="f"><span>${esc(def.l || 'Іконка')}</span>
-      <button type="button" class="icbtn">${ic(obj[def.k] || 'check')}<em>${esc(obj[def.k] || 'не обрано')}</em>${ui('down')}</button></div>`);
+      <button type="button" class="icbtn">${obj[def.k] ? ic(obj[def.k]) : ''}<em>${esc(obj[def.k] || 'без іконки')}</em>${ui('down')}</button>${hintHTML(def)}</div>`);
     const btn = n.querySelector('button');
     btn.onclick = () => dialog(`<h2>Оберіть іконку</h2><div class="icgrid">${SITE_ICONS.map(name =>
       `<button type="button" data-ic="${name}"${name === obj[def.k] ? ' aria-pressed="true"' : ''} title="${name}">${ic(name)}</button>`).join('')}</div>
-      <div class="dlg-acts"><button class="b b-ghost" type="button" data-close>Закрити</button></div>`, box => {
+      <div class="dlg-acts"><button class="b b-ghost" type="button" data-ic="">Без іконки</button><button class="b b-ghost" type="button" data-close>Закрити</button></div>`, box => {
       box.onclick = ev => {
         const b = ev.target.closest('[data-ic]');
         if (b){
           obj[def.k] = b.dataset.ic;
-          btn.innerHTML = `${ic(b.dataset.ic)}<em>${esc(b.dataset.ic)}</em>${ui('down')}`;
+          btn.innerHTML = `${b.dataset.ic ? ic(b.dataset.ic) : ''}<em>${esc(b.dataset.ic || 'без іконки')}</em>${ui('down')}`;
           changed(def, obj);
           closeDlg();
         }
@@ -762,8 +763,8 @@ const seoGroup = { t: 'group', l: 'Пошукові системи й соцме
   { k: 'seoDescription', t: 'textarea', l: 'Опис', rows: 2 }
 ] };
 const stepFields = [
-  { t: 'row', fields: [{ k: 'label', l: 'Підпис над кроком', ph: 'онлайн' }, { k: 'title', l: 'Назва кроку' }] },
-  { k: 'text', t: 'textarea', l: 'Опис', rows: 2, rich: true }
+  { k: 'title', l: 'Назва кроку', wide: true, hint: 'Номер 01, 02... ставиться автоматично за порядком' },
+  { k: 'text', t: 'textarea', l: 'Опис', rows: 3, rich: true, hint: 'Список: кожен пункт з нового рядка, на початку •' }
 ];
 const headFields = (withText = true) => [
   { k: 'label', l: 'Підпис над заголовком', ph: 'Процес' },
@@ -810,12 +811,17 @@ const F_HOME = [
     { t: 'row', fields: [{ k: 'noteLabel', l: 'Назва поля побажань' }, { k: 'notePlaceholder', l: 'Приклад у полі' }] }
   ] },
   { t: 'group', k: 'sea', l: 'Блок «Вид на океан»', hint: 'Апартаменти сюди потрапляють автоматично: у зручностях є «Вид на океан» або «Панорамний вид», спершу рекомендовані.', fields: [
-    ...headFields(), { k: 'link', l: 'Текст посилання на каталог' }
+    ...headFields(), { k: 'link', l: 'Підказка «гортай далі»', hint: 'Не кнопка, лише підказка, що картки гортаються' }
   ] },
   { t: 'group', k: 'reviews', l: 'Блок «Відгуки гостей»', hint: 'Самі відгуки редагуються в розділі «Відгуки».', fields: headFields() },
   { t: 'group', k: 'work', l: 'Блок «Як ми працюємо»', fields: [
-    ...headFields(false),
-    { k: 'steps', t: 'list', l: 'Кроки', add: 'Додати крок', title: s => s.title || 'Новий крок', make: () => ({ label: '', title: '', text: '' }), fields: stepFields }
+    ...headFields(),
+    { k: 'steps', t: 'list', l: 'Кроки', add: 'Додати крок', title: s => s.title || 'Новий крок', make: () => ({ title: '', text: '' }), fields: stepFields },
+    { t: 'group', k: 'contract', l: 'Кнопка «Договір бронювання»', hint: 'Стоїть під останнім кроком і відкриває умови у вікні. Без тексту умов кнопка ховається.', fields: [
+      { t: 'row', fields: [{ k: 'title', l: 'Назва кнопки' }, { k: 'text', l: 'Підпис під назвою' }] },
+      { k: 'termsTitle', l: 'Заголовок у вікні', wide: true },
+      { k: 'terms', t: 'textarea', l: 'Текст умов', rows: 8, rich: true }
+    ] }
   ] }
 ];
 
@@ -854,7 +860,7 @@ const F_APT = [
       { k: 'in', t: 'time', l: 'Заїзд з' }, { k: 'out', t: 'time', l: 'Виїзд до' },
       { k: 'min', t: 'number', l: 'Мінімум ночей', min: 1 }
     ] },
-    { t: 'row', fields: [{ k: 'pets', l: 'Тварини', ph: 'За домовленістю' }, { k: 'smoke', l: 'Паління', ph: 'Не палити' }] }
+    { k: 'pets', l: 'Тварини', ph: 'За домовленістю' }
   ] },
   { t: 'group', l: 'Розташування', fields: [{ t: 'latlng', l: 'Точка на карті' }] },
   { t: 'group', l: 'Зайняті дати', hint: 'Ці дні в календарі на сайті будуть закреслені. День виїзду вважається вільним.', fields: [
@@ -901,22 +907,38 @@ const F_SERVICE = [
     { k: 'lede', t: 'textarea', l: 'Текст', rows: 3, rich: true },
     { k: 'facts', t: 'list', l: 'Короткі факти з іконками', add: 'Додати факт', title: f => f.text || 'Новий факт', make: () => ({ icon: 'check', text: '' }),
       fields: [{ t: 'row', fields: [{ k: 'icon', t: 'icon' }, { k: 'text', l: 'Текст' }] }] },
-    { k: 'cta', l: 'Текст головної кнопки', ph: 'Замовити' },
-    { k: 'image', t: 'image', l: 'Фото праворуч', hint: 'Без фото показуються декоративні кільця з іконкою послуги' },
-    { t: 'row', fields: [{ k: 'imageAlt', l: 'Опис фото для незрячих і Google' }, { k: 'imageCredit', l: 'Підпис до фото', hint: 'Автор і ліцензія, якщо фото чуже' }] }
+    { k: 'cta', l: 'Текст головної кнопки', ph: 'Замовити', hint: 'Порожнє поле ховає кнопку' },
+    { k: 'image', t: 'image', l: 'Фото праворуч', hint: 'Без фото правої частини немає, текст на всю ширину' },
+    { t: 'row', fields: [{ k: 'imageAlt', l: 'Опис фото для незрячих і Google' }, { k: 'imageCredit', l: 'Підпис до фото', hint: 'Автор і ліцензія, якщо фото чуже' }] },
+    { k: 'imagePos', l: 'Що лишати в кадрі', ph: 'center 70%', hint: 'Якщо фото обрізається не так: center 30% ближче до верху, center 70% до низу' }
   ] },
-  { t: 'group', k: 'tiles', l: 'Блок з картками', hint: 'Що входить у послугу: екскурсії, маршрути, переваги. Без карток блок ховається.', fields: [
+  { t: 'group', k: 'terms', l: 'Умови бронювання в першому екрані', hint: 'Нумерований блок під кнопками. Без пунктів ховається.', fields: [
+    { t: 'row', fields: [{ k: 'title', l: 'Заголовок' }, { k: 'text', l: 'Підзаголовок' }] },
+    { k: 'items', t: 'list', l: 'Пункти', add: 'Додати пункт', title: s => s.title || 'Новий пункт', make: () => ({ title: '', text: '' }), fields: stepFields }
+  ] },
+  { t: 'group', k: 'tiles', l: 'Блок з картками', hint: 'Що входить у послугу: переваги, умови. Без карток і кнопки блок ховається.', fields: [
     ...headFields(),
     { k: 'items', t: 'list', l: 'Картки', add: 'Додати картку', title: t => t.title || 'Нова картка', make: () => ({ icon: 'check', title: '', text: '' }),
-      fields: [{ k: 'icon', t: 'icon' }, { k: 'title', l: 'Заголовок', wide: true }, { k: 'text', t: 'textarea', l: 'Текст', rows: 2, rich: true }] }
+      fields: [{ k: 'icon', t: 'icon', hint: 'Без іконки картка отримує номер 01, 02...' }, { k: 'title', l: 'Заголовок', wide: true }, { k: 'text', t: 'textarea', l: 'Текст', rows: 2, rich: true }] },
+    { k: 'cta', l: 'Кнопка під картками', ph: 'Хочу розрахувати тур', hint: 'Веде до заявки, поруч кнопка Telegram. Порожнє поле ховає обидві' }
+  ] },
+  { t: 'group', k: 'kinds', l: 'Великі картки під блоком з картками', hint: 'Наприклад, групові й індивідуальні екскурсії. Без карток не показуються.', fields: [
+    { k: 'items', t: 'list', l: 'Картки', add: 'Додати картку', title: t => t.title || 'Нова картка', make: () => ({ icon: '', title: '', text: '' }),
+      fields: [{ k: 'icon', t: 'icon' }, { k: 'title', l: 'Заголовок', wide: true }, { k: 'text', t: 'textarea', l: 'Текст', rows: 3, rich: true }] }
   ] },
   { t: 'group', k: 'cars', l: 'Автопарк', hint: 'Список авто редагується в розділі «Авто».', fields: [
     { k: 'show', t: 'toggle', l: 'Показувати автопарк на цій сторінці' },
     ...headFields()
   ] },
+  { t: 'group', k: 'booking', l: 'Форма бронювання авто', hint: 'Дати оренди, авто, кількість людей і місце подачі. Стоїть одразу після автопарку.', fields: [
+    { k: 'show', t: 'toggle', l: 'Показувати форму на цій сторінці' },
+    ...headFields(),
+    { k: 'button', l: 'Текст кнопки', ph: 'Забронювати авто' }
+  ] },
   { t: 'group', k: 'steps', l: 'Блок «Як це працює»', hint: 'Без кроків блок ховається.', fields: [
     ...headFields(),
-    { k: 'items', t: 'list', l: 'Кроки', add: 'Додати крок', title: s => s.title || 'Новий крок', make: () => ({ label: '', title: '', text: '' }), fields: stepFields }
+    { k: 'items', t: 'list', l: 'Кроки', add: 'Додати крок', title: s => s.title || 'Новий крок', make: () => ({ title: '', text: '' }), fields: stepFields },
+    { k: 'cta', l: 'Кнопка під кроками', ph: 'Забронювати екскурсію', hint: 'Веде до заявки. Порожнє поле ховає кнопку' }
   ] },
   { t: 'group', k: 'lead', l: 'Заявка', fields: [
     ...headFields(),
@@ -926,11 +948,7 @@ const F_SERVICE = [
 
 const F_CATALOG = [
   seoGroup,
-  { t: 'group', l: 'Вступ', fields: [
-    { k: 'introTitle', t: 'textarea', l: 'Заголовок', rows: 2, rich: true },
-    { k: 'introText', t: 'textarea', l: 'Текст', rows: 3, rich: true }
-  ] },
-  { t: 'group', k: 'climate', l: 'Блок «Клімат узимку»', fields: [
+  { t: 'group', k: 'climate', l: 'Блок «Клімат узимку»', hint: 'Показується на головній сторінці.', fields: [
     ...headFields(),
     { t: 'group', k: 'north', l: 'Ліва картка', fields: [
       { t: 'row', fields: [{ k: 'title', l: 'Заголовок' }, { k: 'note', l: 'Підпис над температурою' }, { k: 'temp', l: 'Температура' }] },
@@ -977,7 +995,7 @@ const COLLECTIONS = {
     badges: a => [a.hidden && 'прихований', a.top && 'рекомендований'],
     link: a => `apartment.html?id=${a.id}`,
     make: () => ({ id: '', type: (A.data.types[0] || {}).id || '', name: '', area: '', lat: null, lng: null, price: null, guests: 2, bedrooms: 1, baths: 1,
-      sea: null, top: false, photos: [], features: [], desc: '', long: '', rules: { in: '15:00', out: '11:00', min: 3, pets: 'За домовленістю', smoke: 'Не палити' },
+      sea: null, top: false, photos: [], features: [], desc: '', long: '', rules: { in: '15:00', out: '11:00', min: 3, pets: 'За домовленістю' },
       videos: [], booked: [] }),
     idFrom: 'name'
   },

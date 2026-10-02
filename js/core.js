@@ -97,11 +97,14 @@ function getPath(path){
   return v;
 }
 const filled = v => Array.isArray(v) ? v.length > 0 : !!v;
+const num = i => String(i + 1).padStart(2, '0');
 
 const TPL = {
   fact: f => `<span>${icon(f.icon)}${esc(f.text)}</span>`,
-  tile: t => `<div class="tile">${icon(t.icon)}<h3>${esc(t.title)}</h3><p>${rich(t.text)}</p></div>`,
-  step: s => `<div class="step"><em>${esc(s.label)}</em><h3>${esc(s.title)}</h3><p>${rich(s.text)}</p></div>`,
+  /* картка без іконки отримує порядковий номер 01, 02... */
+  tile: (t, i) => `<div class="tile">${t.icon ? icon(t.icon) : `<em class="num">${num(i)}</em>`}<h3>${esc(t.title)}</h3><p>${rich(t.text)}</p></div>`,
+  step: (s, i) => `<div class="step"><em class="num">${num(i)}</em><h3>${esc(s.title)}</h3><p>${rich(s.text)}</p></div>`,
+  kind: k => `<div class="kind">${k.icon ? icon(k.icon) : ''}<h3>${esc(k.title)}</h3><p>${rich(k.text)}</p></div>`,
   li: s => `<li>${esc(s)}</li>`,
   svc: s => {
     const here = currentSvc() === s;
@@ -139,7 +142,8 @@ function applyContent(){
     const list = getPath(el.dataset.list);
     if (Array.isArray(list)) el.innerHTML = list.filter(x => !(x && x.hidden)).map(TPL[el.dataset.tpl]).join('');
   });
-  $$('[data-show]').forEach(el => { el.hidden = !filled(getPath(el.dataset.show)); });
+  /* data-show="a|b" показує блок, якщо заповнене хоча б одне з полів */
+  $$('[data-show]').forEach(el => { el.hidden = !el.dataset.show.split('|').some(p => filled(getPath(p))); });
   $$('[data-contact]').forEach(el => {
     const [href, label] = CONTACTS[el.dataset.contact]();
     el.hidden = !href || href === 'tel:';
@@ -150,13 +154,14 @@ function applyContent(){
     }
   });
 
-  /* банер послуги: фото з підписом або декоративні кільця з іконкою */
+  /* банер послуги: фото праворуч. Без фото правої частини немає, текст займає всю ширину */
   const vis = $('[data-vis]'), svc = currentSvc();
   if (vis && svc){
-    vis.classList.toggle('has-ph', !!svc.image);
+    vis.hidden = !svc.image;
+    vis.closest('.svc-hero').classList.toggle('solo', !svc.image);
     vis.innerHTML = svc.image
-      ? `<img src="${esc(svc.image)}" alt="${esc(svc.imageAlt || svc.name)}"><span class="svc-vis-ic">${icon(svc.icon)}</span>${svc.imageCredit ? `<p class="credit">${rich(svc.imageCredit)}</p>` : ''}`
-      : `<i></i><i></i><i></i><span class="svc-vis-ic">${icon(svc.icon)}</span>`;
+      ? `<img src="${esc(svc.image)}" alt="${esc(svc.imageAlt || svc.name)}"${svc.imagePos ? ` style="object-position:${esc(svc.imagePos)}"` : ''}>${svc.imageCredit ? `<p class="credit">${rich(svc.imageCredit)}</p>` : ''}`
+      : '';
   }
   const lf = $('#leadForm');
   if (lf && svc) lf.dataset.service = svc.name;
@@ -443,22 +448,29 @@ function openCal(host, booked, onChange, opts = {}){
 /* ================= рядок пошуку ================= */
 const guestWord = n => `${n} ${plural(n, ['людина','людини','людей'])}`;
 function labelDate(el, v){ if (!el) return; el.textContent = v ? fmt(v) : 'Оберіть дату'; el.classList.toggle('ph', !v); }
+/* одне поле на обидві дати: «12.10 - 19.10» */
+function labelRange(el){
+  if (!el) return;
+  const short = v => fmt(v).slice(0, 5);
+  el.textContent = S.in ? `${short(S.in)} - ${S.out ? short(S.out) : '…'}` : 'Оберіть дати';
+  el.classList.toggle('ph', !S.in);
+}
 
 /* onSearch викликається кнопкою "Знайти"; onChange - будь-якою зміною полів */
 function initSearchbar({ onSearch, onChange } = {}){
   const box = $('#sbIn');
   if (!box) return;
   const sync = () => {
-    labelDate($('#fIn'), S.in);
-    labelDate($('#fOut'), S.out);
+    labelRange($('#fDates'));
     const g = $('#fGuests'); if (g) g.textContent = guestWord(S.guests);
   };
-  const openTop = e => {
+  /* один календар: перший клік ставить заїзд, другий виїзд */
+  const dates = $('#fDates');
+  dates.onclick = e => {
     e.stopPropagation();
     openCal(box, [], () => { sync(); onChange && onChange(); });
   };
-  $('#fIn').onclick = openTop;
-  $('#fOut').onclick = openTop;
+  dates.onkeydown = e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); dates.click(); } };
   $$('[data-g]').forEach(b => b.onclick = () => {
     S.guests = Math.min(10, Math.max(1, S.guests + (+b.dataset.g)));
     saveState(); sync(); onChange && onChange();
@@ -506,7 +518,13 @@ function recapRows(){
     ['Апартаменти', `${a.name}, ${a.area}`],
     ['Дати', n ? `${fmt(S.in)} - ${fmt(S.out)} · ${n} ${plural(n, ['ніч','ночі','ночей'])}` : 'уточнимо в розмові'],
     ['Кількість людей', String(S.guests)]
-  ] : [['Послуга', 'Оренда авто']];
+  ] : [['Послуга', 'Оренда авто'],
+        ['Дати', n ? `${fmt(S.in)} - ${fmt(S.out)} · ${n} ${plural(n, ['доба','доби','діб'])}` : 'уточнимо в розмові']];
+  if (!a && S.car) rows.push(['Авто', `${S.car.name}${n ? ` · ${S.car.price * n} EUR` : ''}`]);
+  if (!a){
+    rows.push(['Кількість людей', String(S.guests)]);
+    if (S.carPlace) rows.push(['Місце подачі', S.carPlace]);
+  }
   if (a && n) rows.push(['Житло', `${n * a.price + CLEANING} EUR`]);
   return rows;
 }
@@ -545,7 +563,8 @@ function stepContacts(){
     if (!name) return bad('Name');
     if (!phone) return bad('Phone');
     S.name = name; S.phone = phone; S.note = $('#bNote').value.trim();
-    stepCars();
+    /* авто вже обране у формі на сторінці оренди, вдруге не питаємо */
+    S.apt || !S.car ? stepCars() : stepDone();
   };
 }
 
@@ -585,7 +604,7 @@ function stepCars(){
 function stepDone(){
   const a = S.apt, n = nights();
   const rows = recapRows();
-  if (S.car) rows.push(['Авто', `${S.car.name}${n ? ` · ${S.car.price * n} EUR` : ''}`]);
+  if (a && S.car) rows.push(['Авто', `${S.car.name}${n ? ` · ${S.car.price * n} EUR` : ''}`]);
   rows.push(['Контакт', `${S.name}, ${S.phone}`]);
   const value = (a && n ? n * a.price + CLEANING : 0) + (S.car && n ? S.car.price * n : 0);
   const id = Date.now().toString().slice(-6);

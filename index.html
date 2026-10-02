@@ -74,13 +74,12 @@
   <p class="hero-mark" aria-hidden="true">Tenerife</p>
   <div class="hero-in">
     <div class="hero-copy">
-      <p class="lede" data-c="home.heroLede">Житло, яке ми бачили власними очима<br>Оберіть дати і побачите лише те, що справді вільне на них</p>
-      <h1 data-c="home.heroTitle" data-accent="home.heroAccent">Знайдіть своє житло<br><span>на Тенеріфе</span></h1>
+      <p class="lede" data-c="home.heroLede">Оберіть найкраще<br>Апартаменти • авто • трансфер • екскурсії • авторські тури</p>
+      <h1 data-c="home.heroTitle" data-accent="home.heroAccent">Відчуйте Tenerife без рутини<br><span>Ми подбаємо про ваш комфорт</span></h1>
     </div>
     <div class="searchbar">
       <div class="sb-in" id="sbIn">
-        <div class="sb-f"><label id="lIn">Заїзд</label><div class="dfield ph" id="fIn" role="button" tabindex="0" aria-labelledby="lIn">Оберіть дату</div></div>
-        <div class="sb-f"><label id="lOut">Виїзд</label><div class="dfield ph" id="fOut" role="button" tabindex="0" aria-labelledby="lOut">Оберіть дату</div></div>
+        <div class="sb-f sb-dates"><label id="lDates">Заїзд - Виїзд</label><div class="dfield ph" id="fDates" role="button" tabindex="0" aria-labelledby="lDates">Оберіть дати</div></div>
         <div class="sb-f"><label>Кількість людей</label>
           <div class="stepper">
             <button type="button" data-g="-1" aria-label="Менше людей">−</button>
@@ -149,8 +148,8 @@
   </div>
 </section>
 
-<!-- 4. Апартаменти з видом на океан -->
-<section class="sec">
+<!-- 4. Апартаменти з видом на океан: горизонтальний слайдер, гортається по одній картці -->
+<section class="sec sea-sec">
   <div class="wrap">
     <div class="sec-h sec-top rv">
       <div>
@@ -158,13 +157,51 @@
         <h2 data-c="home.sea.title">Апартаменти, які найчастіше<br>обирають з видом на океан</h2>
         <p data-c="home.sea.text">Перевірені обʼєкти, з яких видно воду.</p>
       </div>
-      <a class="link-more" href="catalog.html"><span data-c="home.sea.link">Весь каталог і карта</span> <svg class="ic"><use href="#i-arrow-right"></use></svg></a>
+      <!-- лише підказка, не кнопка й не посилання -->
+      <span class="swipe-hint" aria-hidden="true"><span data-c="home.sea.link">Гортай далі</span> <svg class="ic"><use href="#i-arrow-right"></use></svg></span>
     </div>
-    <div class="bento rv rv-1" id="seaGrid"></div>
+    <div class="slider rv rv-1" id="seaGrid" tabindex="0" aria-label="Апартаменти з видом на океан"></div>
   </div>
 </section>
 
-<!-- 5. Відеовідгуки
+<!-- 5. Клімат узимку: різниця між північчю і півднем острова -->
+<section class="sec sec-paper2 sec-climate" aria-labelledby="climateH">
+<div class="climate">
+  <div class="climate-head">
+    <span class="slash" data-c="catalog.climate.label">Клімат узимку</span>
+    <h2 id="climateH" data-c="catalog.climate.title">Північ чи південь?</h2>
+    <p data-c="catalog.climate.text">Острів невеликий, але взимку погода на півночі й півдні помітно різниться<br>Варто вирішити це ще до вибору житла</p>
+  </div>
+  <div class="climate-card">
+    <div class="climate-top">
+      <svg class="ic" aria-hidden="true"><use href="#i-cloud-rain"></use></svg>
+      <b data-c="catalog.climate.north.title">Північ острова</b>
+    </div>
+    <p class="climate-t"><small data-c="catalog.climate.north.note">взимку приблизно</small><span data-c="catalog.climate.north.temp">+12…+16°C</span></p>
+    <ul data-list="catalog.climate.north.items" data-tpl="li">
+      <li>Частіші опади</li>
+      <li>Прохолодніша та вологіша погода</li>
+    </ul>
+  </div>
+  <div class="climate-card is-warm">
+    <div class="climate-top">
+      <svg class="ic" aria-hidden="true"><use href="#i-sun"></use></svg>
+      <b data-c="catalog.climate.south.title">Південь острова</b>
+    </div>
+    <p class="climate-t"><small data-c="catalog.climate.south.note">взимку приблизно</small><span data-c="catalog.climate.south.temp">+24°C</span></p>
+    <ul data-list="catalog.climate.south.items" data-tpl="li">
+      <li>Тепліше</li>
+      <li>Значно комфортніше для пляжного відпочинку</li>
+    </ul>
+  </div>
+  <p class="climate-tip">
+    <svg class="ic" aria-hidden="true"><use href="#i-umbrella"></use></svg>
+    <span data-c="catalog.climate.tip">Якщо мета поїздки взимку — <b>море та пляжний відпочинок</b>, рекомендуємо розглядати саме <b>південь острова</b></span>
+  </p>
+</div>
+</section>
+
+<!-- 6. Відеовідгуки
      TODO: замінити media/hero.mp4 на справжні вертикальні відео гостей (9:16)
      і покласти власні кадри-обкладинки. Тексти й авторів редагувати
      в js/data.js, масив REVIEWS. -->
@@ -172,28 +209,45 @@
   <div class="wrap">
     <div class="sec-h rv">
       <span class="slash" data-c="home.reviews.label">Відгуки гостей</span>
-      <h2 data-c="home.reviews.title">Як це виглядало у них</h2>
+      <h2 data-c="home.reviews.title">Відгуки</h2>
       <p data-c="home.reviews.text">Знято на телефон під час поїздок. Без сценарію і без монтажу.</p>
     </div>
     <div class="vids rv rv-1" id="vids"></div>
   </div>
 </section>
 
-<!-- 6. Як ми працюємо -->
+<!-- 7. Як ми працюємо + договір бронювання (умови відкриваються у вікні) -->
 <section class="sec" id="work">
   <div class="wrap">
     <div class="sec-h rv">
       <span class="slash" data-c="home.work.label">Процес</span>
       <h2 data-c="home.work.title">Як ми працюємо</h2>
+      <p data-c="home.work.text">Усього чотири кроки до вашого відпочинку на Tenerife.</p>
     </div>
     <div class="steps" data-list="home.work.steps" data-tpl="step">
-      <div class="step"><em>онлайн</em><h3>Обираєте дати</h3><p>Календар показує лише вільні дні. Зайняті закреслені, помилитися неможливо.</p></div>
-      <div class="step"><em>дві хвилини</em><h3>Лишаєте заявку</h3><p>Потрібні тільки імʼя і контакт. Нічого не оплачуєте на цьому кроці.</p></div>
-      <div class="step"><em>протягом години</em><h3>Підтверджуємо</h3><p>Менеджер передзвонює, перевіряє обʼєкт і за потреби пропонує кращий варіант.</p></div>
-      <div class="step"><em>у день прильоту</em><h3>Зустрічаємо</h3><p>Ключі, авто й підказки по околиці. Далі лишаємось на звʼязку всю поїздку.</p></div>
+      <div class="step"><em class="num">01</em><h3>Обираєте послугу</h3><p>• Оренда апартаментів<br>• Оренда авто<br>• Екскурсії<br>• Організація туру</p></div>
+      <div class="step"><em class="num">02</em><h3>Залишаєте заявку</h3><p>Заповнюєте коротку форму та залишаєте свої контактні дані.</p></div>
+      <div class="step"><em class="num">03</em><h3>Узгоджуємо деталі</h3><p>Наш менеджер зв’яжеться з вами, щоб обговорити всі деталі та підібрати оптимальний варіант з урахуванням ваших побажань.</p></div>
+      <div class="step"><em class="num">04</em><h3>Підтверджуємо бронювання</h3><p>Ознайомлюєтеся з договором, погоджуємо всі умови та підтверджуємо бронювання.</p></div>
+    </div>
+    <div class="steps-after" data-show="home.work.contract.terms">
+      <button class="doc-btn" type="button" id="termsBtn" aria-haspopup="dialog">
+        <svg class="ic" aria-hidden="true"><use href="#i-file-text"></use></svg>
+        <b data-c="home.work.contract.title">Договір бронювання</b>
+        <span data-c="home.work.contract.text">Перегляньте умови перед оформленням.</span>
+      </button>
     </div>
   </div>
 </section>
+
+<dialog class="terms" id="terms" aria-labelledby="termsH">
+  <div class="terms-in">
+    <button class="x" type="button" data-terms-close aria-label="Закрити">✕</button>
+    <h2 id="termsH" data-c="home.work.contract.termsTitle">Умови бронювання</h2>
+    <div class="terms-body" data-c="home.work.contract.terms"></div>
+    <button class="btn btn-accent" type="button" data-terms-close>Зрозуміло</button>
+  </div>
+</dialog>
 
 <footer class="foot">
   <div class="foot-in">

@@ -41,33 +41,38 @@
     <div class="svc-hero">
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
-        <h1 data-c="svc.title" data-accent="svc.accent">Трансфер<br><span>з аеропорту</span></h1>
-        <p class="svc-lede" data-c="svc.lede">Після перельоту не треба шукати таксі з валізами чи розбиратися з автобусами. Зустрінемо в аеропорту й довеземо до дверей апартаментів, а в день вильоту заберемо назад.</p>
-        <div class="facts" data-list="svc.facts" data-tpl="fact"><span><svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg>Обидва аеропорти</span><span><svg class="ic" aria-hidden="true"><use href="#i-users"></use></svg>Авто під кількість людей</span><span><svg class="ic" aria-hidden="true"><use href="#i-clock"></use></svg>Час за вашим рейсом</span></div>
+        <h1 data-c="svc.title" data-accent="svc.accent">Трансфер<br><span>з/до аеропорту</span></h1>
+        <p class="svc-lede" data-c="svc.lede">Забронюйте трансфер з аеропорту до місця проживання або з вашого помешкання до аеропорту. Заповніть заявку на сайті, і наш менеджер зв’яжеться з вами, щоб уточнити дату, час та всі деталі поїздки.</p>
+        <div class="facts" data-list="svc.facts" data-tpl="fact" data-show="svc.facts"><span><svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg>Обидва аеропорти</span><span><svg class="ic" aria-hidden="true"><use href="#i-users"></use></svg>Авто під кількість людей</span><span><svg class="ic" aria-hidden="true"><use href="#i-clock"></use></svg>Час за вашим рейсом</span></div>
         <div class="svc-acts">
           <a class="btn btn-accent" href="#order" data-c="svc.cta">Замовити трансфер</a>
           <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
         </div>
+        <!-- Умови бронювання в першому екрані (на сторінці оренди авто) -->
+        <div class="svc-terms" data-show="svc.terms.items" hidden>
+          <h2 data-c="svc.terms.title"></h2>
+          <p data-c="svc.terms.text"></p>
+          <div class="steps" data-list="svc.terms.items" data-tpl="step"></div>
+        </div>
       </div>
-      <div class="svc-vis" data-vis>
-        <i></i><i></i><i></i><span class="svc-vis-ic"><svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg></span>
-      </div>
+      <div class="svc-vis" data-vis><img src="images/places/transfer.webp" alt="Пасажири з валізами в аеропорту"></div>
     </div>
   </div>
 </section>
 
-<!-- Що входить -->
-<section class="sec sec-paper2" data-show="svc.tiles.items">
+<!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
+<section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
       <span class="slash" data-c="svc.tiles.label">Що входить</span>
       <h2 data-c="svc.tiles.title">Від трапа до ключів</h2>
-      <p data-c="svc.tiles.text">Трансфер зручно замовляти разом із житлом: ми знаємо адресу, час заїзду і де саме вас висадити.</p>
+      <p data-c="svc.tiles.text">Забронюйте трансфер з аеропорту до місця проживання або з вашого помешкання до аеропорту.</p>
     </div>
-    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile">
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg><h3>Зустріч в аеропорту</h3><p>Тенеріфе-Південь або Тенеріфе-Північ. Час зустрічі узгоджуємо за номером вашого рейсу.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-users"></use></svg><h3>Авто під компанію</h3><p>Враховуємо кількість людей і багажу. Потрібне дитяче крісло, скажіть заздалегідь.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"></use></svg><h3>Поїздки островом</h3><p>Не лише аеропорт: порт Лос-Крістіанос, Сіам Парк, Лоро Парк чи старт екскурсії.</p></div>
+    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile" data-show="svc.tiles.items"><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg><h3>Трансфер з аеропорту</h3><p>Забронюйте поїздку з аеропорту безпосередньо до місця вашого проживання.</p></div><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg><h3>Трансфер до аеропорту</h3><p>Замовте трансфер з вашого помешкання до аеропорту на потрібну дату та час.</p></div><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-headset"></use></svg><h3>Узгодження деталей</h3><p>Заповніть заявку на сайті, і наш менеджер зв’яжеться з вами, щоб уточнити дату, час та всі деталі поїздки.</p></div></div>
+    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items" hidden></div>
+    <div class="svc-acts" data-show="svc.tiles.cta" hidden>
+      <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta"></a>
+      <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
     </div>
   </div>
 </section>
@@ -86,20 +91,40 @@
   </div>
 </section>
 
-<!-- Як це працює -->
-<section class="sec" data-show="svc.steps.items">
+<!-- Бронювання авто: дати оренди, авто, кількість людей, місце подачі. Логіка в js/service.js -->
+<section class="sec sec-paper2 car-book" id="carBook" data-show="svc.booking.show" hidden>
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="slash" data-c="svc.booking.label"></span>
+      <h2 data-c="svc.booking.title"></h2>
+      <p data-c="svc.booking.text"></p>
+    </div>
+    <div class="sb-in" id="carIn">
+      <div class="sb-f sb-dates"><label id="lcDates">Дати оренди</label><div class="dfield ph" id="cDates" role="button" tabindex="0" aria-labelledby="lcDates">Оберіть дати</div></div>
+      <div class="sb-f"><label>Авто</label><div class="sel bare" id="cCar" data-value=""></div></div>
+      <div class="sb-f"><label>Кількість людей</label>
+        <div class="stepper">
+          <button type="button" data-cg="-1" aria-label="Менше людей">−</button>
+          <output id="cGuests">2 людини</output>
+          <button type="button" data-cg="1" aria-label="Більше людей">+</button>
+        </div>
+      </div>
+      <div class="sb-f"><label>Місце подачі</label><div class="sel bare" id="cPlace" data-value=""></div></div>
+      <button class="sb-go" id="carGo" type="button"><svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><span data-c="svc.booking.button">Забронювати авто</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- Як це працює / умови бронювання -->
+<section class="sec" data-show="svc.steps.items" hidden>
   <div class="wrap">
     <div class="sec-h rv">
       <span class="slash" data-c="svc.steps.label">Процес</span>
       <h2 data-c="svc.steps.title">Як це працює</h2>
       <p data-c="svc.steps.text" hidden></p>
     </div>
-    <div class="steps" data-list="svc.steps.items" data-tpl="step">
-      <div class="step"><em>онлайн</em><h3>Лишаєте заявку</h3><p>Дата, номер рейсу, кількість людей і адреса, куди їдемо.</p></div>
-      <div class="step"><em>протягом години</em><h3>Підтверджуємо</h3><p>Менеджер називає вартість і узгоджує час зустрічі.</p></div>
-      <div class="step"><em>у день прильоту</em><h3>Зустрічаємо</h3><p>Водій чекає в аеропорту й везе просто до апартаментів.</p></div>
-      <div class="step"><em>у день вильоту</em><h3>Веземо назад</h3><p>Забираємо від дверей із запасом часу до рейсу.</p></div>
-    </div>
+    <div class="steps" data-list="svc.steps.items" data-tpl="step"></div>
+    <div class="steps-cta" data-show="svc.steps.cta" hidden><a class="btn btn-accent" href="#order" data-c="svc.steps.cta"></a></div>
   </div>
 </section>
 

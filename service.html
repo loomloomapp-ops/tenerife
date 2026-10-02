@@ -38,33 +38,42 @@
     <nav class="crumbs" aria-label="Навігація">
       <a href="index.html">Головна</a><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span>Послуги</span><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span aria-current="page" data-c="svc.name"></span>
     </nav>
-    <div class="svc-hero">
+    <div class="svc-hero solo">
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
         <h1 data-c="svc.title" data-accent="svc.accent"></h1>
         <p class="svc-lede" data-c="svc.lede"></p>
-        <div class="facts" data-list="svc.facts" data-tpl="fact"></div>
+        <div class="facts" data-list="svc.facts" data-tpl="fact" data-show="svc.facts" hidden></div>
         <div class="svc-acts">
-          <a class="btn btn-accent" href="#order" data-c="svc.cta"></a>
+          <a class="btn btn-accent" href="#order" data-c="svc.cta" hidden></a>
           <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
         </div>
+        <!-- Умови бронювання в першому екрані (на сторінці оренди авто) -->
+        <div class="svc-terms" data-show="svc.terms.items" hidden>
+          <h2 data-c="svc.terms.title"></h2>
+          <p data-c="svc.terms.text"></p>
+          <div class="steps" data-list="svc.terms.items" data-tpl="step"></div>
+        </div>
       </div>
-      <div class="svc-vis" data-vis>
-        
-      </div>
+      <div class="svc-vis" data-vis hidden></div>
     </div>
   </div>
 </section>
 
-<!-- Що входить -->
-<section class="sec sec-paper2" data-show="svc.tiles.items" hidden>
+<!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
+<section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items" hidden>
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
       <span class="slash" data-c="svc.tiles.label"></span>
       <h2 data-c="svc.tiles.title"></h2>
-      <p data-c="svc.tiles.text"></p>
+      <p data-c="svc.tiles.text" hidden></p>
     </div>
-    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile"></div>
+    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile" data-show="svc.tiles.items" hidden></div>
+    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items" hidden></div>
+    <div class="svc-acts" data-show="svc.tiles.cta" hidden>
+      <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta"></a>
+      <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
+    </div>
   </div>
 </section>
 
@@ -82,7 +91,31 @@
   </div>
 </section>
 
-<!-- Як це працює -->
+<!-- Бронювання авто: дати оренди, авто, кількість людей, місце подачі. Логіка в js/service.js -->
+<section class="sec sec-paper2 car-book" id="carBook" data-show="svc.booking.show" hidden>
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="slash" data-c="svc.booking.label"></span>
+      <h2 data-c="svc.booking.title"></h2>
+      <p data-c="svc.booking.text"></p>
+    </div>
+    <div class="sb-in" id="carIn">
+      <div class="sb-f sb-dates"><label id="lcDates">Дати оренди</label><div class="dfield ph" id="cDates" role="button" tabindex="0" aria-labelledby="lcDates">Оберіть дати</div></div>
+      <div class="sb-f"><label>Авто</label><div class="sel bare" id="cCar" data-value=""></div></div>
+      <div class="sb-f"><label>Кількість людей</label>
+        <div class="stepper">
+          <button type="button" data-cg="-1" aria-label="Менше людей">−</button>
+          <output id="cGuests">2 людини</output>
+          <button type="button" data-cg="1" aria-label="Більше людей">+</button>
+        </div>
+      </div>
+      <div class="sb-f"><label>Місце подачі</label><div class="sel bare" id="cPlace" data-value=""></div></div>
+      <button class="sb-go" id="carGo" type="button"><svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><span data-c="svc.booking.button">Забронювати авто</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- Як це працює / умови бронювання -->
 <section class="sec" data-show="svc.steps.items" hidden>
   <div class="wrap">
     <div class="sec-h rv">
@@ -91,6 +124,7 @@
       <p data-c="svc.steps.text" hidden></p>
     </div>
     <div class="steps" data-list="svc.steps.items" data-tpl="step"></div>
+    <div class="steps-cta" data-show="svc.steps.cta" hidden><a class="btn btn-accent" href="#order" data-c="svc.steps.cta"></a></div>
   </div>
 </section>
 

@@ -41,33 +41,38 @@
     <div class="svc-hero">
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
-        <h1 data-c="svc.title" data-accent="svc.accent">Тур на Тенеріфе<br><span>під ключ</span></h1>
-        <p class="svc-lede" data-c="svc.lede">Житло, трансфер, авто і програма на кожен день в одній заявці. Ви розповідаєте, як уявляєте відпустку, а ми збираємо її так, щоб усе сходилось за датами й маршрутом.</p>
-        <div class="facts" data-list="svc.facts" data-tpl="fact"><span><svg class="ic" aria-hidden="true"><use href="#i-bed"></use></svg>Житло</span><span><svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>Трансфер і авто</span><span><svg class="ic" aria-hidden="true"><use href="#i-compass"></use></svg>Програма на дні</span></div>
+        <h1 data-c="svc.title" data-accent="svc.accent">Як саме проходить<br><span>організація турів</span></h1>
+        <p class="svc-lede" data-c="svc.lede">Ми подбаємо про організацію вашої подорожі — від підбору житла до цікавих маршрутів і комфортного відпочинку на острові</p>
+        <div class="facts" data-list="svc.facts" data-tpl="fact" data-show="svc.facts"><span><svg class="ic" aria-hidden="true"><use href="#i-bed"></use></svg>Житло</span><span><svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg>Трансфер і авто</span><span><svg class="ic" aria-hidden="true"><use href="#i-compass"></use></svg>Програма на дні</span></div>
         <div class="svc-acts">
-          <a class="btn btn-accent" href="#order" data-c="svc.cta">Зібрати тур</a>
+          <a class="btn btn-accent" href="#order" data-c="svc.cta" hidden></a>
           <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
         </div>
+        <!-- Умови бронювання в першому екрані (на сторінці оренди авто) -->
+        <div class="svc-terms" data-show="svc.terms.items" hidden>
+          <h2 data-c="svc.terms.title"></h2>
+          <p data-c="svc.terms.text"></p>
+          <div class="steps" data-list="svc.terms.items" data-tpl="step"></div>
+        </div>
       </div>
-      <div class="svc-vis has-ph" data-vis>
-        <img src="images/places/hero-poster.webp" alt="Узбережжя Тенеріфе біля Mesa del Mar"><span class="svc-vis-ic"><svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg></span><p class="credit">Фото: Mike Peel, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
-      </div>
+      <div class="svc-vis" data-vis><img src="images/places/tours.webp" alt="Наші гості під час туру" style="object-position:center 70%"></div>
     </div>
   </div>
 </section>
 
-<!-- Що входить -->
-<section class="sec sec-paper2" data-show="svc.tiles.items">
+<!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
+<section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
       <span class="slash" data-c="svc.tiles.label">Що збираємо</span>
       <h2 data-c="svc.tiles.title">Усе в одних руках</h2>
       <p data-c="svc.tiles.text">Не треба окремо шукати житло, прокат і екскурсії та перевіряти, чи збігаються дати. Це робимо ми.</p>
     </div>
-    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile">
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-bed"></use></svg><h3>Житло під маршрут</h3><p>Північ, південь чи ближче до гір залежить від того, що ви плануєте побачити. Обʼєкти з нашого каталогу, які ми бачили особисто.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-van"></use></svg><h3>Трансфер і авто</h3><p>Зустріч в аеропорту, машина на ті дні, коли вона справді потрібна, і дорога назад у день вильоту.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-compass"></use></svg><h3>Програма поїздки</h3><p>Екскурсії й вільні дні розставляємо так, щоб не їздити через увесь острів двічі.</p></div>
+    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile" data-show="svc.tiles.items" hidden></div>
+    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items" hidden></div>
+    <div class="svc-acts" data-show="svc.tiles.cta">
+      <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta">Хочу розрахувати тур</a>
+      <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
     </div>
   </div>
 </section>
@@ -86,7 +91,31 @@
   </div>
 </section>
 
-<!-- Як це працює -->
+<!-- Бронювання авто: дати оренди, авто, кількість людей, місце подачі. Логіка в js/service.js -->
+<section class="sec sec-paper2 car-book" id="carBook" data-show="svc.booking.show" hidden>
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="slash" data-c="svc.booking.label"></span>
+      <h2 data-c="svc.booking.title"></h2>
+      <p data-c="svc.booking.text"></p>
+    </div>
+    <div class="sb-in" id="carIn">
+      <div class="sb-f sb-dates"><label id="lcDates">Дати оренди</label><div class="dfield ph" id="cDates" role="button" tabindex="0" aria-labelledby="lcDates">Оберіть дати</div></div>
+      <div class="sb-f"><label>Авто</label><div class="sel bare" id="cCar" data-value=""></div></div>
+      <div class="sb-f"><label>Кількість людей</label>
+        <div class="stepper">
+          <button type="button" data-cg="-1" aria-label="Менше людей">−</button>
+          <output id="cGuests">2 людини</output>
+          <button type="button" data-cg="1" aria-label="Більше людей">+</button>
+        </div>
+      </div>
+      <div class="sb-f"><label>Місце подачі</label><div class="sel bare" id="cPlace" data-value=""></div></div>
+      <button class="sb-go" id="carGo" type="button"><svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><span data-c="svc.booking.button">Забронювати авто</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- Як це працює / умови бронювання -->
 <section class="sec" data-show="svc.steps.items">
   <div class="wrap">
     <div class="sec-h rv">
@@ -94,12 +123,8 @@
       <h2 data-c="svc.steps.title">Як це працює</h2>
       <p data-c="svc.steps.text" hidden></p>
     </div>
-    <div class="steps" data-list="svc.steps.items" data-tpl="step">
-      <div class="step"><em>онлайн</em><h3>Розповідаєте</h3><p>Хто летить, на скільки днів, бюджет і що хочеться встигнути.</p></div>
-      <div class="step"><em>після розмови</em><h3>Збираємо пропозицію</h3><p>Житло, трансфер, авто й програма з вартістю кожної частини.</p></div>
-      <div class="step"><em>до поїздки</em><h3>Підтверджуєте</h3><p>Змінюємо, що не підходить, і бронюємо все на ваші дати.</p></div>
-      <div class="step"><em>усю поїздку</em><h3>Супроводжуємо</h3><p>Зустрічаємо в аеропорту й лишаємось на звʼязку до вильоту.</p></div>
-    </div>
+    <div class="steps" data-list="svc.steps.items" data-tpl="step"><div class="step"><em class="num">01</em><h3>Залишаєте заявку</h3><p>Залиште свої контактні дані, і наш менеджер найближчим часом зв’яжеться з вами.</p></div><div class="step"><em class="num">02</em><h3>Програма під ключ</h3><p>Враховуючи ваші побажання та кількість учасників, ми створюємо індивідуальну програму для вашого авторського туру, яка включає:<br>• Підбір та оренду житла<br>• Оренду автомобіля та трансфер за потреби<br>• Організацію екскурсій<br>• Рекомендації цікавих локацій, пляжів для купання та закладів зі смачною кухнею</p></div><div class="step"><em class="num">03</em><h3>Розрахунок вартості</h3><p>На основі узгодженої програми ми розраховуємо вартість туру з урахуванням усіх складових подорожі та ваших побажань.</p></div><div class="step"><em class="num">04</em><h3>Супровід 24/7</h3><p>Протягом усього туру ми на зв’язку 24/7, допомагаємо з організаційними питаннями та дбаємо про ваш комфорт, щоб ви могли насолоджуватися відпочинком на Tenerife без зайвих турбот.</p></div></div>
+    <div class="steps-cta" data-show="svc.steps.cta" hidden><a class="btn btn-accent" href="#order" data-c="svc.steps.cta"></a></div>
   </div>
 </section>
 

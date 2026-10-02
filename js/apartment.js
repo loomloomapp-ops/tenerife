@@ -78,13 +78,22 @@ function render(){
         <p class="apt-loc">${icon('map-pin')}${esc(apt.area)}, Тенеріфе</p>
       </div>
     </div>
-    <div class="gal" id="gal">
-      ${apt.photos.map((p, i) => `
-        <button type="button" data-i="${i}" aria-label="Фото ${i + 1} з ${apt.photos.length}">
-          <img src="${p}" alt="${esc(apt.name)}, фото ${i + 1}">
-          ${i === apt.photos.length - 1 ? `<span class="gal-more">${icon('frame-corners')} Усі фото</span>` : ''}
-        </button>`).join('')}
+    <!-- галерея як на Booking: фото гортаються прямо тут (свайп, стрілки, мініатюри) -->
+    <div class="gal" id="gal" aria-roledescription="галерея" aria-label="Фото апартаментів">
+      <div class="gal-track" id="galTrack" tabindex="0">
+        ${apt.photos.map((p, i) => `
+          <div class="gal-slide" aria-label="Фото ${i + 1} з ${apt.photos.length}">
+            <img src="${p}" alt="${esc(apt.name)}, фото ${i + 1}"${i ? ' loading="lazy"' : ''} draggable="false">
+          </div>`).join('')}
+      </div>
+      ${apt.photos.length > 1 ? `
+      <button class="gal-nav prev" type="button" data-go="-1" aria-label="Попереднє фото">${icon('caret-left')}</button>
+      <button class="gal-nav next" type="button" data-go="1" aria-label="Наступне фото">${icon('caret-right')}</button>
+      <span class="gal-count" aria-live="polite"><b id="galN">1</b> / ${apt.photos.length}</span>` : ''}
+      <button class="gal-full" type="button" id="galFull">${icon('frame-corners')} На весь екран</button>
     </div>
+    ${apt.photos.length > 1 ? `<div class="gal-thumbs" id="galThumbs">${apt.photos.map((p, i) =>
+      `<button type="button" data-i="${i}" aria-label="Фото ${i + 1}" aria-current="${i === 0}"><img src="${p}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
   </div>
 
   <div class="wrap apt-main">
@@ -112,7 +121,6 @@ function render(){
         <div class="rules">
           <div class="rule"><span>Заїзд</span><b>з ${apt.rules.in}</b></div>
           <div class="rule"><span>Виїзд</span><b>до ${apt.rules.out}</b></div>
-          <div class="rule"><span>Паління</span><b>${esc(apt.rules.smoke)}</b></div>
           <div class="rule rule-fee"><span>Генеральне прибирання</span><b>${CLEANING} €</b><em>Одноразовий платіж при виселенні</em></div>
         </div>
       </div>
@@ -188,8 +196,62 @@ function wireBooking(){
     : ($('#bookbox').scrollIntoView({ behavior: 'smooth', block: 'center' }), setTimeout(() => $('#cIn').click(), 420));
 }
 
-/* ---------- галерея і лайтбокс ---------- */
+/* ---------- галерея і лайтбокс ----------
+   Стрічка фото з scroll-snap: на телефоні гортається свайпом, на компʼютері стрілками,
+   мініатюрами, клавіатурою або перетягуванням мишею. Лайтбокс лише за кнопкою «На весь екран». */
 function wireGallery(){
+  const track = $('#galTrack'), count = $('#galN'), strip = $('#galThumbs');
+  const total = apt.photos.length;
+  let cur = 0;
+  const go = k => {
+    const n = Math.max(0, Math.min(total - 1, k));
+    track.scrollTo({ left: n * track.clientWidth, behavior: 'smooth' });
+  };
+  const mark = n => {
+    if (n === cur) return;
+    cur = n;
+    if (count) count.textContent = n + 1;
+    if (strip){
+      $$('button', strip).forEach((b, k) => b.setAttribute('aria-current', String(k === n)));
+      const t = strip.children[n];
+      if (t) strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2, behavior: 'smooth' });
+    }
+    $$('.gal-nav').forEach(b => b.disabled = (+b.dataset.go < 0 ? n === 0 : n === total - 1));
+  };
+  cur = -1; mark(0);
+  let raf = 0;
+  track.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => { raf = 0; mark(Math.round(track.scrollLeft / track.clientWidth)); });
+  }, { passive: true });
+  $$('.gal-nav').forEach(b => b.onclick = () => go(cur + (+b.dataset.go)));
+  if (strip) strip.onclick = e => { const b = e.target.closest('[data-i]'); if (b) go(+b.dataset.i); };
+  track.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight'){ e.preventDefault(); go(cur + 1); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); go(cur - 1); }
+  });
+  /* перетягування мишею на компʼютері. Слухачі на самій стрічці (pointer capture),
+     бо render() перемальовує сторінку і старі обробники на window лишалися б */
+  let down = null;
+  track.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    down = { x: e.clientX, left: track.scrollLeft, n: cur };
+    track.setPointerCapture(e.pointerId);
+    track.classList.add('dragging');
+  });
+  track.addEventListener('pointermove', e => { if (down) track.scrollLeft = down.left - (e.clientX - down.x); });
+  const release = e => {
+    if (!down) return;
+    const dx = e.clientX - down.x, n = down.n;
+    down = null;
+    track.classList.remove('dragging');
+    go(Math.abs(dx) > 50 ? n + (dx < 0 ? 1 : -1) : n);
+  };
+  track.addEventListener('pointerup', release);
+  track.addEventListener('pointercancel', release);
+  /* після зміни ширини тримаємо те саме фото */
+  if ('ResizeObserver' in window) new ResizeObserver(() => track.scrollTo({ left: cur * track.clientWidth })).observe(track);
+
   const dlg = $('#lb'), img = $('#lbImg'), thumbs = $('#lbThumbs');
   let i = 0;
   const show = k => {
@@ -201,18 +263,16 @@ function wireGallery(){
   thumbs.innerHTML = apt.photos.map((p, n) =>
     `<button type="button" data-i="${n}" aria-current="${n === 0}"><img src="${p}" alt=""></button>`).join('');
   thumbs.onclick = e => { const b = e.target.closest('[data-i]'); if (b) show(+b.dataset.i); };
-  $('#gal').onclick = e => {
-    const b = e.target.closest('[data-i]');
-    if (!b) return;
-    show(+b.dataset.i);
-    dlg.showModal();
-  };
+  $('#galFull').onclick = () => { show(cur); dlg.showModal(); };
   $('#lbClose').onclick = () => dlg.close();
-  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-  dlg.addEventListener('keydown', e => {
+  /* через властивості, а не addEventListener: wireGallery викликається на кожен render() */
+  dlg.onclick = e => { if (e.target === dlg) dlg.close(); };
+  dlg.onkeydown = e => {
     if (e.key === 'ArrowRight') show(i + 1);
     if (e.key === 'ArrowLeft')  show(i - 1);
-  });
+  };
+  /* після закриття галерея на сторінці стоїть на тому ж фото */
+  dlg.onclose = () => track.scrollTo({ left: i * track.clientWidth });
 }
 
 /* ---------- відео підвантажується тільки після кліку ---------- */

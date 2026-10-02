@@ -42,35 +42,37 @@
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
         <h1 data-c="svc.title" data-accent="svc.accent">Екскурсії<br><span>на Тенеріфе</span></h1>
-        <p class="svc-lede" data-c="svc.lede">Острів більший, ніж здається: за один день можна піднятися до вулкана, а наступного вийти в океан до китів. Підкажемо, що варто побачити саме з вашого району, і організуємо дорогу.</p>
-        <div class="facts" data-list="svc.facts" data-tpl="fact"><span><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg>Природа й парки</span><span><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg>Океан</span><span><svg class="ic" aria-hidden="true"><use href="#i-map-pin"></use></svg>Під ваш район</span></div>
+        <p class="svc-lede" data-c="svc.lede">Проконсультуємо щодо екскурсій</p>
+        <div class="facts" data-list="svc.facts" data-tpl="fact" data-show="svc.facts" hidden></div>
         <div class="svc-acts">
           <a class="btn btn-accent" href="#order" data-c="svc.cta">Підібрати екскурсію</a>
           <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
         </div>
+        <!-- Умови бронювання в першому екрані (на сторінці оренди авто) -->
+        <div class="svc-terms" data-show="svc.terms.items" hidden>
+          <h2 data-c="svc.terms.title"></h2>
+          <p data-c="svc.terms.text"></p>
+          <div class="steps" data-list="svc.terms.items" data-tpl="step"></div>
+        </div>
       </div>
-      <div class="svc-vis has-ph" data-vis>
-        <img src="images/places/teide.webp" alt="Національний парк Тейде на Тенеріфе"><span class="svc-vis-ic"><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg></span><p class="credit">Фото: Diego Delso, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>
-      </div>
+      <div class="svc-vis" data-vis><img src="images/places/teide.webp" alt="Національний парк Тейде на Тенеріфе"></div>
     </div>
   </div>
 </section>
 
-<!-- Що входить -->
-<section class="sec sec-paper2" data-show="svc.tiles.items">
+<!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
+<section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
-      <span class="slash" data-c="svc.tiles.label">Куди їдуть</span>
-      <h2 data-c="svc.tiles.title">Головне на острові</h2>
-      <p data-c="svc.tiles.text">Формат, тривалість і вартість залежать від маршруту. Менеджер розпише варіанти під ваші дати.</p>
+      <span class="slash" data-c="svc.tiles.label">Екскурсії</span>
+      <h2 data-c="svc.tiles.title">Авторські екскурсії</h2>
+      <p data-c="svc.tiles.text">Відкривайте Tenerife по-своєму — з персональним гідом та індивідуальною програмою.</p>
     </div>
-    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile">
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-mountains"></use></svg><h3>Вулкан Тейде</h3><p>Найвища точка Іспанії, 3715 метрів. Канатна дорога піднімає майже до вершини, навколо місячні пейзажі національного парку.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-compass"></use></svg><h3>Ущелина Маска</h3><p>Гірське селище на серпантині й маршрут ущелиною, що виходить просто до океану.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg><h3>Лос-Гігантес і кити</h3><p>Стіна скель заввишки шістсот метрів просто з океану. Звідси відходять човни на спостереження за китами й дельфінами.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-paw"></use></svg><h3>Лоро Парк</h3><p>Зоопарк і океанаріум на півночі острова, поруч із Puerto de la Cruz. Вистачить на цілий день.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-waves"></use></svg><h3>Сіам Парк</h3><p>Аквапарк, який регулярно очолює світові рейтинги. Поруч із Playa de las Américas.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-map-trifold"></use></svg><h3>Ла-Гомера</h3><p>Сусідній острів із реліктовими лісами. Пором із порту Лос-Крістіанос іде близько години.</p></div>
+    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile" data-show="svc.tiles.items"><div class="tile"><em class="num">01</em><h3>Індивідуальний формат</h3><p>Авторські екскурсії можна організувати незалежно від кількості учасників — для пари, родини чи компанії друзів.</p></div><div class="tile"><em class="num">02</em><h3>Персональний гід</h3><p>На вас чекає персональний гід, який проживає на острові, знає його особливості та здивує вас нетуристичними локаціями.</p></div><div class="tile"><em class="num">03</em><h3>Програма під вас</h3><p>Маршрут, тривалість, локації та формат подорожі узгоджуються індивідуально, з урахуванням ваших побажань, інтересів і темпу відпочинку.</p></div></div>
+    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items"><div class="kind"><svg class="ic" aria-hidden="true"><use href="#i-users-three"></use></svg><h3>Групові екскурсії</h3><p>Хочете побачити найцікавіші місця Tenerife, але не маєте компанії для індивідуальної екскурсії?<br><br>Приєднуйтеся до вже сформованої групи та вирушайте назустріч новим враженням.</p></div><div class="kind"><svg class="ic" aria-hidden="true"><use href="#i-user-circle"></use></svg><h3>Індивідуальні екскурсії</h3><p>Хочете відвідати популярні локації Tenerife у власному темпі? Замовте індивідуальну екскурсію з персональним гідом і відкрийте для себе найкрасивіші місця острова.</p></div></div>
+    <div class="svc-acts" data-show="svc.tiles.cta" hidden>
+      <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta"></a>
+      <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
     </div>
   </div>
 </section>
@@ -89,20 +91,40 @@
   </div>
 </section>
 
-<!-- Як це працює -->
+<!-- Бронювання авто: дати оренди, авто, кількість людей, місце подачі. Логіка в js/service.js -->
+<section class="sec sec-paper2 car-book" id="carBook" data-show="svc.booking.show" hidden>
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="slash" data-c="svc.booking.label"></span>
+      <h2 data-c="svc.booking.title"></h2>
+      <p data-c="svc.booking.text"></p>
+    </div>
+    <div class="sb-in" id="carIn">
+      <div class="sb-f sb-dates"><label id="lcDates">Дати оренди</label><div class="dfield ph" id="cDates" role="button" tabindex="0" aria-labelledby="lcDates">Оберіть дати</div></div>
+      <div class="sb-f"><label>Авто</label><div class="sel bare" id="cCar" data-value=""></div></div>
+      <div class="sb-f"><label>Кількість людей</label>
+        <div class="stepper">
+          <button type="button" data-cg="-1" aria-label="Менше людей">−</button>
+          <output id="cGuests">2 людини</output>
+          <button type="button" data-cg="1" aria-label="Більше людей">+</button>
+        </div>
+      </div>
+      <div class="sb-f"><label>Місце подачі</label><div class="sel bare" id="cPlace" data-value=""></div></div>
+      <button class="sb-go" id="carGo" type="button"><svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><span data-c="svc.booking.button">Забронювати авто</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- Як це працює / умови бронювання -->
 <section class="sec" data-show="svc.steps.items">
   <div class="wrap">
     <div class="sec-h rv">
       <span class="slash" data-c="svc.steps.label">Процес</span>
-      <h2 data-c="svc.steps.title">Як це працює</h2>
-      <p data-c="svc.steps.text" hidden></p>
+      <h2 data-c="svc.steps.title">Умови бронювання екскурсії</h2>
+      <p data-c="svc.steps.text">Відкривайте красу Tenerife разом із SVOYI.</p>
     </div>
-    <div class="steps" data-list="svc.steps.items" data-tpl="step">
-      <div class="step"><em>онлайн</em><h3>Розповідаєте</h3><p>Де живете, скільки вас і що цікавить: гори, океан чи парки.</p></div>
-      <div class="step"><em>протягом години</em><h3>Пропонуємо</h3><p>Менеджер радить маршрути під ваш район і дати, називає вартість.</p></div>
-      <div class="step"><em>до поїздки</em><h3>Узгоджуємо</h3><p>Час, місце старту і дорогу туди, щоб ви не витрачали день на логістику.</p></div>
-      <div class="step"><em>у день екскурсії</em><h3>Їдете</h3><p>А ми лишаємось на звʼязку, якщо щось зміниться.</p></div>
-    </div>
+    <div class="steps" data-list="svc.steps.items" data-tpl="step"><div class="step"><em class="num">01</em><h3>Обираєте екскурсію</h3><p>Оберіть екскурсію до душі та вирушайте назустріч незабутнім враженням і найкрасивішим куточкам острова.</p></div><div class="step"><em class="num">02</em><h3>Залишаєте заявку</h3><p>Вкажіть бажану дату та залиште свої контактні дані.</p></div><div class="step"><em class="num">03</em><h3>Узгоджуємо деталі</h3><p>Наш менеджер зв’яжеться з вами, щоб уточнити всі деталі, дізнатися кількість учасників, узгодити дату та вартість екскурсії й відповісти на всі ваші запитання.</p></div></div>
+    <div class="steps-cta" data-show="svc.steps.cta"><a class="btn btn-accent" href="#order" data-c="svc.steps.cta">Забронювати екскурсію</a></div>
   </div>
 </section>
 

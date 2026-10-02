@@ -38,36 +38,41 @@
     <nav class="crumbs" aria-label="Навігація">
       <a href="index.html">Головна</a><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span>Послуги</span><svg class="ic" aria-hidden="true"><use href="#i-caret-right"></use></svg><span aria-current="page" data-c="svc.name">Оренда авто</span>
     </nav>
-    <div class="svc-hero">
+    <div class="svc-hero solo">
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
         <h1 data-c="svc.title" data-accent="svc.accent">Оренда авто<br><span>на Тенеріфе</span></h1>
         <p class="svc-lede" data-c="svc.lede">Без авто половина острова залишається недоступною: Тейде, ущелина Маска, північне узбережжя. Машина чекатиме в аеропорту в день прильоту, документи готуємо заздалегідь.</p>
-        <div class="facts" data-list="svc.facts" data-tpl="fact"><span><svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg>Подача в аеропорт</span><span><svg class="ic" aria-hidden="true"><use href="#i-key"></use></svg>Документи заздалегідь</span><span><svg class="ic" aria-hidden="true"><use href="#i-calendar"></use></svg>На дати вашого житла</span></div>
+        <div class="facts" data-list="svc.facts" data-tpl="fact" data-show="svc.facts" hidden></div>
         <div class="svc-acts">
           <a class="btn btn-accent" href="#order" data-c="svc.cta">Забронювати авто</a>
           <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
         </div>
+        <!-- Умови бронювання в першому екрані (на сторінці оренди авто) -->
+        <div class="svc-terms" data-show="svc.terms.items">
+          <h2 data-c="svc.terms.title">Умови бронювання авто</h2>
+          <p data-c="svc.terms.text">Усе, що потрібно знати перед орендою автомобіля на Tenerife.</p>
+          <div class="steps" data-list="svc.terms.items" data-tpl="step"><div class="step"><em class="num">01</em><h3>Обираєте авто</h3><p>Обираєте автомобіль, який відповідає вашим потребам.</p></div><div class="step"><em class="num">02</em><h3>Залишаєте заявку</h3><p>Вказуєте бажані дати оренди.</p></div><div class="step"><em class="num">03</em><h3>Узгоджуємо деталі</h3><p>Наш менеджер зв’яжеться з вами, щоб підтвердити наявність авто та узгодити деталі бронювання.</p></div><div class="step"><em class="num">04</em><h3>Умови оренди</h3><p>Під час оформлення бронювання менеджер уточнить необхідну інформацію та надасть деталі щодо оренди.</p></div></div>
+        </div>
       </div>
-      <div class="svc-vis" data-vis>
-        <i></i><i></i><i></i><span class="svc-vis-ic"><svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg></span>
-      </div>
+      <div class="svc-vis" data-vis hidden></div>
     </div>
   </div>
 </section>
 
-<!-- Що входить -->
-<section class="sec sec-paper2" data-show="svc.tiles.items">
+<!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
+<section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
-      <span class="slash" data-c="svc.tiles.label">Що входить</span>
+      <span class="slash" data-c="svc.tiles.label">Важлива інформація</span>
       <h2 data-c="svc.tiles.title">Сіли й поїхали</h2>
-      <p data-c="svc.tiles.text">Ви не стоїте в черзі на стійці прокату після перельоту. Усе, що можна зробити до прильоту, робимо до прильоту.</p>
+      <p data-c="svc.tiles.text" hidden></p>
     </div>
-    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile">
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-airplane"></use></svg><h3>Зустріч в аеропорту</h3><p>Машина чекає в день прильоту. Місце подачі менеджер узгоджує з вами заздалегідь.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-key"></use></svg><h3>Документи наперед</h3><p>Договір готуємо до поїздки, а які документи взяти з собою, скажемо ще до вильоту.</p></div>
-      <div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-headset"></use></svg><h3>Звʼязок усю поїздку</h3><p>Якщо щось із машиною, пишете одному менеджеру українською, а не шукаєте телефон прокату.</p></div>
+    <div class="tiles" data-list="svc.tiles.items" data-tpl="tile" data-show="svc.tiles.items"><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-identification-card"></use></svg><h3>Дані водія</h3><p>Під час оформлення заявки з менеджером потрібно вказати кількість пасажирів, стаж водіння та надати водійське посвідчення.</p></div><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-wallet"></use></svg><h3>Депозит</h3><p>Депозит є обов’язковим. Його розмір може змінюватися залежно від стажу водіння.</p></div><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-shield-check"></use></svg><h3>Страхування</h3><p>Усі автомобілі застраховані.</p></div><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-gas-pump"></use></svg><h3>Паливо</h3><p>Подача авто — з повним баком.<br>Повернення автомобіля — також із повним баком.</p></div><div class="tile"><svg class="ic" aria-hidden="true"><use href="#i-video-camera"></use></svg><h3>Наша рекомендація</h3><p>Перед початком оренди зробіть відеоогляд автомобіля, щоб зафіксувати всі наявні пошкодження.</p></div></div>
+    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items" hidden></div>
+    <div class="svc-acts" data-show="svc.tiles.cta" hidden>
+      <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta"></a>
+      <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
     </div>
   </div>
 </section>
@@ -86,20 +91,40 @@
   </div>
 </section>
 
-<!-- Як це працює -->
-<section class="sec" data-show="svc.steps.items">
+<!-- Бронювання авто: дати оренди, авто, кількість людей, місце подачі. Логіка в js/service.js -->
+<section class="sec sec-paper2 car-book" id="carBook" data-show="svc.booking.show">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="slash" data-c="svc.booking.label">Бронювання</span>
+      <h2 data-c="svc.booking.title">Забронювати авто</h2>
+      <p data-c="svc.booking.text">Оберіть дати оренди й авто. Менеджер підтвердить наявність і деталі бронювання.</p>
+    </div>
+    <div class="sb-in" id="carIn">
+      <div class="sb-f sb-dates"><label id="lcDates">Дати оренди</label><div class="dfield ph" id="cDates" role="button" tabindex="0" aria-labelledby="lcDates">Оберіть дати</div></div>
+      <div class="sb-f"><label>Авто</label><div class="sel bare" id="cCar" data-value=""></div></div>
+      <div class="sb-f"><label>Кількість людей</label>
+        <div class="stepper">
+          <button type="button" data-cg="-1" aria-label="Менше людей">−</button>
+          <output id="cGuests">2 людини</output>
+          <button type="button" data-cg="1" aria-label="Більше людей">+</button>
+        </div>
+      </div>
+      <div class="sb-f"><label>Місце подачі</label><div class="sel bare" id="cPlace" data-value=""></div></div>
+      <button class="sb-go" id="carGo" type="button"><svg class="ic" aria-hidden="true"><use href="#i-car"></use></svg><span data-c="svc.booking.button">Забронювати авто</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- Як це працює / умови бронювання -->
+<section class="sec" data-show="svc.steps.items" hidden>
   <div class="wrap">
     <div class="sec-h rv">
       <span class="slash" data-c="svc.steps.label">Процес</span>
       <h2 data-c="svc.steps.title">Як це працює</h2>
       <p data-c="svc.steps.text" hidden></p>
     </div>
-    <div class="steps" data-list="svc.steps.items" data-tpl="step">
-      <div class="step"><em>онлайн</em><h3>Обираєте клас</h3><p>Економ для міста, кросовер для гір, кабріолет для узбережжя.</p></div>
-      <div class="step"><em>дві хвилини</em><h3>Лишаєте заявку</h3><p>Потрібні тільки імʼя і контакт. Нічого не оплачуєте на цьому кроці.</p></div>
-      <div class="step"><em>протягом години</em><h3>Підтверджуємо</h3><p>Менеджер перевіряє наявність на дати й узгоджує місце подачі.</p></div>
-      <div class="step"><em>у день прильоту</em><h3>Забираєте ключі</h3><p>Машина чекає в аеропорту, можна одразу їхати до апартаментів.</p></div>
-    </div>
+    <div class="steps" data-list="svc.steps.items" data-tpl="step"></div>
+    <div class="steps-cta" data-show="svc.steps.cta" hidden><a class="btn btn-accent" href="#order" data-c="svc.steps.cta"></a></div>
   </div>
 </section>
 

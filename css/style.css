@@ -198,6 +198,12 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 }
 .hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
 .hero-bg video,.hero-bg img{width:100%;height:100%;object-fit:cover}
+/* рівне затемнення поверх відео, щоб текст читався на будь-якому кадрі.
+   Знизу трохи щільніше: там заголовок і пошук */
+.hero-bg::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(26,13,5,.42) 0%,rgba(26,13,5,.34) 38%,rgba(26,13,5,.5) 72%,rgba(26,13,5,.62) 100%)
+}
 /* тонкі дуги: повільно пульсують і трохи йдуть за курсором.
    --mx/--my проставляє core.js, --d задає глибину кожного кільця */
 .hero-arcs{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
@@ -230,9 +236,10 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .hero .lede{
   color:var(--white);font-size:15px;line-height:1.5;max-width:60ch;margin-bottom:22px;font-weight:500
 }
-.hero h1{color:var(--white)}
-.hero h1 span{color:rgba(255,255,255,.9)}
-/* кольорового накладання на відео немає, тому білий текст тримає м'яка тінь */
+.hero h1{color:var(--white);font-size:clamp(34px,5vw,74px)}
+/* другий рядок заголовка менший, як підзаголовок */
+.hero h1 span{display:inline-block;margin-top:.3em;font-size:.56em;line-height:1.05;color:rgba(255,255,255,.92)}
+/* поверх затемнення білий текст ще тримає м'яка тінь */
 .hero .lede,.hero h1,.on-hero:not(.stuck) .brand,.on-hero:not(.stuck) .top-nav a:not(.top-phone),.hero .credit{
   text-shadow:0 1px 2px rgba(0,0,0,.35),0 2px 18px rgba(0,0,0,.35)
 }
@@ -245,7 +252,7 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 /* ---------- пошук ---------- */
 .searchbar{padding:0}
 /* окрема смуга з пошуком під шапкою в каталозі */
-.searchband{padding:clamp(20px,2.4vw,32px) var(--gut) 0}
+.searchband{padding:clamp(20px,2.4vw,32px) var(--gut) clamp(22px,2.6vw,36px)}
 .searchband .sb-in{max-width:calc(var(--wrap) - var(--gut) * 2);margin:0 auto}
 .sb-in{
   max-width:var(--wrap);margin:0 auto;background:var(--white);border-radius:100px;display:flex;
@@ -261,6 +268,9 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 /* рядок значення однакової висоти в усіх полях: дата, лічильник і селект
    інакше мають різну висоту, і підписи та розділювачі стоять на різних рівнях */
 .sb-f .dfield,.sb-f .stepper,.sb-f .sel.bare .sel-btn{height:28px;display:flex;align-items:center;line-height:1}
+/* одне поле на обидві дати: заїзд і виїзд обираються в одному календарі */
+.sb-dates{flex:1.35;cursor:pointer}
+.sb-dates .dfield{white-space:nowrap}
 .sb-go{
   flex:none;background:var(--accent);border:0;border-radius:100px;padding:17px 32px;
   font-family:var(--ui);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
@@ -385,17 +395,53 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .svc-vis-ic svg.ic{width:44%;height:44%;color:var(--white)}
 .svc-vis .credit{bottom:12px;right:18px}
 .svc-cars{margin-bottom:0}
+/* без фото праворуч текст займає всю ширину */
+.svc-hero.solo{grid-template-columns:1fr}
+.svc-hero.solo .svc-lede{max-width:80ch}
+/* умови бронювання в першому екрані */
+.svc-terms{margin-top:clamp(40px,4.4vw,64px)}
+.svc-terms h2{font-size:clamp(24px,2.6vw,38px);margin-bottom:12px}
+.svc-terms>p{color:var(--ink-3);font-size:clamp(15px,1.15vw,17px);line-height:1.6;margin-bottom:clamp(22px,2.4vw,34px)}
+.svc-terms>p[hidden]+.steps{margin-top:22px}
+.tile .num{margin-bottom:22px}
+.tiles+.kinds{margin-top:22px}
+/* типи екскурсій: дві великі картки */
+.kinds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.kind{background:var(--ink);color:var(--white);border-radius:var(--r);padding:clamp(28px,3vw,44px)}
+.kind svg.ic{width:34px;height:34px;color:var(--accent-light);margin-bottom:26px}
+.kind h3{color:var(--white);font-size:clamp(22px,2vw,28px);margin-bottom:14px}
+.kind p{color:rgba(255,255,255,.72);font-size:15.5px;line-height:1.65;max-width:56ch}
+.tiles~.svc-acts,.kinds~.svc-acts{margin-top:clamp(30px,3vw,44px)}
+/* форма бронювання авто */
+.car-book .sb-in{box-shadow:var(--shadow)}
+.car-book .sb-go{white-space:nowrap}
 .svc-more{padding-top:clamp(40px,4vw,64px);background:var(--paper)}
 .svc-more .slash{margin-bottom:22px}
 .svc-btn[aria-current="page"]{background:var(--paper-2);pointer-events:none}
 .svc-btn[aria-current="page"] em{border-color:var(--ink);color:var(--ink)}
 
-/* ---------- бенто ---------- */
-.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.bento .card:first-child{grid-column:span 2;grid-row:span 2}
-.bento .card:first-child .card-ph{aspect-ratio:auto;flex:1 1 auto;min-height:280px}
-.bento .card:first-child .card-body{flex:0 0 auto}
-.bento .card:first-child .card-body h3{font-size:30px}
+/* ---------- слайдер «Вид на океан» ----------
+   Горизонтальна стрічка карток, кожна прокрутка зупиняється на картці.
+   Стрічка йде до правого краю екрана, щоб було видно, що далі є ще картки */
+.sea-sec{overflow:hidden}
+.slider{
+  display:grid;grid-auto-flow:column;grid-auto-columns:clamp(270px,calc((100% - 66px) / 3.4),440px);gap:22px;
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
+  margin-right:calc(-1 * var(--gut));padding:6px var(--gut) 18px 0;scroll-padding-left:0;cursor:grab
+}
+.slider::-webkit-scrollbar{display:none}
+.slider:focus-visible{outline-offset:6px}
+.slider .card{scroll-snap-align:start}
+.slider .card img{-webkit-user-drag:none;user-select:none}
+.slider.dragging{scroll-snap-type:none;cursor:grabbing}
+.slider.dragging .card{pointer-events:none}
+/* підказка «Гортай далі»: лише текст зі стрілкою, не кнопка й не посилання */
+.swipe-hint{
+  display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink);cursor:default;user-select:none
+}
+.swipe-hint svg.ic{width:14px;height:14px;color:var(--accent);animation:hintNudge 1.8s var(--ease) infinite}
+@keyframes hintNudge{0%,100%{transform:none}50%{transform:translateX(5px)}}
 
 /* ---------- заявка ---------- */
 /* на головній блок компактний: заголовок зліва, форма справа, без підпунктів */
@@ -462,20 +508,53 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
   padding:16px 18px;font-size:14.5px;line-height:1.5;margin-bottom:16px
 }
 
-/* ---------- як ми працюємо ---------- */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-.step{padding:32px 26px 32px 0;border-top:1px solid var(--line);position:relative}
-.step+.step{padding-left:26px}
-.step::before{content:'';position:absolute;top:-1px;left:0;width:0;height:2px;background:var(--accent);transition:width .8s var(--ease)}
-.step.in::before{width:100%}
-.step em{
-  font-style:normal;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--accent);display:block;margin-bottom:16px
+/* ---------- як ми працюємо ----------
+   Лінія під заголовком, далі кроки з великим номером 01-04 */
+.steps{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:34px clamp(22px,2.6vw,44px);
+  border-top:1px solid var(--accent);padding-top:clamp(28px,3vw,44px)
 }
-.step h3{margin-bottom:12px}
-.step p{color:var(--ink-3);font-size:14.5px;line-height:1.6;max-width:32ch}
-.sec-ink .step{border-top-color:var(--line-d)}
+/* три кроки займають три колонки, а не лишають порожню четверту */
+.steps:has(>:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+.step{position:relative}
+.num{
+  display:block;font-style:normal;font-family:var(--disp);font-weight:700;font-size:clamp(30px,2.6vw,40px);
+  line-height:1;color:var(--accent);margin-bottom:clamp(18px,2vw,30px)
+}
+.step h3{margin-bottom:14px;line-height:1.2}
+.step p{color:var(--ink-3);font-size:15px;line-height:1.6;max-width:36ch}
+.sec-ink .steps{border-top-color:var(--line-d)}
 .sec-ink .step p{color:rgba(255,255,255,.6)}
+.js .step{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .step.in{opacity:1;transform:none}
+.step:nth-child(2){transition-delay:.08s}.step:nth-child(3){transition-delay:.16s}.step:nth-child(4){transition-delay:.24s}
+/* кнопка після кроків */
+.steps-cta{margin-top:clamp(30px,3vw,44px)}
+/* договір бронювання стоїть під останнім кроком */
+.steps-after{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 clamp(22px,2.6vw,44px);margin-top:28px}
+.doc-btn{
+  grid-column:4;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:center;text-align:left;
+  background:var(--white);border:1px solid var(--line);border-radius:22px;padding:22px 22px 20px;cursor:pointer;
+  font-family:inherit;color:var(--ink);box-shadow:var(--shadow);transition:border-color .2s,transform .3s var(--ease)
+}
+.doc-btn:hover{border-color:var(--accent);transform:translateY(-3px)}
+.doc-btn svg.ic{width:24px;height:24px;color:var(--accent)}
+.doc-btn b{font-family:var(--ui);font-weight:600;font-size:clamp(17px,1.4vw,21px);line-height:1.25}
+.doc-btn span{grid-column:1/-1;color:var(--ink-3);font-size:14px;line-height:1.5}
+/* вікно з умовами бронювання */
+.terms{margin:auto;width:min(640px,calc(100% - 32px));height:fit-content;max-height:calc(100svh - 32px)}
+.terms::backdrop{background:rgba(58,32,15,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.terms-in{
+  position:relative;background:var(--white);border-radius:var(--r);padding:clamp(28px,4vw,48px);
+  max-height:calc(100svh - 32px);overflow:auto
+}
+.terms-in h2{font-size:clamp(26px,3vw,40px);margin-bottom:24px;padding-right:44px}
+.terms-body{color:var(--ink-2);font-size:15.5px;line-height:1.65;margin-bottom:28px}
+.terms-body b{color:var(--ink);font-weight:600}
+.terms-in .x{position:absolute;top:18px;right:18px}
+/* клімат на головній */
+.sec-climate .climate{margin-bottom:0}
+.sec-climate .climate-head h2{font-size:clamp(28px,3vw,44px)}
 
 /* ---------- відеовідгуки ---------- */
 .vids{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;align-items:start}
@@ -511,13 +590,6 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .vid-cap span{display:block;color:rgba(255,255,255,.55);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
 
 /* ---------- каталог ---------- */
-.intro{
-  max-width:var(--wrap);margin:0 auto;padding:clamp(34px,4vw,62px) var(--gut) 26px;
-  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px
-}
-.intro h1{font-size:clamp(28px,3.5vw,50px)}
-.intro p{color:var(--ink-3);font-size:15px;line-height:1.6;max-width:400px}
-.intro p b{color:var(--ink);font-weight:600}
 /* клімат узимку: заголовок, дві картки (північ, південь) і рекомендація на всю ширину */
 .climate{
   max-width:var(--wrap);margin:0 auto 34px;padding:0 var(--gut);display:grid;
@@ -699,22 +771,45 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
   display:flex;align-items:center;gap:9px;color:var(--ink-3);font-size:12px;letter-spacing:.1em;
   text-transform:uppercase;margin-top:14px
 }
-.gal{
-  display:grid;grid-template-columns:2.1fr minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(0,1fr);
-  gap:14px;height:min(58vh,560px)
+.gal{position:relative;height:min(62vh,600px);border-radius:var(--r);overflow:hidden;background:var(--paper-2)}
+.gal-track{
+  display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+  scrollbar-width:none;cursor:grab
 }
-.gal button{
-  border:0;padding:0;background:var(--paper-2);cursor:zoom-in;overflow:hidden;position:relative;
-  border-radius:var(--r-s)
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track:focus-visible{outline-offset:-4px}
+.gal-track.dragging{scroll-snap-type:none;cursor:grabbing}
+.gal-slide{flex:0 0 100%;height:100%;scroll-snap-align:start;scroll-snap-stop:always}
+.gal-slide img{width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.gal-nav{
+  position:absolute;top:50%;translate:0 -50%;width:48px;height:48px;border-radius:50%;border:0;
+  background:rgba(255,255,255,.92);color:var(--ink);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 8px 24px -10px rgba(58,32,15,.6);transition:background .2s,opacity .2s
 }
-.gal button:first-child{grid-row:span 2;border-radius:var(--r)}
-.gal img{width:100%;height:100%;min-height:0;object-fit:cover;transition:transform .9s var(--ease)}
-.gal button:hover img{transform:scale(1.04)}
-.gal-more{
-  position:absolute;right:14px;bottom:14px;background:var(--white);border-radius:100px;padding:10px 17px;
-  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+.gal-nav:hover{background:var(--white)}
+.gal-nav:disabled{opacity:0;pointer-events:none}
+.gal-nav svg.ic{width:18px;height:18px}
+.gal-nav.prev{left:16px}.gal-nav.next{right:16px}
+.gal-count,.gal-full{
+  position:absolute;bottom:14px;background:rgba(58,32,15,.72);color:var(--white);border-radius:100px;
+  padding:8px 14px;font-size:12px;font-weight:600;letter-spacing:.06em;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)
+}
+.gal-count{left:14px}
+.gal-count b{font-weight:600}
+.gal-full{
+  right:14px;border:0;cursor:pointer;font-family:inherit;text-transform:uppercase;font-size:11px;
   display:inline-flex;align-items:center;gap:8px
 }
+.gal-full:hover{background:var(--ink)}
+.gal-thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.gal-thumbs::-webkit-scrollbar{display:none}
+.gal-thumbs button{
+  flex:0 0 96px;height:66px;border-radius:10px;overflow:hidden;border:2px solid transparent;padding:0;
+  background:var(--paper-2);cursor:pointer;opacity:.6;transition:opacity .2s,border-color .2s
+}
+.gal-thumbs button:hover{opacity:1}
+.gal-thumbs button[aria-current="true"]{border-color:var(--accent);opacity:1}
+.gal-thumbs img{width:100%;height:100%;object-fit:cover}
 .apt-main{
   display:grid;grid-template-columns:1fr minmax(340px,420px);gap:clamp(30px,3.6vw,64px);
   align-items:start;padding-block:clamp(38px,3.8vw,58px)
@@ -733,7 +828,7 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .feats{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;max-width:640px}
 .feats li{list-style:none;display:flex;align-items:center;gap:13px;font-size:15px;color:var(--ink-2)}
 .feats svg.ic{width:16px;height:16px;color:var(--accent);flex:none}
-.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-s);overflow:hidden;max-width:720px}
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-s);overflow:hidden;max-width:720px}
 .rules>:last-child{grid-column:1/-1}
 .rule-fee{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
 .rule-fee span{flex:1 0 100%}
@@ -990,9 +1085,6 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .split{grid-template-columns:1fr 44%}
   .grid{grid-template-columns:1fr}
   .tiles{grid-template-columns:repeat(2,1fr)}
-  .bento{grid-template-columns:repeat(2,1fr)}
-  .bento .card:first-child{grid-column:span 2;grid-row:auto}
-  .bento .card:first-child .card-ph{aspect-ratio:16/9;min-height:0}
   .apt-main{grid-template-columns:1fr}
   .vids{grid-template-columns:repeat(3,1fr)}
 }
@@ -1005,7 +1097,9 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .sb-go{flex:1 1 100%;justify-content:center;margin-top:6px}
 }
 @media(max-width:980px){
-  .steps,.svc{grid-template-columns:1fr 1fr}
+  .steps,.steps:has(>:nth-child(3):last-child),.steps-after,.svc{grid-template-columns:1fr 1fr}
+  .doc-btn{grid-column:2}
+  .kinds{grid-template-columns:1fr}
   .lead,.lead-sec .lead{grid-template-columns:1fr}
   .lead-sec .lead>.sec-h{position:static;padding-top:0}
   .svc-hero{grid-template-columns:1fr}
@@ -1086,9 +1180,12 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
     margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) 22px;scroll-padding-inline:var(--gut)
   }
   .vid{scroll-snap-align:start}
-  .gal{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr);height:40svh}
-  .gal button:nth-child(n+2){display:none}
-  .gal button:first-child{grid-row:auto}
+  .gal{height:44svh;border-radius:var(--r-s)}
+  .gal-nav{width:38px;height:38px}
+  .gal-nav.prev{left:10px}.gal-nav.next{right:10px}
+  .gal-thumbs button{flex-basis:72px;height:52px}
+  .gal-full{font-size:0;gap:0;padding:9px}
+  .gal-full svg.ic{width:16px;height:16px}
   .bookbox{position:static;margin-bottom:92px}
   .bookbar{
     display:flex;align-items:center;gap:16px;position:fixed;left:0;right:0;bottom:0;z-index:880;
@@ -1101,13 +1198,14 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   .bookbar .btn{flex:none}
 }
 @media(max-width:700px){
-  .steps,.svc,.tiles{grid-template-columns:1fr}
+  .svc,.tiles{grid-template-columns:1fr}
+  /* кроки й на телефоні у дві колонки, як у макеті */
+  .steps{gap:30px 18px}
+  .step h3{font-size:18px}
+  .step p{font-size:14px}
   .fp-row{grid-template-columns:1fr;gap:22px}
-  .step+.step{padding-left:0}
   .step p{max-width:none}
   .more-g{grid-template-columns:1fr}
-  .rules{grid-template-columns:1fr 1fr}
-  .rules>:nth-child(3){grid-column:1/-1}
   .climate{grid-template-columns:1fr}
   .climate-tip{align-items:flex-start}
   .foot{padding-top:48px}
@@ -1121,18 +1219,11 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   }
 }
 @media(max-width:620px){
-  .grid,.bento{grid-template-columns:1fr}
-  .bento .card:first-child{grid-column:auto}
-  /* вид на океан: при прокрутці наступна картка наїжджає на попередню,
-     а верхній край кожної попередньої трохи виглядає з-під неї */
-  .bento .card{
-    position:sticky;top:calc(var(--top-h,79px) + 14px + var(--i,0) * 12px);
-    box-shadow:0 -14px 30px -22px rgba(58,32,15,.45)
-  }
-  .bento .card:nth-child(2){--i:1}
-  .bento .card:nth-child(3){--i:2}
-  .bento .card:nth-child(4){--i:3}
-  .bento .card:nth-child(5){--i:4}
+  .grid{grid-template-columns:1fr}
+  /* слайдер: картка майже на всю ширину, край наступної видно справа */
+  .slider{grid-auto-columns:82%;gap:14px}
+  /* на телефоні відео ще яскравіше просвічує, тому затемнення щільніше */
+  .hero-bg::after{background:linear-gradient(180deg,rgba(26,13,5,.5) 0%,rgba(26,13,5,.44) 40%,rgba(26,13,5,.62) 75%,rgba(26,13,5,.72) 100%)}
   .vid:nth-child(even){margin-top:0}
   /* назва стоїть одразу під шапкою, а контент завжди починається нижче за неї:
      на невисоких екранах герой росте, а не підсуває текст на назву.
@@ -1146,6 +1237,6 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   .js .rv{opacity:1;transform:none}
-  .step::before{width:100%}
+  .js .step{opacity:1;transform:none}
   .hero-arcs span{animation:none;transition:none}
 }
