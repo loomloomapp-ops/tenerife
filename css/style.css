@@ -436,6 +436,9 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .slider.dragging{scroll-snap-type:none;cursor:grabbing}
 .slider.dragging .card{pointer-events:none}
 /* картки авто в слайдері: фото без фону, тому вписуємо його цілком на кремовій підкладці */
+/* на сторінці оренди авто автопарк іде одразу за першим екраном, тому відступ між ними менший */
+.svc-head:has(+ .cars-sec){padding-bottom:clamp(8px,1vw,16px)}
+.svc-head+.cars-sec{padding-top:clamp(20px,2.4vw,36px)}
 .car-card .card-ph{aspect-ratio:16/10;background:var(--paper-2)}
 .car-card .card-ph img{object-fit:contain;padding:44px 20px 14px}
 .car-card:hover .card-ph img{transform:scale(1.04)}
@@ -825,13 +828,13 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
   display:grid;grid-template-columns:1fr minmax(340px,420px);gap:clamp(30px,3.6vw,64px);
   align-items:start;padding-block:clamp(38px,3.8vw,58px)
 }
-.facts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+/* короткі факти під описом послуги: просто іконка й текст, без обводки, щоб не нагадували кнопки */
+.facts{display:flex;flex-wrap:wrap;gap:10px 26px;margin-bottom:30px}
 .facts span{
-  background:transparent;border:1px solid var(--line);border-radius:100px;padding:11px 20px;font-size:12px;
-  font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
-  display:inline-flex;align-items:center;gap:10px
+  font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);
+  display:inline-flex;align-items:center;gap:8px
 }
-.facts svg.ic{width:15px;height:15px;color:var(--accent)}
+.facts svg.ic{width:14px;height:14px;color:var(--accent)}
 .apt-desc{font-size:16.5px;line-height:1.68;color:var(--ink-2);max-width:66ch}
 .apt-desc p+p{margin-top:16px}
 .blk{padding-top:42px;margin-top:42px;border-top:1px solid var(--line)}

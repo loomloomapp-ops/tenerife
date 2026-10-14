@@ -55,7 +55,7 @@
           <div class="steps" data-list="svc.terms.items" data-tpl="step"></div>
         </div>
       </div>
-      <div class="svc-vis" data-vis><img src="images/places/transfer.webp" alt="Пасажири з валізами в аеропорту"></div>
+      <div class="svc-vis" data-vis><img src="images/places/transfer-2.webp" alt="Водій зустрічає пасажирку з валізою біля мінівена в аеропорту"></div>
     </div>
   </div>
 </section>
@@ -134,8 +134,8 @@
     <div class="lead">
       <div class="sec-h rv">
         <span class="slash" data-c="svc.lead.label">Заявка</span>
-        <h2 data-c="svc.lead.title">Коли<br>прилітаєте?</h2>
-        <p data-c="svc.lead.text">Напишіть дату, рейс і куди їхати. Вартість залежить від маршруту й кількості людей, називаємо її до підтвердження.</p>
+        <h2 data-c="svc.lead.title">Оформлення<br>трансферу</h2>
+        <p data-c="svc.lead.text" hidden></p>
       </div>
       <form class="lead-form rv rv-1" id="leadForm" data-service="Трансфер" novalidate>
         <p data-c="settings.formIntro">Залиште контакт, решту зʼясуємо в розмові.</p>
@@ -143,14 +143,7 @@
           <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
           <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
         </div>
-        <fieldset class="fld fld-choice">
-          <legend>Чи маєте в наявності квитки?</legend>
-          <div class="choice">
-            <label><input type="radio" name="tickets" value="Так"><span>Так</span></label>
-            <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
-          </div>
-        </fieldset>
-        <div class="fld"><label for="lNote" data-c="svc.lead.noteLabel">Дата, рейс, звідки й куди</label><textarea id="lNote" name="note" data-attr="placeholder:svc.lead.notePlaceholder" placeholder="15 листопада, рейс з Кракова, Тенеріфе-Південь до Los Cristianos, двоє дорослих і дитина"></textarea></div>
+        <div class="fld"><label for="lNote" data-c="svc.lead.noteLabel">Дата та час</label><textarea id="lNote" name="note" data-attr="placeholder:svc.lead.notePlaceholder" placeholder="15 листопада, приліт о 14:30"></textarea></div>
         <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
         <p class="form-note" data-c="settings.formNote">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
       </form>
