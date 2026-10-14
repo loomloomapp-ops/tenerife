@@ -42,17 +42,10 @@
       <div class="svc-copy">
         <span class="slash">Додаткові послуги</span>
         <h1 data-c="svc.title" data-accent="svc.accent">Оренда авто<br><span>на Тенеріфе</span></h1>
-        <p class="svc-lede" data-c="svc.lede">Без авто половина острова залишається недоступною: Тейде, ущелина Маска, північне узбережжя. Машина чекатиме в аеропорту в день прильоту, документи готуємо заздалегідь.</p>
         <div class="facts" data-list="svc.facts" data-tpl="fact" data-show="svc.facts" hidden></div>
         <div class="svc-acts">
           <a class="btn btn-accent" href="#order" data-c="svc.cta">Забронювати авто</a>
           <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
-        </div>
-        <!-- Умови бронювання в першому екрані (на сторінці оренди авто) -->
-        <div class="svc-terms" data-show="svc.terms.items">
-          <h2 data-c="svc.terms.title">Умови бронювання авто</h2>
-          <p data-c="svc.terms.text">Усе, що потрібно знати перед орендою автомобіля на Tenerife.</p>
-          <div class="steps" data-list="svc.terms.items" data-tpl="step"><div class="step"><em class="num">01</em><h3>Обираєте авто</h3><p>Обираєте автомобіль, який відповідає вашим потребам.</p></div><div class="step"><em class="num">02</em><h3>Залишаєте заявку</h3><p>Вказуєте бажані дати оренди.</p></div><div class="step"><em class="num">03</em><h3>Узгоджуємо деталі</h3><p>Наш менеджер зв’яжеться з вами, щоб підтвердити наявність авто та узгодити деталі бронювання.</p></div><div class="step"><em class="num">04</em><h3>Умови оренди</h3><p>Під час оформлення бронювання менеджер уточнить необхідну інформацію та надасть деталі щодо оренди.</p></div></div>
         </div>
       </div>
       <div class="svc-vis" data-vis hidden></div>
@@ -60,8 +53,35 @@
   </div>
 </section>
 
+<!-- Автопарк: горизонтальний слайдер з масиву cars (як апартаменти на головній), показується, якщо в послузі ввімкнено "Показувати автопарк" -->
+<section class="sec sea-sec cars-sec" data-show="svc.cars.show">
+  <div class="wrap">
+    <div class="sec-h sec-top rv">
+      <div>
+        <span class="slash" data-c="svc.cars.label">Автопарк</span>
+        <h2 data-c="svc.cars.title">Оберіть авто</h2>
+        <p data-c="svc.cars.text">Ціна за добу залежить від кількості днів оренди. Наявність на ваші дати підтверджує менеджер.</p>
+      </div>
+      <span class="swipe-hint" aria-hidden="true"><span>Гортай далі</span> <svg class="ic"><use href="#i-arrow-right"></use></svg></span>
+    </div>
+    <div class="slider rv rv-1" id="carList" tabindex="0" aria-label="Автопарк"></div>
+  </div>
+</section>
+
+<!-- Умови бронювання авто -->
+<section class="sec sec-paper2" data-show="svc.terms.items">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="slash">Як забронювати</span>
+      <h2 data-c="svc.terms.title">Умови бронювання авто</h2>
+      <p data-c="svc.terms.text">Усе, що потрібно знати перед орендою автомобіля на Tenerife.</p>
+    </div>
+    <div class="steps" data-list="svc.terms.items" data-tpl="step"><div class="step"><em class="num">01</em><h3>Обираєте авто</h3><p>Обираєте автомобіль, який відповідає вашим потребам.</p></div><div class="step"><em class="num">02</em><h3>Залишаєте заявку</h3><p>Вказуєте бажані дати оренди.</p></div><div class="step"><em class="num">03</em><h3>Узгоджуємо деталі</h3><p>Наш менеджер зв’яжеться з вами, щоб підтвердити наявність авто та узгодити деталі бронювання.</p></div><div class="step"><em class="num">04</em><h3>Умови оренди</h3><p>Під час оформлення бронювання менеджер уточнить необхідну інформацію та надасть деталі щодо оренди.</p></div></div>
+  </div>
+</section>
+
 <!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
-<section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
+<section class="sec" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
       <span class="slash" data-c="svc.tiles.label">Важлива інформація</span>
@@ -74,20 +94,6 @@
       <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta"></a>
       <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
     </div>
-  </div>
-</section>
-
-<!-- Автопарк: список з масиву cars, показується, якщо в послузі ввімкнено "Показувати автопарк" -->
-<section class="sec" data-show="svc.cars.show">
-  <div class="wrap">
-    <div class="sec-h sec-top rv">
-      <div>
-        <span class="slash" data-c="svc.cars.label">Автопарк</span>
-        <h2 data-c="svc.cars.title">Оберіть клас авто</h2>
-        <p data-c="svc.cars.text">Ціна за добу. Точну модель і наявність на ваші дати підтверджує менеджер.</p>
-      </div>
-    </div>
-    <div class="cars svc-cars" id="carList"></div>
   </div>
 </section>
 
@@ -143,15 +149,8 @@
           <div class="fld"><label for="lName">Ім'я</label><input id="lName" name="name" autocomplete="name" placeholder="Оксана"></div>
           <div class="fld"><label for="lPhone">Телефон або Telegram</label><input id="lPhone" name="phone" autocomplete="tel" placeholder="+380 __ ___ __ __"></div>
         </div>
-        <fieldset class="fld fld-choice">
-          <legend>Чи маєте в наявності квитки?</legend>
-          <div class="choice">
-            <label><input type="radio" name="tickets" value="Так"><span>Так</span></label>
-            <label><input type="radio" name="tickets" value="Ні"><span>Ні</span></label>
-          </div>
-        </fieldset>
-        <div class="fld"><label for="lNote" data-c="svc.lead.noteLabel">Дати, клас авто, кількість людей</label><textarea id="lNote" name="note" data-attr="placeholder:svc.lead.notePlaceholder" placeholder="Прилітаємо 12 жовтня, на тиждень, нас четверо, потрібен кросовер"></textarea></div>
-        <button class="btn btn-accent btn-block" type="submit">Надіслати заявку</button>
+        <div class="fld"><label for="lNote" data-c="svc.lead.noteLabel">Дати й кількість людей</label><textarea id="lNote" name="note" data-attr="placeholder:svc.lead.notePlaceholder" placeholder="Прилітаємо 12 жовтня, на тиждень, нас четверо"></textarea></div>
+        <button class="btn btn-accent btn-block" type="submit">Забронювати авто</button>
         <p class="form-note" data-c="settings.formNote">Передзвонимо протягом години в робочий час. Нічого не списуємо до підтвердження.</p>
       </form>
     </div>

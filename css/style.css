@@ -435,6 +435,15 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .slider .card img{-webkit-user-drag:none;user-select:none}
 .slider.dragging{scroll-snap-type:none;cursor:grabbing}
 .slider.dragging .card{pointer-events:none}
+/* картки авто в слайдері: фото без фону, тому вписуємо його цілком на кремовій підкладці */
+.car-card .card-ph{aspect-ratio:16/10;background:var(--paper-2)}
+.car-card .card-ph img{object-fit:contain;padding:44px 20px 14px}
+.car-card:hover .card-ph img{transform:scale(1.04)}
+.car-card .card-loc{text-transform:none;letter-spacing:0;font-size:13px}
+.car-feats{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 20px;padding:0}
+.car-feats li{font-size:12px;line-height:1.3;color:var(--ink-2);background:var(--paper-2);border:0;border-radius:100px;padding:6px 11px}
+.car-card .card-cta{background:none;font-family:inherit;cursor:pointer}
+.car-card .card-price b{font-size:22px}
 /* підказка «Гортай далі»: лише текст зі стрілкою, не кнопка й не посилання */
 .swipe-hint{
   display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.1em;

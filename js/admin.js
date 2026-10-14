@@ -306,7 +306,7 @@ function normService(s){
   ['tiles', 'steps', 'lead', 'terms', 'kinds'].forEach(k => { if (!s[k] || typeof s[k] !== 'object') s[k] = {}; });
   ['tiles', 'steps', 'terms', 'kinds'].forEach(k => { if (!Array.isArray(s[k].items)) s[k].items = []; });
   if (!s.booking || typeof s.booking !== 'object') s.booking = { label: 'Бронювання', title: '', text: '', button: 'Забронювати авто', show: false };
-  if (!s.cars || typeof s.cars !== 'object') s.cars = { label: 'Автопарк', title: 'Оберіть клас авто', text: '', show: false };
+  if (!s.cars || typeof s.cars !== 'object') s.cars = { label: 'Автопарк', title: 'Оберіть авто', text: '', show: false };
   return s;
 }
 
@@ -869,15 +869,15 @@ const F_APT = [
 ];
 
 const F_CAR = [
-  { t: 'row', fields: [{ k: 'name', l: 'Клас', req: true, ph: 'Кросовер' }, { k: 'model', l: 'Модель або опис', ph: 'Комфортний SUV' }] },
+  { t: 'row', fields: [{ k: 'name', l: 'Модель', req: true, ph: 'Citroën C3' }, { k: 'year', t: 'number', l: 'Рік', min: 1990 }] },
   { t: 'row', fields: [
-    { k: 'price', t: 'number', l: 'Ціна за добу, EUR', min: 0 },
-    { k: 'seats', t: 'number', l: 'Місць', min: 1 },
-    { k: 'gear', t: 'select', l: 'Коробка', opts: [['Механіка', 'Механіка'], ['Автомат', 'Автомат']] },
-    { k: 'bags', l: 'Багаж', ph: '2 валізи' }
+    { k: 'price', t: 'number', l: 'Ціна за добу від, EUR', min: 0 },
+    { k: 'priceMax', t: 'number', l: 'Ціна за добу до, EUR', min: 0 },
+    { k: 'deposit', t: 'number', l: 'Депозит, EUR', min: 0 },
+    { k: 'gear', t: 'select', l: 'Коробка', opts: [['Механіка', 'Механіка'], ['Автомат', 'Автомат']] }
   ] },
-  { k: 'photo', t: 'image', l: 'Фото', req: true },
-  { k: 'note', t: 'textarea', l: 'Для чого підходить', rows: 2 },
+  { k: 'features', t: 'tags', l: 'Характеристики', hint: 'Показуються пігулками на картці: Кондиціонер, Bluetooth, 5 місць' },
+  { k: 'photo', t: 'image', l: 'Фото', req: true, hint: 'Найкраще PNG або webp з прозорим фоном' },
   { k: 'hidden', t: 'toggle', l: 'Приховати з сайту' }
 ];
 
@@ -1014,9 +1014,9 @@ const COLLECTIONS = {
   },
   cars: {
     title: 'Авто', add: 'Додати авто', fields: F_CAR,
-    name: c => c.name || 'Без назви', sub: c => [c.model, c.price ? `${c.price} EUR / день` : ''].filter(Boolean).join(' · '),
+    name: c => c.name || 'Без назви', sub: c => [c.year, c.price ? `${c.price}${c.priceMax ? '–' + c.priceMax : ''} EUR / доба` : ''].filter(Boolean).join(' · '),
     thumb: c => c.photo, badges: c => [c.hidden && 'приховане'],
-    make: () => ({ id: '', name: '', model: '', price: null, seats: 5, gear: 'Автомат', bags: '', photo: '', note: '' }),
+    make: () => ({ id: '', name: '', year: null, price: null, priceMax: null, deposit: 200, gear: 'Автомат', features: [], photo: '' }),
     idAuto: 'c'
   },
   reviews: {

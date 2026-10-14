@@ -302,6 +302,62 @@ function initReveal(){
   els.forEach(e => io.observe(e));
 }
 
+/* ================= горизонтальний слайдер =================
+   Свайп на телефоні, перетягування мишею й колесо на компʼютері, кожна прокрутка
+   зупиняється рівно на картці (scroll-snap). Поки людина не чіпала слайдер,
+   він сам гортає по одній картці справа наліво. Апартаменти на головній, авто на сторінці оренди. */
+function initSlider(track){
+  const step = () => {
+    const c = track.firstElementChild;
+    return c ? c.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth;
+  };
+  const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  const next = () => track.scrollTo({ left: atEnd() ? 0 : track.scrollLeft + step(), behavior: 'smooth' });
+
+  /* автопрокрутка: лише коли слайдер видно і людина ще не взаємодіяла з ним */
+  let timer = 0, visible = false, touched = false;
+  const stop = () => { clearInterval(timer); timer = 0; };
+  const start = () => {
+    if (timer || touched || !visible || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    timer = setInterval(next, 4500);
+  };
+  const userTook = () => { touched = true; stop(); };
+  ['pointerdown', 'wheel', 'keydown', 'touchstart'].forEach(ev => track.addEventListener(ev, userTook, { passive: true }));
+  track.addEventListener('mouseenter', stop);
+  track.addEventListener('mouseleave', start);
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }, { threshold: .4 }).observe(track);
+  }
+
+  /* перетягування мишею. Після перетягування клік по картці не відкриває її */
+  let down = null, moved = false;
+  track.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    down = { x: e.clientX, left: track.scrollLeft }; moved = false;
+  });
+  addEventListener('pointermove', e => {
+    if (!down) return;
+    const dx = e.clientX - down.x;
+    if (!moved && Math.abs(dx) > 6){ moved = true; track.classList.add('dragging'); }
+    if (moved) track.scrollLeft = down.left - dx;
+  });
+  addEventListener('pointerup', () => {
+    if (!down) return;
+    down = null;
+    if (!moved) return;
+    track.classList.remove('dragging');
+    /* після відпускання докручуємо до найближчої картки */
+    const s = step();
+    track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: 'smooth' });
+  });
+  track.addEventListener('click', e => { if (moved){ e.preventDefault(); moved = false; } }, true);
+  track.addEventListener('dragstart', e => e.preventDefault());
+  track.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight'){ e.preventDefault(); track.scrollBy({ left: step(), behavior: 'smooth' }); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); track.scrollBy({ left: -step(), behavior: 'smooth' }); }
+  });
+}
+
 /* ================= картки ================= */
 function cardHTML(a, extra = ''){
   return `
@@ -320,6 +376,28 @@ function cardHTML(a, extra = ''){
       </div>
     </div>
   </a>`;
+}
+
+/* картка авто: ціна «від–до» за добу, коробка на бейджі, характеристики пігулками */
+function carPrice(c){ return c.priceMax && c.priceMax > c.price ? `${c.price}–${c.priceMax}` : `${c.price}`; }
+function carCardHTML(c){
+  const sub = [c.year, c.deposit ? `депозит ${c.deposit} EUR` : ''].filter(Boolean).join(' · ');
+  return `
+  <article class="card car-card" data-car="${c.id}">
+    <div class="card-ph">
+      <img src="${c.photo}" alt="${esc(c.name)}" loading="lazy">
+      ${c.gear ? `<span class="card-badge">${esc(c.gear)}</span>` : ''}
+    </div>
+    <div class="card-body">
+      <h3>${esc(c.name)}</h3>
+      ${sub ? `<p class="card-loc">${icon('calendar')}${esc(sub)}</p>` : ''}
+      ${(c.features || []).length ? `<ul class="car-feats">${c.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+      <div class="card-foot">
+        <p class="card-price"><b>${carPrice(c)} EUR</b> <span>/ доба</span></p>
+        <button class="card-cta" type="button">Забронювати</button>
+      </div>
+    </div>
+  </article>`;
 }
 
 function miniHTML(a){
@@ -580,10 +658,9 @@ function stepCars(){
         <button class="car${S.car && S.car.id === c.id ? ' sel' : ''}" type="button" data-car="${c.id}">
           <span class="car-ph"><img src="${c.photo}" alt="${esc(c.name)}" loading="lazy"></span>
           <span class="car-b">
-            <h4>${esc(c.name)}</h4><em>${esc(c.model)}</em>
-            <p>${esc(c.note)}</p>
-            <p class="spec">${esc(c.bags)} · ${c.gear.toLowerCase()}</p>
-            <span class="pr"><b>${c.price} EUR <i>/ день</i></b><small>${n ? `${c.price * n} EUR` : ''}</small></span>
+            <h4>${esc(c.name)}</h4><em>${[c.year, c.gear].filter(Boolean).join(' · ')}</em>
+            <p class="spec">${esc((c.features || []).slice(0, 3).join(' · '))}</p>
+            <span class="pr"><b>${carPrice(c)} EUR <i>/ доба</i></b><small>${n ? `від ${c.price * n} EUR` : ''}</small></span>
           </span>
         </button>`).join('')}</div>
       <div class="row-end">

@@ -163,13 +163,13 @@ const SITE = {
         "label": "Заявка",
         "title": "Потрібне авто\nна ваші дати?",
         "text": "Напишіть, коли прилітаєте і скільки вас. Підберемо машину під маршрут і багаж.",
-        "noteLabel": "Дати, клас авто, кількість людей",
-        "notePlaceholder": "Прилітаємо 12 жовтня, на тиждень, нас четверо, потрібен кросовер"
+        "noteLabel": "Дати й кількість людей",
+        "notePlaceholder": "Прилітаємо 12 жовтня, на тиждень, нас четверо"
       },
       "cars": {
         "label": "Автопарк",
-        "title": "Оберіть клас авто",
-        "text": "Ціна за добу. Точну модель і наявність на ваші дати підтверджує менеджер.",
+        "title": "Оберіть авто",
+        "text": "Ціна за добу залежить від кількості днів оренди. Наявність на ваші дати підтверджує менеджер.",
         "show": true
       },
       "terms": {
@@ -897,37 +897,364 @@ const SITE = {
   ],
   "cars": [
     {
-      "id": "c1",
-      "name": "Економ",
-      "model": "Компактний хетчбек",
-      "price": 28,
-      "seats": 4,
+      "id": "car-01",
+      "name": "Citroën C-Elysée",
+      "year": 2014,
+      "price": 25,
+      "priceMax": 35,
+      "deposit": 200,
       "gear": "Механіка",
-      "bags": "2 валізи",
-      "photo": "images/apt/p8.webp",
-      "note": "Для міста й коротких поїздок."
+      "features": [
+        "Кондиціонер",
+        "24/7 допомога на дорозі"
+      ],
+      "photo": "images/cars/car-01.webp"
     },
     {
-      "id": "c2",
-      "name": "Кросовер",
-      "model": "Комфортний SUV",
+      "id": "car-02",
+      "name": "Citroën C3 Aircross",
+      "year": 2017,
+      "price": 35,
+      "priceMax": 40,
+      "deposit": 200,
+      "gear": "Механіка",
+      "features": [
+        "Bluetooth",
+        "Кондиціонер",
+        "24/7 допомога на дорозі"
+      ],
+      "photo": "images/cars/car-02.webp"
+    },
+    {
+      "id": "car-03",
+      "name": "Citroën C3",
+      "year": 2020,
+      "price": 35,
+      "priceMax": 45,
+      "deposit": 200,
+      "gear": "Механіка",
+      "features": [
+        "Bluetooth",
+        "Кондиціонер"
+      ],
+      "photo": "images/cars/car-03.webp"
+    },
+    {
+      "id": "car-04",
+      "name": "Range Rover Evoque",
+      "price": 65,
+      "priceMax": 75,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Кондиціонер",
+        "Bluetooth",
+        "5 місць",
+        "Преміум-клас, комфортний SUV",
+        "24/7 допомога на дорозі"
+      ],
+      "photo": "images/cars/car-04.webp"
+    },
+    {
+      "id": "car-06",
+      "name": "BMW 3 Series Cabrio",
+      "year": 2008,
+      "price": 80,
+      "priceMax": 110,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Панорамний дах",
+        "Кондиціонер",
+        "4 місця",
+        "2.0 бензин",
+        "120 kW / 163 к.с.",
+        "Багажник — 260 л"
+      ],
+      "photo": "images/cars/car-06.webp"
+    },
+    {
+      "id": "car-07",
+      "name": "BMW 4 Series Cabrio",
+      "year": 2014,
+      "price": 80,
+      "priceMax": 110,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Кабріолет",
+        "Кондиціонер",
+        "4 місця",
+        "2.0 бензин",
+        "135 kW / 184 к.с.",
+        "Багажник — 260 л"
+      ],
+      "photo": "images/cars/car-07.webp"
+    },
+    {
+      "id": "car-08",
+      "name": "BMW 3 Series Cabrio",
+      "year": 2008,
+      "price": 80,
+      "priceMax": 100,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Панорамний дах",
+        "Кондиціонер"
+      ],
+      "photo": "images/cars/car-08.webp"
+    },
+    {
+      "id": "car-09",
+      "name": "Renault Megane",
+      "year": 2014,
       "price": 45,
-      "seats": 5,
-      "gear": "Автомат",
-      "bags": "4 валізи",
-      "photo": "images/apt/p5.webp",
-      "note": "Для узбережжя та гірських доріг."
+      "priceMax": 70,
+      "deposit": 200,
+      "gear": "Механіка",
+      "features": [
+        "Панорамний дах",
+        "Клімат-контроль"
+      ],
+      "photo": "images/cars/car-09.webp"
     },
     {
-      "id": "c3",
-      "name": "Кабріолет",
-      "model": "Відкритий верх",
-      "price": 62,
-      "seats": 4,
+      "id": "car-10",
+      "name": "BMW 120",
+      "price": 40,
+      "priceMax": 55,
+      "deposit": 200,
       "gear": "Автомат",
-      "bags": "2 валізи",
-      "photo": "images/apt/p6.webp",
-      "note": "Для сонячних маршрутів островом."
+      "features": [
+        "Шкіряний салон",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth",
+        "CarPlay"
+      ],
+      "photo": "images/cars/car-10.webp"
+    },
+    {
+      "id": "car-11",
+      "name": "BMW 320 Cabrio",
+      "price": 75,
+      "priceMax": 85,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Шкіряний салон",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth"
+      ],
+      "photo": "images/cars/car-11.webp"
+    },
+    {
+      "id": "car-12",
+      "name": "BMW 320 Cabrio",
+      "price": 75,
+      "priceMax": 85,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Шкіряний салон",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth"
+      ],
+      "photo": "images/cars/car-12.webp"
+    },
+    {
+      "id": "car-13",
+      "name": "Hyundai Elantra",
+      "price": 45,
+      "priceMax": 55,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Шкіряний салон",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth",
+        "Великий багажник"
+      ],
+      "photo": "images/cars/car-13.webp"
+    },
+    {
+      "id": "car-14",
+      "name": "MINI Cooper Countryman",
+      "price": 55,
+      "priceMax": 65,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Шкіряний салон",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth",
+        "Повний привід"
+      ],
+      "photo": "images/cars/car-14.webp"
+    },
+    {
+      "id": "car-15",
+      "name": "Peugeot 208",
+      "year": 2019,
+      "price": 35,
+      "priceMax": 45,
+      "deposit": 200,
+      "gear": "Механіка",
+      "features": [
+        "Кондиціонер",
+        "Круїз-контроль",
+        "Bluetooth"
+      ],
+      "photo": "images/cars/car-15.webp"
+    },
+    {
+      "id": "car-16",
+      "name": "Peugeot 3008 Hybrid",
+      "year": 2025,
+      "price": 75,
+      "priceMax": 90,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Асистенти",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "CarPlay",
+        "Великий багажник"
+      ],
+      "photo": "images/cars/car-16.webp"
+    },
+    {
+      "id": "car-17",
+      "name": "Ford Mondeo",
+      "year": 2013,
+      "price": 35,
+      "priceMax": 45,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Шкіряний салон",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth",
+        "Великий багажник"
+      ],
+      "photo": "images/cars/car-17.webp"
+    },
+    {
+      "id": "car-18",
+      "name": "Renault Clio",
+      "year": 2022,
+      "price": 35,
+      "priceMax": 45,
+      "deposit": 200,
+      "gear": "Механіка",
+      "features": [
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth",
+        "Парктронік"
+      ],
+      "photo": "images/cars/car-18.webp"
+    },
+    {
+      "id": "car-19",
+      "name": "Opel Corsa",
+      "year": 2022,
+      "price": 40,
+      "priceMax": 50,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "CarPlay та Android Auto",
+        "Парктронік",
+        "Камера заднього виду",
+        "Клімат-контроль"
+      ],
+      "photo": "images/cars/car-19.webp"
+    },
+    {
+      "id": "car-20",
+      "name": "Citroën C4 SpaceTourer",
+      "year": 2021,
+      "price": 60,
+      "priceMax": 75,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "7 місць",
+        "Apple CarPlay та Android Auto",
+        "Парктронік",
+        "Камера заднього виду",
+        "Клімат-контроль"
+      ],
+      "photo": "images/cars/car-20.webp"
+    },
+    {
+      "id": "car-21",
+      "name": "Peugeot 3008 GT",
+      "price": 50,
+      "priceMax": 70,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Apple CarPlay та Android Auto",
+        "Парктронік",
+        "Камера заднього виду",
+        "Клімат-контроль",
+        "Панорамний дах",
+        "Великий люк"
+      ],
+      "photo": "images/cars/car-21.webp"
+    },
+    {
+      "id": "car-22",
+      "name": "Citroën C1",
+      "price": 35,
+      "priceMax": 45,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth",
+        "Компактний"
+      ],
+      "photo": "images/cars/car-22.webp"
+    },
+    {
+      "id": "car-23",
+      "name": "Citroën Cactus",
+      "price": 35,
+      "priceMax": 45,
+      "deposit": 200,
+      "gear": "Механіка",
+      "features": [
+        "Парктронік",
+        "Клімат-контроль",
+        "Круїз-контроль",
+        "Bluetooth"
+      ],
+      "photo": "images/cars/car-23.webp"
+    },
+    {
+      "id": "car-24",
+      "name": "Mercedes E-Class Cabrio",
+      "price": 155,
+      "priceMax": 165,
+      "deposit": 200,
+      "gear": "Автомат",
+      "features": [
+        "Кондиціонер",
+        "4 місця",
+        "Складний тканинний дах"
+      ],
+      "photo": "images/cars/car-24.webp"
     }
   ],
   "reviews": [

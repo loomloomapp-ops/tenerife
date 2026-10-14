@@ -18,55 +18,7 @@ initSearchbar({ onSearch: () => { saveState(); location.href = 'catalog.html'; }
     .slice(0, 10);
   track.innerHTML = list.map(a => cardHTML(a)).join('');
 
-  const step = () => {
-    const c = track.querySelector('.card');
-    return c ? c.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0) : track.clientWidth;
-  };
-  const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-  const next = () => track.scrollTo({ left: atEnd() ? 0 : track.scrollLeft + step(), behavior: 'smooth' });
-
-  /* автопрокрутка: лише коли слайдер видно і людина ще не взаємодіяла з ним */
-  let timer = 0, visible = false, touched = false;
-  const stop = () => { clearInterval(timer); timer = 0; };
-  const start = () => {
-    if (timer || touched || !visible || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    timer = setInterval(next, 4500);
-  };
-  const userTook = () => { touched = true; stop(); };
-  ['pointerdown', 'wheel', 'keydown', 'touchstart'].forEach(ev => track.addEventListener(ev, userTook, { passive: true }));
-  track.addEventListener('mouseenter', stop);
-  track.addEventListener('mouseleave', start);
-  if ('IntersectionObserver' in window){
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }, { threshold: .4 }).observe(track);
-  }
-
-  /* перетягування мишею. Після перетягування клік по картці не відкриває її */
-  let down = null, moved = false;
-  track.addEventListener('pointerdown', e => {
-    if (e.pointerType !== 'mouse' || e.button !== 0) return;
-    down = { x: e.clientX, left: track.scrollLeft }; moved = false;
-  });
-  addEventListener('pointermove', e => {
-    if (!down) return;
-    const dx = e.clientX - down.x;
-    if (!moved && Math.abs(dx) > 6){ moved = true; track.classList.add('dragging'); }
-    if (moved) track.scrollLeft = down.left - dx;
-  });
-  addEventListener('pointerup', () => {
-    if (!down) return;
-    down = null;
-    if (!moved) return;
-    track.classList.remove('dragging');
-    /* після відпускання докручуємо до найближчої картки */
-    const s = step();
-    track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: 'smooth' });
-  });
-  track.addEventListener('click', e => { if (moved){ e.preventDefault(); moved = false; } }, true);
-  track.addEventListener('dragstart', e => e.preventDefault());
-  track.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight'){ e.preventDefault(); track.scrollBy({ left: step(), behavior: 'smooth' }); }
-    if (e.key === 'ArrowLeft'){ e.preventDefault(); track.scrollBy({ left: -step(), behavior: 'smooth' }); }
-  });
+  initSlider(track);
 })();
 
 /* ---------- договір бронювання: умови у вікні ---------- */
