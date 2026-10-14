@@ -380,31 +380,18 @@ const SITE = {
       "short": "Поїздка під ключ: житло, авто, маршрут",
       "seoTitle": "Організація турів на Тенеріфе під ключ | SVOYI Tenerife",
       "seoDescription": "Тур на Тенеріфе під ключ: житло, трансфер, авто й програма екскурсій в одній заявці. Один менеджер на звʼязку від бронювання до вильоту.",
-      "title": "Як саме проходить",
-      "accent": "організація турів",
-      "lede": "Ми подбаємо про організацію вашої подорожі — від підбору житла до цікавих маршрутів і комфортного відпочинку на острові",
-      "facts": [
-        {
-          "icon": "bed",
-          "text": "Житло"
-        },
-        {
-          "icon": "van",
-          "text": "Трансфер і авто"
-        },
-        {
-          "icon": "compass",
-          "text": "Програма на дні"
-        }
-      ],
+      "title": "Тур на Tenerife",
+      "accent": "під ключ",
+      "lede": "Ми подбаємо про організацію вашого авторського туру — від підбору житла до цікавих маршрутів і яскравого відпочинку на острові.",
+      "facts": [],
       "cta": "",
-      "image": "images/places/tours.webp",
-      "imageAlt": "Наші гості під час туру",
+      "image": "images/places/tours-2.webp",
+      "imageAlt": "Наші гості на заході сонця біля океану",
       "imageCredit": "",
       "tiles": {
-        "label": "Що збираємо",
+        "label": "Ми подбаємо",
         "title": "Усе в одних руках",
-        "text": "Не треба окремо шукати житло, прокат і екскурсії та перевіряти, чи збігаються дати. Це робимо ми.",
+        "text": "Не треба окремо шукати житло, оренду авто і екскурсії та перевіряти, чи збігаються дати. Це все ми зробимо за вас",
         "items": [],
         "cta": "Хочу розрахувати тур"
       },
@@ -447,10 +434,412 @@ const SITE = {
       "kinds": {
         "items": []
       },
-      "imagePos": "center 70%"
+      "imagePos": "center 65%"
     }
   ],
   "apartments": [
+    {
+      "id": "apt-1",
+      "num": "1",
+      "type": "1br",
+      "name": "Апартаменти з видом на Los Gigantes",
+      "area": "Puerto de Santiago",
+      "lat": 28.2372,
+      "lng": -16.8418,
+      "price": 80,
+      "guests": 2,
+      "bedrooms": 1,
+      "baths": 1,
+      "sea": 5,
+      "top": true,
+      "photos": [
+        "images/apt/real/a1-11.webp",
+        "images/apt/real/a1-02.webp",
+        "images/apt/real/a1-03.webp",
+        "images/apt/real/a1-04.webp",
+        "images/apt/real/a1-05.webp",
+        "images/apt/real/a1-06.webp",
+        "images/apt/real/a1-07.webp",
+        "images/apt/real/a1-08.webp",
+        "images/apt/real/a1-09.webp",
+        "images/apt/real/a1-10.webp",
+        "images/apt/real/a1-12.webp",
+        "images/apt/real/a1-01.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Балкон",
+        "Кухня",
+        "Пральна машина",
+        "Посудомийна машина"
+      ],
+      "desc": "Бюджетні односпальні апартаменти в самому центрі Puerto de Santiago. Балкон з неймовірним видом на океан і скелі Los Gigantes.",
+      "long": "Односпальні апартаменти в самому центрі Puerto de Santiago з власним балконом, звідки відкривається неймовірний вид на океан і скелі Los Gigantes.\n\nОкрема спальня, санвузол з душовою кабіною, кухня поєднана з вітальнею: пральна та посудомийна машини, мікрохвильовка, фен, рушники.\n\nПоруч супермаркети Mercadona, Lidl і Super Dino, ресторани та бари.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-2",
+      "num": "2",
+      "type": "1br",
+      "name": "Перша лінія біля Playa de la Arena",
+      "area": "Los Gigantes",
+      "lat": 28.2418,
+      "lng": -16.8402,
+      "price": null,
+      "guests": 4,
+      "bedrooms": 1,
+      "baths": 1,
+      "sea": 2,
+      "top": true,
+      "photos": [
+        "images/apt/real/a2-02.webp",
+        "images/apt/real/a2-01.webp",
+        "images/apt/real/a2-03.webp",
+        "images/apt/real/a2-05.webp",
+        "images/apt/real/a2-06.webp",
+        "images/apt/real/a2-07.webp",
+        "images/apt/real/a2-08.webp",
+        "images/apt/real/a2-09.webp",
+        "images/apt/real/a2-10.webp",
+        "images/apt/real/a2-11.webp",
+        "images/apt/real/a2-12.webp",
+        "images/apt/real/a2-04.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Тераса",
+        "Басейн",
+        "Кухня",
+        "Поруч пляж"
+      ],
+      "desc": "Односпальні апартаменти на першій лінії біля океану, 2 хвилини до пляжу La Arena. Окрема шикарна тераса й басейн у комплексі.",
+      "long": "Апартаменти в чудовій локації поруч з океаном, набережною та знаменитими скелями Los Gigantes. До пляжу Playa de la Arena лише 2 хвилини.\n\nОкрема спальня, комфортний розкладний диван у вітальні, повністю обладнана кухня з посудом, санвузол, постільна білизна та рушники.\n\nОкрема шикарна тераса для ранкової кави чи вечері з видом на океан. На території комплексу є басейн.\n\nПоруч ресторани й кафе, магазини та супермаркети, набережна і прогулянкові зони.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-3",
+      "num": "3",
+      "type": "2br",
+      "name": "Двоспальні апартаменти біля скель",
+      "area": "Los Gigantes",
+      "lat": 28.2446,
+      "lng": -16.8409,
+      "price": 120,
+      "guests": 4,
+      "bedrooms": 2,
+      "baths": 1,
+      "sea": 3,
+      "top": true,
+      "photos": [
+        "images/apt/real/a3-03.webp",
+        "images/apt/real/a3-01.webp",
+        "images/apt/real/a3-02.webp",
+        "images/apt/real/a3-04.webp",
+        "images/apt/real/a3-05.webp",
+        "images/apt/real/a3-06.webp",
+        "images/apt/real/a3-07.webp",
+        "images/apt/real/a3-08.webp",
+        "images/apt/real/a3-09.webp",
+        "images/apt/real/a3-10.webp",
+        "images/apt/real/a3-11.webp",
+        "images/apt/real/a3-12.webp",
+        "images/apt/real/a3-13.webp",
+        "images/apt/real/a3-15.webp",
+        "images/apt/real/a3-16.webp",
+        "images/apt/real/a3-14.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Тераса",
+        "Кухня",
+        "Поруч пляж"
+      ],
+      "desc": "Нові двоспальні апартаменти після ремонту з видом на океан і гігантські скелі. До пляжу 3 хвилини пішки.",
+      "long": "Апартаменти в мальовничому містечку Los Gigantes з неймовірним видом на океан та знамениті гігантські скелі. До пляжу лише 3 хвилини пішки.\n\nНові, після ремонту: 2 окремі спальні, простора вітальня з великим диваном, повністю обладнана кухня, постільна білизна та рушники.\n\nЧудовий варіант для сімейного відпочинку або компанії. Вартість від 120 € за добу, залежить від сезону бронювання.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-4",
+      "num": "4",
+      "type": "2br",
+      "name": "Апартаменти з видом на океан і гори",
+      "area": "Los Gigantes",
+      "lat": 28.2452,
+      "lng": -16.8396,
+      "price": null,
+      "guests": 4,
+      "bedrooms": 2,
+      "baths": 2,
+      "sea": 5,
+      "top": true,
+      "photos": [
+        "images/apt/real/a4-13.webp",
+        "images/apt/real/a4-01.webp",
+        "images/apt/real/a4-03.webp",
+        "images/apt/real/a4-04.webp",
+        "images/apt/real/a4-05.webp",
+        "images/apt/real/a4-06.webp",
+        "images/apt/real/a4-07.webp",
+        "images/apt/real/a4-08.webp",
+        "images/apt/real/a4-09.webp",
+        "images/apt/real/a4-10.webp",
+        "images/apt/real/a4-11.webp",
+        "images/apt/real/a4-12.webp",
+        "images/apt/real/a4-14.webp",
+        "images/apt/real/a4-02.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Тераса",
+        "Кухня"
+      ],
+      "desc": "Дві спальні, два санвузли й велика тераса з захопливим видом на океан та гори. Від власника, без переплат.",
+      "long": "Апартаменти з неймовірним видом на океан та гори, щоб перезавантажитись і насолодитись життям. Від власника, без зайвих переплат.\n\nПоруч магазини, бари та ресторани, до пляжу кілька хвилин.\n\n2 спальні (в одній велике двоспальне ліжко, в іншій два односпальні), 2 санвузли, простора вітальня, поєднана з кухнею, велика тераса з захопливим видом.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-5",
+      "num": "5",
+      "type": "2br",
+      "name": "Дві спальні й велика тераса",
+      "area": "Los Gigantes",
+      "lat": 28.2437,
+      "lng": -16.8391,
+      "price": null,
+      "guests": 4,
+      "bedrooms": 2,
+      "baths": 2,
+      "sea": 5,
+      "top": true,
+      "photos": [
+        "images/apt/real/a5-11.webp",
+        "images/apt/real/a5-01.webp",
+        "images/apt/real/a5-02.webp",
+        "images/apt/real/a5-03.webp",
+        "images/apt/real/a5-04.webp",
+        "images/apt/real/a5-05.webp",
+        "images/apt/real/a5-06.webp",
+        "images/apt/real/a5-07.webp",
+        "images/apt/real/a5-08.webp",
+        "images/apt/real/a5-09.webp",
+        "images/apt/real/a5-10.webp",
+        "images/apt/real/a5-12.webp",
+        "images/apt/real/a5-13.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Тераса",
+        "Кухня"
+      ],
+      "desc": "Дві спальні, два санвузли й велика тераса з видом на океан та гори. Поруч магазини, бари й ресторани.",
+      "long": "Апартаменти з неймовірним видом на океан та гори. Від власника, без зайвих переплат.\n\nПоруч магазини, бари та ресторани, до пляжу кілька хвилин.\n\n2 спальні (в одній велике двоспальне ліжко, в іншій два односпальні), 2 санвузли, простора вітальня, поєднана з кухнею, велика тераса з захопливим видом.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-6",
+      "num": "6",
+      "type": "1br",
+      "name": "Затишні апартаменти на першій лінії",
+      "area": "Los Gigantes",
+      "lat": 28.2428,
+      "lng": -16.8413,
+      "price": 70,
+      "guests": 4,
+      "bedrooms": 1,
+      "baths": 1,
+      "sea": 5,
+      "top": true,
+      "photos": [
+        "images/apt/real/a6-02.webp",
+        "images/apt/real/a6-03.webp",
+        "images/apt/real/a6-04.webp",
+        "images/apt/real/a6-05.webp",
+        "images/apt/real/a6-06.webp",
+        "images/apt/real/a6-07.webp",
+        "images/apt/real/a6-08.webp",
+        "images/apt/real/a6-09.webp",
+        "images/apt/real/a6-10.webp",
+        "images/apt/real/a6-11.webp",
+        "images/apt/real/a6-12.webp",
+        "images/apt/real/a6-01.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Панорамний вид",
+        "Балкон",
+        "Кухня"
+      ],
+      "desc": "Односпальні апартаменти в самому серці Los Gigantes, перша лінія. Балкон з панорамним видом на океан.",
+      "long": "Затишні односпальні апартаменти в самому серці Los Gigantes з неймовірним видом на океан. Перша лінія, лише 5 хвилин до пляжу.\n\nВелике двоспальне ліжко, кухня, поєднана з вітальнею, розкладний диван, балкон з панорамним видом на океан.\n\nВартість: 70 € за добу або 1500 € за місяць.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-7",
+      "num": "7",
+      "type": "2br",
+      "name": "Дизайнерські апартаменти в Gigansol",
+      "area": "Los Gigantes",
+      "lat": 28.2463,
+      "lng": -16.8401,
+      "price": 135,
+      "guests": 4,
+      "bedrooms": 2,
+      "baths": 1,
+      "sea": 3,
+      "top": true,
+      "photos": [
+        "images/apt/real/a7-06.webp",
+        "images/apt/real/a7-01.webp",
+        "images/apt/real/a7-02.webp",
+        "images/apt/real/a7-03.webp",
+        "images/apt/real/a7-04.webp",
+        "images/apt/real/a7-05.webp",
+        "images/apt/real/a7-07.webp",
+        "images/apt/real/a7-08.webp",
+        "images/apt/real/a7-09.webp",
+        "images/apt/real/a7-10.webp",
+        "images/apt/real/a7-11.webp"
+      ],
+      "features": [
+        "Панорамний вид",
+        "Тераса",
+        "Кухня",
+        "Поруч пляж"
+      ],
+      "desc": "Розкішні дизайнерські апартаменти в комплексі Gigansol поруч із пляжем Playa Los Gigantes. Велика тераса з видом на скелі.",
+      "long": "Дизайнерські апартаменти від власника поруч із пляжем Playa Los Gigantes. Комплекс Gigansol один із найкращих у цій локації.\n\nУсе продумано до дрібниць: 2 спальні, простора вітальня, поєднана з кухнею, велика тераса з мальовничим краєвидом на скелі Los Gigantes.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-8",
+      "num": "8",
+      "type": "2br",
+      "name": "Нові апартаменти з видом на скелі",
+      "area": "Los Gigantes",
+      "lat": 28.2449,
+      "lng": -16.8417,
+      "price": 90,
+      "guests": 4,
+      "bedrooms": 2,
+      "baths": 2,
+      "sea": 2,
+      "top": true,
+      "photos": [
+        "images/apt/real/a8-08.webp",
+        "images/apt/real/a8-01.webp",
+        "images/apt/real/a8-02.webp",
+        "images/apt/real/a8-03.webp",
+        "images/apt/real/a8-04.webp",
+        "images/apt/real/a8-05.webp",
+        "images/apt/real/a8-06.webp",
+        "images/apt/real/a8-07.webp"
+      ],
+      "features": [
+        "Панорамний вид",
+        "Тераса",
+        "Паркінг",
+        "Кухня",
+        "Поруч пляж"
+      ],
+      "desc": "Нові стильні апартаменти за 2 хвилини від пляжу Los Gigantes. Тераса з видом на скелі й власне паркомісце.",
+      "long": "Нові стильні апартаменти з видом на скелі Los Gigantes. Лише 2 хвилини пішки до мальовничого пляжу Los Gigantes.\n\n2 спальні, простора вітальня, поєднана з кухнею, 2 санвузли, власне паркомісце і все необхідне для комфортного проживання.\n\nІ головне: тераса з видом, від якого неможливо відірвати очі.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
+    {
+      "id": "apt-9",
+      "num": "9",
+      "type": "studio",
+      "name": "Затишна студія з видом на скелі",
+      "area": "Los Gigantes",
+      "lat": 28.2433,
+      "lng": -16.8422,
+      "price": 75,
+      "guests": 2,
+      "bedrooms": 1,
+      "baths": 1,
+      "sea": 5,
+      "top": true,
+      "photos": [
+        "images/apt/real/a9-04.webp",
+        "images/apt/real/a9-01.webp",
+        "images/apt/real/a9-02.webp",
+        "images/apt/real/a9-03.webp",
+        "images/apt/real/a9-05.webp",
+        "images/apt/real/a9-06.webp",
+        "images/apt/real/a9-07.webp",
+        "images/apt/real/a9-08.webp"
+      ],
+      "features": [
+        "Вид на океан",
+        "Кухня"
+      ],
+      "desc": "Затишна студія з неймовірним видом на скелі Los Gigantes та океан. Кілька хвилин пішки до пляжу.",
+      "long": "Затишна студія з неймовірним видом на величні скелі Los Gigantes та безкрайній океан.\n\nЗатишне спальне місце, чисті й охайні апартаменти, повністю обладнана кухня з усім необхідним.\n\nДо пляжу Playa de los Gigantes лише кілька хвилин пішки. Ідеальне місце для романтичного відпочинку, спокою та натхнення.",
+      "rules": {
+        "in": "15:00",
+        "out": "11:00",
+        "min": 3,
+        "pets": "За домовленістю"
+      },
+      "videos": [],
+      "booked": []
+    },
     {
       "id": "sb-01",
       "type": "1br",
@@ -495,7 +884,8 @@ const SITE = {
           "2026-10-03",
           "2026-10-10"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "ar-02",
@@ -536,7 +926,8 @@ const SITE = {
           "2026-09-11",
           "2026-09-18"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "cs-03",
@@ -578,7 +969,8 @@ const SITE = {
           "2026-09-25",
           "2026-10-02"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "lg-04",
@@ -624,7 +1016,8 @@ const SITE = {
           "2026-11-01",
           "2026-11-08"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "ca-05",
@@ -661,7 +1054,8 @@ const SITE = {
         "pets": "За домовленістю"
       },
       "videos": [],
-      "booked": []
+      "booked": [],
+      "hidden": true
     },
     {
       "id": "lc-06",
@@ -706,7 +1100,8 @@ const SITE = {
           "2026-09-28",
           "2026-10-05"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "pa-07",
@@ -747,7 +1142,8 @@ const SITE = {
           "2026-10-12",
           "2026-10-19"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "pc-08",
@@ -783,7 +1179,8 @@ const SITE = {
         "pets": "За домовленістю"
       },
       "videos": [],
-      "booked": []
+      "booked": [],
+      "hidden": true
     },
     {
       "id": "em-09",
@@ -824,7 +1221,8 @@ const SITE = {
           "2026-09-19",
           "2026-09-26"
         ]
-      ]
+      ],
+      "hidden": true
     },
     {
       "id": "lcal-10",
@@ -866,7 +1264,8 @@ const SITE = {
           "2026-09-20",
           "2026-09-30"
         ]
-      ]
+      ],
+      "hidden": true
     }
   ],
   "basics": [

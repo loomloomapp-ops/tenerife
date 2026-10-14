@@ -24,8 +24,10 @@ const has = (a, word) => a.features.some(f => f.toLowerCase().includes(word));
 
 /* межі беремо з даних, а не з констант: додали дорожчий обʼєкт - повзунок підріс */
 const ALL = items();
-const P_MIN = Math.min(...ALL.map(a => a.price));
-const P_MAX = Math.max(...ALL.map(a => a.price));
+/* обʼєкти без ціни («за запитом») у межі не входять і фільтр за ціною не відсіює */
+const PRICED = ALL.filter(a => a.price).map(a => a.price);
+const P_MIN = PRICED.length ? Math.min(...PRICED) : 0;
+const P_MAX = PRICED.length ? Math.max(...PRICED) : 0;
 
 const SEGS = {
   bed:  { label: 'Спальні',    opts: [['', 'Будь-яка'], ['1', '1'], ['2', '2'], ['3', '3 і більше']] },
@@ -45,13 +47,14 @@ function filtered(){
     (!S.type || a.type === S.type) &&
     (!S.area || a.area === S.area) &&
     free(a) &&
-    a.price >= F.min && a.price <= F.max &&
+    (!a.price || (a.price >= F.min && a.price <= F.max)) &&
     (!F.bed  || (F.bed === '3' ? a.bedrooms >= 3 : a.bedrooms === +F.bed)) &&
     (!F.bath || (F.bath === '2' ? a.baths >= 2 : a.baths === +F.bath)) &&
     (!F.sea  || a.sea <= +F.sea) &&
     [...F.amen].every(k => has(a, k))
   );
-  const by = { asc: (x, y) => x.price - y.price, desc: (x, y) => y.price - x.price, cap: (x, y) => y.guests - x.guests };
+  const pr = (a, none) => a.price || none;
+  const by = { asc: (x, y) => pr(x, 1e9) - pr(y, 1e9), desc: (x, y) => pr(y, -1) - pr(x, -1), cap: (x, y) => y.guests - x.guests };
   if (by[S.sort]) r = [...r].sort(by[S.sort]);
   return r;
 }
@@ -162,9 +165,9 @@ function drawMap(list){
   if (!list.length) return;
   list.forEach(a => {
     const m = L.marker([a.lat, a.lng], {
-      icon: L.divIcon({ className: '', html: `<div class="pin-at"><div class="pin" data-id="${a.id}">${a.price} €</div></div>`, iconSize: [0, 0], iconAnchor: [0, 0] })
+      icon: L.divIcon({ className: '', html: `<div class="pin-at"><div class="pin" data-id="${a.id}">${a.price ? `${a.price} €` : 'запит'}</div></div>`, iconSize: [0, 0], iconAnchor: [0, 0] })
     }).addTo(map);
-    m.bindPopup(`<b>${esc(a.name)}</b>${esc(a.area)} · ${a.price} EUR за ніч<br>
+    m.bindPopup(`<b>${esc(a.name)}</b>${esc(a.area)} · ${a.price ? `${a.price} EUR за ніч` : 'ціна за запитом'}<br>
       <a href="apartment.html?id=${a.id}">Відкрити сторінку</a>`);
     m.on('mouseover', () => hot(a.id, true));
     m.on('mouseout',  () => hot(a.id, false));

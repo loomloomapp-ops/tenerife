@@ -388,7 +388,7 @@ function cardHTML(a, extra = ''){
       <p class="card-loc">${icon('map-pin')}${esc(a.area)}</p>
       <p class="card-meta">${a.guests} ${plural(a.guests, ['гість','гості','гостей'])}, ${a.bedrooms} ${plural(a.bedrooms, ['спальня','спальні','спалень'])}</p>
       <div class="card-foot">
-        <p class="card-price"><b>${a.price} EUR</b> <span>/ ніч</span></p>
+        <p class="card-price">${a.price ? `<b>${a.price} EUR</b> <span>/ ніч</span>` : '<b class="ask">Ціна за запитом</b>'}</p>
         <span class="card-cta">Детальніше</span>
       </div>
     </div>
@@ -426,8 +426,8 @@ function miniHTML(a){
       <h4>${esc(a.name)}</h4>
       <em>${icon('map-pin')}${esc(a.area)}</em>
       <div class="mini-f">
-        <span><b>${a.price} EUR</b> <small>/ ніч</small></span>
-        <s>${n ? `${n * a.price + CLEANING} EUR разом` : `${a.guests} ${plural(a.guests, ['гість','гості','гостей'])}`}</s>
+        <span>${a.price ? `<b>${a.price} EUR</b> <small>/ ніч</small>` : '<b class="ask">Ціна за запитом</b>'}</span>
+        <s>${n && a.price ? `${n * a.price + CLEANING} EUR разом` : `${a.guests} ${plural(a.guests, ['гість','гості','гостей'])}`}</s>
       </div>
     </div>
   </a>`;
@@ -620,7 +620,7 @@ function recapRows(){
     rows.push(['Кількість людей', String(S.guests)]);
     if (S.carPlace) rows.push(['Місце подачі', S.carPlace]);
   }
-  if (a && n) rows.push(['Житло', `${n * a.price + CLEANING} EUR`]);
+  if (a && n && a.price) rows.push(['Житло', `${n * a.price + CLEANING} EUR`]);
   return rows;
 }
 const recapHTML = () => `<div class="recap">${recapRows().map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</div>`;
@@ -700,7 +700,7 @@ function stepDone(){
   const rows = recapRows();
   if (a && S.car) rows.push(['Авто', `${S.car.name}${n ? ` · ${S.car.price * n} EUR` : ''}`]);
   rows.push(['Контакт', `${S.name}, ${S.phone}`]);
-  const value = (a && n ? n * a.price + CLEANING : 0) + (S.car && n ? S.car.price * n : 0);
+  const value = (a && n && a.price ? n * a.price + CLEANING : 0) + (S.car && n ? S.car.price * n : 0);
   const id = Date.now().toString().slice(-6);
   const text = ['Заявка з сайту SVOYI', `№ ${id}`, ...rows.map(r => `${r[0]}: ${r[1]}`),
                 S.note ? `Побажання: ${S.note}` : ''].filter(Boolean).join('\n');

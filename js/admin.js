@@ -323,7 +323,6 @@ function validate(d){
     else if (seen.has(a.id)) e.push([`«${nm}»: адреса сторінки «${a.id}» уже зайнята іншим обʼєктом`, at]);
     seen.add(a.id);
     if (!a.photos.length) e.push([`«${nm}»: додайте хоча б одне фото`, at]);
-    if (!(+a.price > 0)) e.push([`«${nm}»: вкажіть ціну за ніч`, at]);
     if (!(+a.guests > 0)) e.push([`«${nm}»: вкажіть кількість гостей`, at]);
     if (!isFinite(parseFloat(a.lat)) || !isFinite(parseFloat(a.lng))) e.push([`«${nm}»: вкажіть точку на карті`, at]);
     if (!String(a.area || '').trim()) e.push([`«${nm}»: вкажіть район`, at]);
@@ -830,6 +829,7 @@ const F_APT = [
   { t: 'group', l: 'Основне', fields: [
     { t: 'row', fields: [
       { k: 'name', l: 'Назва', req: true },
+      { k: 'num', l: 'Номер апартамента', ph: '12-84', hint: 'Показується біля назви на сторінці обʼєкта' },
       { k: 'id', l: 'Адреса сторінки', req: true, hint: 'apartment.html?id=… Латиниця, цифри, дефіс', onBlur: renameApt }
     ] },
     { t: 'row', fields: [
@@ -837,7 +837,7 @@ const F_APT = [
       { k: 'area', l: 'Район', req: true, list: allAreas, hint: 'Потрапляє у фільтр «Район» на сайті' }
     ] },
     { t: 'row', fields: [
-      { k: 'price', t: 'number', l: 'Ціна за ніч, EUR', min: 0, req: true },
+      { k: 'price', t: 'number', l: 'Ціна за ніч, EUR', min: 0, hint: 'Порожнє поле: «Ціна за запитом»' },
       { k: 'guests', t: 'number', l: 'Гостей', min: 1, req: true },
       { k: 'bedrooms', t: 'number', l: 'Спалень', min: 0 },
       { k: 'baths', t: 'number', l: 'Санвузлів', min: 0 },
@@ -1010,7 +1010,7 @@ const COLLECTIONS = {
     thumb: a => a.photos[0],
     badges: a => [a.hidden && 'прихований', a.top && 'рекомендований'],
     link: a => `apartment.html?id=${a.id}`,
-    make: () => ({ id: '', type: (A.data.types[0] || {}).id || '', name: '', area: '', lat: null, lng: null, price: null, guests: 2, bedrooms: 1, baths: 1,
+    make: () => ({ id: '', num: '', type: (A.data.types[0] || {}).id || '', name: '', area: '', lat: null, lng: null, price: null, guests: 2, bedrooms: 1, baths: 1,
       sea: null, top: false, photos: [], features: [], desc: '', long: '', rules: { in: '15:00', out: '11:00', min: 3, pets: 'За домовленістю' },
       videos: [], booked: [] }),
     idFrom: 'name'

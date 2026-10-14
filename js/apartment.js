@@ -25,6 +25,7 @@ if (!apt){
 /* ---------- підрахунок вартості ---------- */
 function calcHTML(){
   const n = nights();
+  if (!apt.price) return `<div class="warn">Вартість на ваші дати назве менеджер після заявки.</div>`;
   if (!n) return `<div class="warn">Оберіть дати, щоб побачити повну вартість.</div>`;
   const sum = n * apt.price;
   return `<div class="calc">
@@ -62,7 +63,8 @@ function reviewsHTML(){
 
 function render(){
   const n = nights();
-  const total = n ? n * apt.price + CLEANING : 0;
+  const total = n && apt.price ? n * apt.price + CLEANING : 0;
+  const perNight = apt.price ? `${apt.price} EUR` : 'Ціна за запитом';
 
   $('#apt').innerHTML = `
   <!-- 1. Головне: фото і максимум інформації -->
@@ -77,6 +79,7 @@ function render(){
         <h1>${esc(apt.name)}</h1>
         <p class="apt-loc">${icon('map-pin')}${esc(apt.area)}, Тенеріфе</p>
       </div>
+      ${apt.num ? `<p class="apt-num">${icon('house')}<span><small>апартамент</small><b>${esc(apt.num)}</b></span></p>` : ''}
     </div>
     <!-- галерея як на Booking: фото гортаються прямо тут (свайп, стрілки, мініатюри) -->
     <div class="gal" id="gal" aria-roledescription="галерея" aria-label="Фото апартаментів">
@@ -136,7 +139,7 @@ function render(){
 
     <!-- 4. Бронювання: праворуч на компʼютері, знизу екрана на телефоні -->
     <aside class="bookbox" id="bookbox">
-      <p class="pr"><b>${apt.price} EUR</b><span>/ ніч</span></p>
+      <p class="pr"><b>${perNight}</b>${apt.price ? '<span>/ ніч</span>' : ''}</p>
       <div class="bb-dates" id="bbDates">
         <div id="cIn" role="button" tabindex="0"><label>Заїзд</label><div class="dfield${S.in ? '' : ' ph'}" id="sIn">${S.in ? fmt(S.in) : 'Оберіть дату'}</div></div>
         <div id="cOut" role="button" tabindex="0"><label>Виїзд</label><div class="dfield${S.out ? '' : ' ph'}" id="sOut">${S.out ? fmt(S.out) : 'Оберіть дату'}</div></div>
@@ -164,7 +167,7 @@ function render(){
   <!-- панель бронювання для телефона -->
   <div class="bookbar">
     <div class="pr">
-      <b>${n ? `${total} EUR` : `${apt.price} EUR`}</b>
+      <b>${total ? `${total} EUR` : perNight}</b>
       <span>${n ? `${fmt(S.in)} - ${fmt(S.out)}, ${n} ${plural(n, ['ніч', 'ночі', 'ночей'])}` : 'за ніч, оберіть дати'}</span>
     </div>
     <button class="btn btn-accent" type="button" id="barBook">${n ? 'Забронювати' : 'Обрати дати'}</button>
