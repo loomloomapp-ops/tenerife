@@ -167,8 +167,8 @@ function render(){
   <!-- панель бронювання для телефона -->
   <div class="bookbar">
     <div class="pr">
-      <b>${total ? `${total} EUR` : perNight}</b>
-      <span>${n ? `${fmt(S.in)} - ${fmt(S.out)}, ${n} ${plural(n, ['ніч', 'ночі', 'ночей'])}` : 'за ніч, оберіть дати'}</span>
+      <b${!apt.price && !n ? ' class="ask"' : ''}>${total ? `${total} EUR` : perNight}</b>
+      <span>${n ? `${fmt(S.in)} - ${fmt(S.out)}, ${n} ${plural(n, ['ніч', 'ночі', 'ночей'])}` : (apt.price ? 'за ніч, оберіть дати' : 'вартість назве менеджер')}</span>
     </div>
     <button class="btn btn-accent" type="button" id="barBook">${n ? 'Забронювати' : 'Обрати дати'}</button>
   </div>`;
