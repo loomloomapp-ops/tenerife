@@ -17,6 +17,7 @@ const APARTMENTS = DATA.apartments;
 const BASICS = DATA.basics;
 const CARS = DATA.cars.filter(c => !c.hidden);
 const REVIEWS = DATA.reviews;
+const EXCURSIONS = (DATA.excursions || []).filter(e => !e.hidden);
 const APT_TYPES = DATA.types.map(t => [t.id, t.label]);
 const AREAS = [...new Set(APARTMENTS.filter(a => !a.hidden).map(a => a.area))].sort();
 /* генеральне прибирання: одноразовий платіж при виселенні */
@@ -84,6 +85,17 @@ const rich = s => esc(s == null ? '' : s)
   .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
   .replace(/\n/g, '<br>');
 
+/* довгий текст: абзаци через порожній рядок, «## » на початку робить підзаголовок,
+   рядки з «• » або «- » стають списком */
+const richBlocks = s => String(s || '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean).map(b => {
+  if (b.startsWith('## ')) return `<h4>${esc(b.slice(3))}</h4>`;
+  const lines = b.split('\n');
+  const isLi = l => /^(•|-)\s/.test(l);
+  if (lines.some(isLi)) return lines.map(l => isLi(l) ? `<li>${rich(l.replace(/^(•|-)\s+/, ''))}</li>` : `</ul><p>${rich(l)}</p><ul>`)
+    .join('').replace(/^/, '<ul>').concat('</ul>').replace(/<ul><\/ul>/g, '');
+  return `<p>${rich(b)}</p>`;
+}).join('');
+
 const svcHref = s => s.href || `service.html?id=${encodeURIComponent(s.id)}`;
 function currentSvc(){
   const b = document.body;
@@ -104,7 +116,12 @@ const TPL = {
   /* картка без іконки отримує порядковий номер 01, 02... */
   tile: (t, i) => `<div class="tile">${t.icon ? icon(t.icon) : `<em class="num">${num(i)}</em>`}<h3>${esc(t.title)}</h3><p>${rich(t.text)}</p></div>`,
   step: (s, i) => `<div class="step"><em class="num">${num(i)}</em><h3>${esc(s.title)}</h3><p>${rich(s.text)}</p></div>`,
-  kind: k => `<div class="kind">${k.icon ? icon(k.icon) : ''}<h3>${esc(k.title)}</h3><p>${rich(k.text)}</p></div>`,
+  /* з пунктами (points) картка йде на всю ширину, пункти стоять у ряд з номерами 01, 02... */
+  kind: k => {
+    const pts = (k.points || []).filter(p => p && p.title);
+    return `<div class="kind${pts.length ? ' kind-wide' : ''}"><div class="kind-h">${k.icon ? icon(k.icon) : ''}<h3>${esc(k.title)}</h3><p>${rich(k.text)}</p></div>${pts.length
+      ? `<div class="kind-pts">${pts.map((p, i) => `<div><em class="num">${num(i)}</em><h4>${esc(p.title)}</h4><p>${rich(p.text)}</p></div>`).join('')}</div>` : ''}</div>`;
+  },
   li: s => `<li>${esc(s)}</li>`,
   svc: s => {
     const here = currentSvc() === s;

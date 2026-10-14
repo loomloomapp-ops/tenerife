@@ -60,16 +60,39 @@
   </div>
 </section>
 
+<!-- Наявні екскурсії: слайдер з масиву excursions у js/data.js, клік відкриває вікно з галереєю й описом.
+     Логіка в js/service.js -->
+<section class="sec sea-sec after-head" data-show="excursions">
+  <div class="wrap">
+    <div class="sec-h sec-top rv">
+      <div>
+        <span class="slash">Наші екскурсії</span>
+        <h2>Оберіть екскурсію</h2>
+        <p>Натисніть на картку, щоб побачити програму, фото й що взяти з собою.</p>
+      </div>
+      <span class="swipe-hint" aria-hidden="true"><span>Гортай далі</span> <svg class="ic"><use href="#i-arrow-right"></use></svg></span>
+    </div>
+    <div class="slider rv rv-1" id="excList" tabindex="0" aria-label="Екскурсії"></div>
+  </div>
+</section>
+
+<dialog class="exc-dlg" id="excDlg" aria-label="Екскурсія">
+  <div class="exc-in">
+    <button class="x" type="button" data-exc-close aria-label="Закрити">✕</button>
+    <div class="exc-body"></div>
+  </div>
+</dialog>
+
 <!-- Що входить / картки послуги. Замість карток можуть стояти кнопки (tiles.cta), нижче типи (kinds) -->
 <section class="sec sec-paper2" data-show="svc.tiles.items|svc.tiles.cta|svc.kinds.items">
   <div class="wrap">
     <div class="sec-h sec-h-line rv">
       <span class="slash" data-c="svc.tiles.label">Екскурсії</span>
-      <h2 data-c="svc.tiles.title">Авторські екскурсії</h2>
-      <p data-c="svc.tiles.text">Відкривайте Tenerife по-своєму — з персональним гідом та індивідуальною програмою.</p>
+      <h2 data-c="svc.tiles.title">Види екскурсій</h2>
+      <p data-c="svc.tiles.text" hidden></p>
     </div>
     <div class="tiles" data-list="svc.tiles.items" data-tpl="tile" data-show="svc.tiles.items"><div class="tile"><em class="num">01</em><h3>Індивідуальний формат</h3><p>Авторські екскурсії можна організувати незалежно від кількості учасників — для пари, родини чи компанії друзів.</p></div><div class="tile"><em class="num">02</em><h3>Персональний гід</h3><p>На вас чекає персональний гід, який проживає на острові, знає його особливості та здивує вас нетуристичними локаціями.</p></div><div class="tile"><em class="num">03</em><h3>Програма під вас</h3><p>Маршрут, тривалість, локації та формат подорожі узгоджуються індивідуально, з урахуванням ваших побажань, інтересів і темпу відпочинку.</p></div></div>
-    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items"><div class="kind"><svg class="ic" aria-hidden="true"><use href="#i-users-three"></use></svg><h3>Групові екскурсії</h3><p>Хочете побачити найцікавіші місця Tenerife, але не маєте компанії для індивідуальної екскурсії?<br><br>Приєднуйтеся до вже сформованої групи та вирушайте назустріч новим враженням.</p></div><div class="kind"><svg class="ic" aria-hidden="true"><use href="#i-user-circle"></use></svg><h3>Індивідуальні екскурсії</h3><p>Хочете відвідати популярні локації Tenerife у власному темпі? Замовте індивідуальну екскурсію з персональним гідом і відкрийте для себе найкрасивіші місця острова.</p></div></div>
+    <div class="kinds" data-list="svc.kinds.items" data-tpl="kind" data-show="svc.kinds.items"></div>
     <div class="svc-acts" data-show="svc.tiles.cta" hidden>
       <a class="btn btn-accent" href="#order" data-c="svc.tiles.cta"></a>
       <a class="btn btn-ghost" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-telegram"></use></svg>Написати в Telegram</a>
@@ -134,8 +157,8 @@
     <div class="lead">
       <div class="sec-h rv">
         <span class="slash" data-c="svc.lead.label">Заявка</span>
-        <h2 data-c="svc.lead.title">Що хочете<br>побачити?</h2>
-        <p data-c="svc.lead.text">Напишіть, де зупинились і що цікавить. Складемо програму, яка не зʼїсть половину відпустки на дорогу.</p>
+        <h2 data-c="svc.lead.title">Замовити<br>екскурсію</h2>
+        <p data-c="svc.lead.text" hidden></p>
       </div>
       <form class="lead-form rv rv-1" id="leadForm" data-service="Екскурсії" novalidate>
         <p data-c="settings.formIntro">Залиште контакт, решту зʼясуємо в розмові.</p>

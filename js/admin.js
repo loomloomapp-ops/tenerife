@@ -293,7 +293,8 @@ function normalize(d){
   const cat = obj(d, 'catalog', {});
   const cl = obj(cat, 'climate', {});
   ['north', 'south'].forEach(k => obj(obj(cl, k, {}), 'items', []));
-  ['services', 'apartments', 'cars', 'reviews', 'basics', 'types', 'places'].forEach(k => obj(d, k, []));
+  ['services', 'apartments', 'cars', 'excursions', 'reviews', 'basics', 'types', 'places'].forEach(k => obj(d, k, []));
+  d.excursions.forEach(e => obj(e, 'photos', []));
   d.services.forEach(normService);
   d.apartments.forEach(a => {
     ['photos', 'features', 'booked', 'videos'].forEach(k => obj(a, k, []));
@@ -881,6 +882,19 @@ const F_CAR = [
   { k: 'hidden', t: 'toggle', l: 'Приховати з сайту' }
 ];
 
+const F_EXCURSION = [
+  { t: 'row', fields: [{ k: 'title', l: 'Назва', req: true, ph: 'Masca + Teide' }, { k: 'sub', l: 'Підзаголовок або маршрут', ph: 'Vilaflor • Pino Gordo' }] },
+  { t: 'row', fields: [
+    { k: 'duration', l: 'Тривалість', ph: '5–6 годин' },
+    { k: 'price', l: 'Ціна', ph: 'від 400 €', hint: 'Порожнє поле: «Ціну назве менеджер»' },
+    { k: 'people', l: 'Кількість людей', ph: 'до 10 осіб' }
+  ] },
+  { k: 'photos', t: 'images', l: 'Фото', hint: 'Перше фото йде на картку. Фото стискаються автоматично.' },
+  { k: 'intro', t: 'textarea', l: 'Короткий опис', rows: 3, hint: 'На картці показуються перші три рядки, у вікні екскурсії весь текст' },
+  { k: 'body', t: 'textarea', l: 'Повний опис', rows: 14, hint: 'Абзаци через порожній рядок. «## » на початку рядка робить підзаголовок, «• » на початку рядка робить пункт списку' },
+  { k: 'hidden', t: 'toggle', l: 'Приховати з сайту' }
+];
+
 const F_REVIEW = [
   { t: 'row', fields: [{ k: 'author', l: 'Імʼя гостя', req: true }, { k: 'city', l: 'Місто' }] },
   { k: 'quote', t: 'textarea', l: 'Цитата', rows: 3, hint: 'На картці показуються перші три рядки' },
@@ -924,7 +938,9 @@ const F_SERVICE = [
   ] },
   { t: 'group', k: 'kinds', l: 'Великі картки під блоком з картками', hint: 'Наприклад, групові й індивідуальні екскурсії. Без карток не показуються.', fields: [
     { k: 'items', t: 'list', l: 'Картки', add: 'Додати картку', title: t => t.title || 'Нова картка', make: () => ({ icon: '', title: '', text: '' }),
-      fields: [{ k: 'icon', t: 'icon' }, { k: 'title', l: 'Заголовок', wide: true }, { k: 'text', t: 'textarea', l: 'Текст', rows: 3, rich: true }] }
+      fields: [{ k: 'icon', t: 'icon' }, { k: 'title', l: 'Заголовок', wide: true }, { k: 'text', t: 'textarea', l: 'Текст', rows: 3, rich: true },
+        { k: 'points', t: 'list', l: 'Пункти з номерами', add: 'Додати пункт', title: p => p.title || 'Новий пункт', make: () => ({ title: '', text: '' }), fields: stepFields,
+          hint: 'З пунктами картка стоїть на всю ширину, пункти йдуть у ряд: 01, 02, 03' }] }
   ] },
   { t: 'group', k: 'cars', l: 'Автопарк', hint: 'Список авто редагується в розділі «Авто».', fields: [
     { k: 'show', t: 'toggle', l: 'Показувати автопарк на цій сторінці' },
@@ -1019,6 +1035,13 @@ const COLLECTIONS = {
     make: () => ({ id: '', name: '', year: null, price: null, priceMax: null, deposit: 200, gear: 'Автомат', features: [], photo: '' }),
     idAuto: 'c'
   },
+  excursions: {
+    title: 'Екскурсії', add: 'Додати екскурсію', fields: F_EXCURSION,
+    name: e => e.title || 'Без назви', sub: e => [e.duration, e.price].filter(Boolean).join(' · '),
+    thumb: e => e.photos[0], badges: e => [e.hidden && 'прихована'],
+    make: () => ({ id: '', title: '', sub: '', duration: '', price: '', people: '', intro: '', body: '', photos: [] }),
+    idFrom: 'title'
+  },
   reviews: {
     title: 'Відгуки', add: 'Додати відгук', fields: F_REVIEW,
     name: r => r.author || 'Без імені', sub: r => r.quote || '',
@@ -1034,6 +1057,7 @@ const SECTIONS = [
   { id: 'apartments', title: 'Апартаменти', icon: 'bed', coll: 'apartments' },
   { id: 'services', title: 'Послуги й тури', icon: 'compass', coll: 'services' },
   { id: 'cars', title: 'Авто', icon: 'car', coll: 'cars' },
+  { id: 'excursions', title: 'Екскурсії', icon: 'mountains', coll: 'excursions' },
   { id: 'reviews', title: 'Відгуки', icon: 'play', coll: 'reviews' },
   { id: 'catalog', title: 'Сторінка каталогу', icon: 'map-trifold', form: () => [A.data.catalog, F_CATALOG] },
   { id: 'lists', title: 'Довідники', ui: 'list', form: () => [A.data, F_LISTS] }
