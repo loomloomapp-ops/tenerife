@@ -817,7 +817,7 @@ const F_HOME = [
   { t: 'group', k: 'work', l: 'Блок «Як ми працюємо»', fields: [
     ...headFields(),
     { k: 'steps', t: 'list', l: 'Кроки', add: 'Додати крок', title: s => s.title || 'Новий крок', make: () => ({ title: '', text: '' }), fields: stepFields },
-    { t: 'group', k: 'contract', l: 'Кнопка «Договір бронювання»', hint: 'Стоїть під останнім кроком і відкриває умови у вікні. Без тексту умов кнопка ховається.', fields: [
+    { t: 'group', k: 'contract', l: 'Кнопка «Умови бронювання»', hint: 'Стоїть під останнім кроком і відкриває умови у вікні. Без тексту умов кнопка ховається.', fields: [
       { t: 'row', fields: [{ k: 'title', l: 'Назва кнопки' }, { k: 'text', l: 'Підпис під назвою' }] },
       { k: 'termsTitle', l: 'Заголовок у вікні', wide: true },
       { k: 'terms', t: 'textarea', l: 'Текст умов', rows: 8, rich: true }

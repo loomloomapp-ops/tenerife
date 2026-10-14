@@ -530,7 +530,8 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 .step:nth-child(2){transition-delay:.08s}.step:nth-child(3){transition-delay:.16s}.step:nth-child(4){transition-delay:.24s}
 /* кнопка після кроків */
 .steps-cta{margin-top:clamp(30px,3vw,44px)}
-/* договір бронювання стоїть праворуч навпроти заголовка */
+/* умови бронювання стоять під кроками */
+.steps-after{margin-top:clamp(30px,3vw,44px)}
 .doc-btn{
   display:grid;width:min(100%,400px);grid-template-columns:auto 1fr;gap:6px 14px;align-items:center;text-align:left;
   background:var(--white);border:1px solid var(--line);border-radius:22px;padding:22px 22px 20px;cursor:pointer;
@@ -557,6 +558,8 @@ html.pl-on .preloader.is-out{-webkit-clip-path:inset(0 0 100% 0);clip-path:inset
 
 /* ---------- відеовідгуки ---------- */
 .vids{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;align-items:start}
+/* на широкому екрані всі відгуки в один ряд, скільки б їх не було */
+@media(min-width:1181px){.vids:not(.vids-few){grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}}
 .vids-few{grid-template-columns:repeat(auto-fill,minmax(215px,250px));justify-content:start}
 .vid{
   position:relative;aspect-ratio:9/16;border-radius:var(--r);overflow:hidden;background:var(--ink-2);

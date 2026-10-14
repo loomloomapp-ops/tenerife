@@ -87,7 +87,7 @@ initSearchbar({ onSearch: () => { saveState(); location.href = 'catalog.html'; }
       <img src="${r.poster}" alt="" loading="lazy">
       <span class="vid-play">${icon('play')}</span>
       <span class="vid-cap">
-        <q>${esc(r.quote)}</q>
+        ${r.quote ? `<q>${esc(r.quote)}</q>` : ''}
         <b>${esc(r.author)}</b><span>${esc(r.city)}</span>
       </span>
     </button>`).join('');
