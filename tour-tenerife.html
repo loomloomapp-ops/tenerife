@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Груповий тур на Тенеріфе — 8 днів від 750 € | SVOYI Tenerife</title>
+<meta name="description" content="Авторський груповий тур на Тенеріфе на 8 днів. Вулкан Тейде, океан, пляжі, морські прогулянки та атмосферні містечка. Група до 8 осіб.">
+<link rel="canonical" href="https://tenerife-indol.vercel.app/tour-tenerife.html">
+<meta property="og:title" content="Груповий тур на Тенеріфе — 8 днів від 750 € | SVOYI Tenerife">
+<meta property="og:description" content="Авторський груповий тур на Тенеріфе на 8 днів. Вулкан Тейде, океан, пляжі, морські прогулянки та атмосферні містечка. Група до 8 осіб.">
+<meta property="og:image" content="https://tenerife-indol.vercel.app/images/places/tours-2.webp">
+<meta property="og:url" content="https://tenerife-indol.vercel.app/tour-tenerife.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<link rel="icon" href="images/logo.png">
+<link rel="preload" as="image" href="images/places/hero-poster.webp" fetchpriority="high">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "Tenerife — острів вічної весни",
+  "description": "Авторський груповий тур на Тенеріфе на 8 днів. Група до 8 осіб.",
+  "touristType": "Груповий тур",
+  "itinerary": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Зустріч в аеропорту. Вечір знайомства"},
+      {"@type": "ListItem", "position": 2, "name": "Пляжний відпочинок"},
+      {"@type": "ListItem", "position": 3, "name": "Велич Тейде"},
+      {"@type": "ListItem", "position": 4, "name": "На зустріч із китами та дельфінами"},
+      {"@type": "ListItem", "position": 5, "name": "Відкрий для себе Тенеріфе: історії, колорит і океан"},
+      {"@type": "ListItem", "position": 6, "name": "Магія гір і старовинних містечок Тенеріфе"},
+      {"@type": "ListItem", "position": 7, "name": "Вільний день — обирай свої враження"},
+      {"@type": "ListItem", "position": 8, "name": "До нових зустрічей, Тенеріфе!"}
+    ]
+  },
+  "offers": {"@type": "Offer", "price": "750", "priceCurrency": "EUR", "description": "З особи при двомісному розміщенні"},
+  "provider": {"@type": "Organization", "name": "SVOYI Tenerife"}
+}
+</script>
+</head>
+<body class="tr-page">
+
+<span id="topSentinel" aria-hidden="true"></span>
+
+<header class="top on-hero" id="top">
+  <div class="top-in">
+    <a class="brand" href="index.html"><img src="images/logo.png" alt=""><span><b>SVOYI</b><small>Tenerife</small></span></a>
+    <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="topnav">
+      <svg class="ic" aria-hidden="true"><use href="#i-list"></use></svg>
+    </button>
+    <nav class="top-nav" id="topnav">
+      <a href="catalog.html">Апартаменти</a>
+      <a href="index.html#lead">Підбір житла</a>
+      <a href="index.html#work">Як ми працюємо</a>
+      <a class="top-phone" data-contact="phone" href="tel:+380984776927">098 477 69 27</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- Усі тексти, дати й фото цієї сторінки лежать у js/tour-data.js, розмітку блоків малює js/tour.js.
+     Тут лише каркас і заголовки. ?draft показує заглушки для даних, яких ще немає. -->
+
+<!-- 01. Перший екран з відео -->
+<section class="tr-hero" id="trHero">
+  <div class="tr-hero-bg hero-bg">
+    <video id="trVideo" poster="images/places/hero-poster.webp" autoplay muted loop playsinline aria-hidden="true">
+      <source src="media/hero.webm" type="video/webm">
+      <source src="media/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="tr-hero-in wrap">
+    <p class="tr-eyebrow tr-h-a" style="--i:1">Авторський груповий тур</p>
+    <h1 class="tr-h1">
+      <span class="tr-ln"><span style="--i:2">Tenerife —</span></span>
+      <span class="tr-ln"><span style="--i:3">острів вічної весни</span></span>
+    </h1>
+    <p class="tr-hero-lede tr-h-a" style="--i:4" id="trLede">Авторський тур для тих, хто хоче відчути острів по-справжньому.</p>
+    <ul class="tr-hero-facts" id="trHeroFacts"></ul>
+    <div class="tr-hero-acts tr-h-a" style="--i:8">
+      <a class="btn btn-accent" href="#book" data-tr-book>Забронювати місце <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+      <a class="btn btn-onink" href="#program">Програма туру</a>
+    </div>
+  </div>
+  <a class="tr-scroll tr-h-a" style="--i:9" href="#about" aria-label="Гортати до опису туру"><i></i></a>
+  <p class="credit tr-credit" id="trHeroCredit"></p>
+</section>
+
+<!-- 02. Про острів -->
+<section class="sec tr-about" id="about">
+  <div class="wrap tr-about-g">
+    <div class="tr-about-h">
+      <span class="slash rv">Про острів</span>
+      <h2 class="tr-split" id="trAboutTitle">Тенеріфе — місце, де оживають мрії</h2>
+    </div>
+    <p class="tr-about-p rv" id="trAboutText"></p>
+    <figure class="tr-about-ph" id="trAboutPh"></figure>
+    <ol class="tr-feats" id="trFeats"></ol>
+  </div>
+</section>
+
+<!-- 03. Коротко про тур -->
+<section class="tr-over sec-paper2" aria-labelledby="trOverH">
+  <div class="wrap">
+    <h2 class="sr" id="trOverH">Коротко про тур</h2>
+    <dl class="tr-stats" id="trStats"></dl>
+    <div class="tr-over-txt">
+      <p class="tr-over-big rv" id="trOverText"></p>
+      <p class="tr-over-p rv rv-1" id="trOverText2"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 04. Дати -->
+<section class="sec tr-dates" id="dates">
+  <div class="wrap">
+    <div class="sec-h sec-top">
+      <div>
+        <span class="slash rv">Дати</span>
+        <h2 class="tr-split">Обирай дати своєї подорожі</h2>
+      </div>
+      <p class="tr-dates-note rv" id="trDatesNote"></p>
+    </div>
+    <div class="tr-dlist" id="trDates"></div>
+  </div>
+</section>
+
+<!-- 05. Програма -->
+<section class="sec tr-prog" id="program">
+  <div class="wrap">
+    <div class="sec-h tr-prog-h">
+      <span class="slash rv">Програма туру</span>
+      <h2 class="tr-split" id="trProgTitle">8 днів, які залишаться з тобою назавжди</h2>
+      <p class="rv rv-1" id="trProgText"></p>
+    </div>
+  </div>
+  <nav class="tr-daynav" id="trDayNav" aria-label="Дні програми"></nav>
+  <div class="wrap tr-days" id="trDays"></div>
+</section>
+
+<!-- 06. Панорама -->
+<section class="tr-break" id="trBreak" aria-labelledby="trBreakH">
+  <div class="tr-break-ph tr-par" id="trBreakPh"></div>
+  <h2 class="tr-break-h tr-split" id="trBreakH">Тенеріфе, який залишиться у твоєму серці</h2>
+  <p class="credit" id="trBreakCredit"></p>
+</section>
+
+<!-- 07. Проживання -->
+<section class="sec tr-stay" id="stay">
+  <div class="wrap">
+    <div class="tr-stay-g">
+      <div class="sec-h">
+        <span class="slash rv">Проживання</span>
+        <h2 class="tr-split">Твій дім на Тенеріфе</h2>
+        <p class="rv rv-1" id="trStayText"></p>
+      </div>
+      <dl class="tr-stay-facts" id="trStayFacts"></dl>
+    </div>
+    <div class="tr-stay-gal" id="trStayGal"></div>
+  </div>
+</section>
+
+<!-- 08. Що входить -->
+<section class="sec sec-paper2 tr-incl" id="included">
+  <div class="wrap">
+    <div class="sec-h">
+      <span class="slash rv">Вартість</span>
+      <h2 class="tr-split">Що входить у вартість туру</h2>
+    </div>
+    <div class="tr-incl-g" id="trIncl"></div>
+  </div>
+</section>
+
+<!-- 09. Умови бронювання (прихований, поки клієнт не надасть тексти) -->
+<section class="sec tr-terms" id="terms" hidden>
+  <div class="wrap">
+    <div class="sec-h">
+      <span class="slash rv">Умови</span>
+      <h2 class="tr-split">Як забронювати свою подорож</h2>
+    </div>
+    <ol class="tr-terms-g" id="trTerms"></ol>
+  </div>
+</section>
+
+<!-- 10. FAQ -->
+<section class="sec tr-faq" id="faq">
+  <div class="wrap tr-faq-g">
+    <div class="sec-h">
+      <span class="slash rv">FAQ</span>
+      <h2 class="tr-split">Відповідаємо на важливі питання</h2>
+    </div>
+    <div class="tr-acc" id="trFaq"></div>
+  </div>
+</section>
+
+<!-- 11. Заявка -->
+<section class="sec sec-ink lead-sec tr-book" id="book">
+  <div class="wrap">
+    <div class="lead">
+      <div class="sec-h">
+        <span class="slash rv">Заявка</span>
+        <h2 class="tr-split">Забронюй свою подорож</h2>
+        <p class="rv rv-1" id="trFormText">Залиш заявку, і ми зв’яжемося з тобою, щоб розповісти всі деталі туру.</p>
+        <dl class="tr-book-sum rv rv-2" id="trBookSum"></dl>
+      </div>
+      <form class="lead-form tr-form rv rv-1" id="trForm" novalidate>
+        <div class="f2">
+          <div class="fld"><label for="tName">Ім'я</label><input id="tName" name="name" autocomplete="name" placeholder="Оксана" required></div>
+          <div class="fld"><label for="tPhone">Телефон</label><input id="tPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required></div>
+        </div>
+        <div class="fld"><label for="tTg">Telegram <small>необовʼязково</small></label><input id="tTg" name="telegram" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="@username"></div>
+        <fieldset class="fld fld-choice" id="tDateF">
+          <legend>Бажана дата</legend>
+          <div class="choice tr-choice" id="tDates"></div>
+        </fieldset>
+        <div class="fld" id="tOtherW" hidden><label for="tOther">Які дати тобі зручні</label><input id="tOther" name="otherDates" placeholder="Наприклад, друга половина березня"></div>
+        <div class="fld">
+          <label id="tGuestsL">Кількість учасників</label>
+          <div class="stepper tr-stepper" role="group" aria-labelledby="tGuestsL">
+            <button type="button" data-tg="-1" aria-label="Менше учасників">−</button>
+            <output id="tGuests" aria-live="polite">2 учасники</output>
+            <button type="button" data-tg="1" aria-label="Більше учасників">+</button>
+          </div>
+        </div>
+        <div class="fld"><label for="tNote">Коментар <small>необовʼязково</small></label><textarea id="tNote" name="note" placeholder="Летимо вдвох, хочемо номер з видом на океан"></textarea></div>
+        <button class="btn btn-accent btn-block" type="submit" id="tSubmit">Надіслати заявку</button>
+        <p class="form-note" id="tNoteLine">Нічого не списуємо до підтвердження.</p>
+        <div class="tr-form-msg" id="tMsg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 12. Фінальний заклик -->
+<section class="tr-final" id="trFinal">
+  <div class="wrap">
+    <div class="tr-final-card">
+      <div class="tr-final-ph tr-par" id="trFinalPh"></div>
+      <div class="tr-final-in">
+        <h2 class="tr-split" id="trFinalTitle">Твоя історія на Тенеріфе починається тут</h2>
+        <p class="rv rv-1" id="trFinalText"></p>
+        <a class="btn btn-accent rv rv-2" href="#book" data-tr-book id="trFinalCta">Хочу в тур <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="" style="width:56px;height:56px">
+      <span><b style="font-size:24px">SVOYI</b><small data-c="settings.tagline">Твій комфорт у кожній подорожі</small></span>
+    </a>
+    <nav class="foot-nav">
+      <a href="catalog.html">Апартаменти</a>
+      <a href="index.html#lead">Підбір житла</a>
+      <a href="index.html#work">Як ми працюємо</a>
+    </nav>
+    <div class="foot-cts">
+      <a class="ct" data-contact="phone" href="tel:+380984776927"><svg class="ic"><use href="#i-phone"></use></svg>098 477 69 27</a>
+      <a class="ct" data-contact="telegram" href="https://t.me/SVOYI_Tenerife" target="_blank" rel="noopener"><svg class="ic"><use href="#i-telegram"></use></svg>Telegram</a>
+      <a class="ct" data-contact="instagram" href="https://www.instagram.com/tenerife_tur.ukr/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-instagram"></use></svg>Instagram</a>
+      <a class="ct" data-contact="tiktok" href="https://www.tiktok.com/@tenerife_tur.ukr" target="_blank" rel="noopener"><svg class="ic"><use href="#i-tiktok"></use></svg>TikTok</a>
+    </div>
+  </div>
+  <p class="foot-mark" aria-hidden="true">SVOYI</p>
+  <div class="foot-bot">
+    <span>© <span data-year></span> <span data-c="settings.footerNote">SVOYI Tenerife · Апартаменти, авто, трансфер, екскурсії</span></span>
+    <span data-c="settings.footerPlace">Тенеріфе, Канарські острови</span>
+  </div>
+</footer>
+
+<script src="js/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/tour-data.js"></script>
+<script src="js/tour.js"></script>
+</body>
+</html>
