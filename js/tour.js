@@ -24,14 +24,6 @@ const fig = (p, cls = '', opts) => `<figure class="tr-ph tr-rv ${cls}">${pic(p, 
   const h = TOUR.hero;
   $('#trLede').textContent = h.lede;
   $('#trHeroCredit').innerHTML = rich(h.credit);
-  const facts = [
-    [`${TOUR.days}`, 'днів'],
-    [`до ${TOUR.groupMax}`, 'учасників'],
-    [`від ${TOUR.price} €`, `з особи · двомісне розміщення`]
-  ];
-  $('#trHeroFacts').innerHTML = facts.map(([b, s], i) =>
-    `<li class="tr-h-a" style="--i:${5 + i * .6}"><b>${esc(b)}</b><span>${esc(s)}</span></li>`).join('');
-
   const v = $('#trVideo');
   /* без руху або з економією трафіку лишаємо заставку, відео не вантажимо */
   const save = navigator.connection && navigator.connection.saveData;

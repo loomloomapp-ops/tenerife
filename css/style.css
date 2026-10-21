@@ -1333,7 +1333,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
    Класи tr-rv отримують .in з js/tour.js, коли заходять в екран.
    ============================================================ */
 .tr-page{--tr-ease:cubic-bezier(.76,0,.24,1)}
-.tr-page .num,.tr-stats b,.tr-dper b,.tr-day-n,.tr-day-time b,.tr-hero-facts b{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.tr-page .num,.tr-stats b,.tr-dper b,.tr-day-n,.tr-day-time b{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 
 /* мітка заглушки, видно лише з ?draft */
 .tr-todo{
@@ -1384,18 +1384,13 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 .tr-ln>span{display:inline-block}
 .tr-ln+.tr-ln>span{color:#FBE3CC}
 .tr-hero-lede{max-width:46ch;margin-top:26px;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(255,255,255,.9)}
-.tr-hero-facts{list-style:none;display:flex;flex-wrap:wrap;gap:18px 0;margin-top:clamp(28px,3vw,44px)}
-.tr-hero-facts li{display:flex;flex-direction:column;gap:6px;padding:0 clamp(20px,2.4vw,40px);border-left:1px solid rgba(255,255,255,.3)}
-.tr-hero-facts li:first-child{padding-left:0;border-left:0}
-.tr-hero-facts b{font-family:var(--disp);font-weight:700;font-size:clamp(26px,2.6vw,40px);line-height:1;text-transform:uppercase}
-.tr-hero-facts span{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72)}
 .tr-hero-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(30px,3.4vw,48px)}
 .tr-hero-acts .btn{padding:17px 30px}
 .tr-page .btn svg.ic{transition:transform .25s var(--ease)}
 .tr-page .btn:hover svg.ic{transform:translateX(4px)}
 .tr-hero .btn-onink{border-color:rgba(255,255,255,.5);background:rgba(0,0,0,.12);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .tr-hero .btn-onink:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
-.tr-hero-lede,.tr-h1,.tr-eyebrow,.tr-hero-facts{text-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 18px rgba(0,0,0,.3)}
+.tr-hero-lede,.tr-h1,.tr-eyebrow{text-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 18px rgba(0,0,0,.3)}
 @media(min-width:901px){.tr-hero-lede{max-width:none;white-space:nowrap}}
 /* послідовність появи: --i задає порядок */
 .js .tr-h-a{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--i,0) * .12s + .55s)}
@@ -1755,12 +1750,6 @@ html.tr-lock{overflow:hidden}
   .tr-eyebrow{font-size:11px;letter-spacing:.18em;margin-bottom:18px}
   .tr-eyebrow::before{width:26px}
   .tr-hero-lede{margin-top:18px}
-  /* три факти в один ряд: короткі підписи вміщаються навіть на 320px */
-  .tr-hero-facts{display:grid;grid-template-columns:auto auto auto;justify-content:start;gap:0}
-  .tr-hero-facts li{padding:0 14px}
-  .tr-hero-facts b{font-size:22px}
-  .tr-hero-facts span{font-size:10px;letter-spacing:.08em}
-  .tr-hero-facts li:last-child span{max-width:13ch}
   .tr-hero-acts .btn{flex:1 1 100%}
   .tr-stats b{font-size:clamp(32px,11vw,46px)}
   .tr-stats .is-word b{font-size:22px}
