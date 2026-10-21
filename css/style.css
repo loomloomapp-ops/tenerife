@@ -1397,10 +1397,6 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 .tr-hero .btn-onink:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
 .tr-hero-lede,.tr-h1,.tr-eyebrow,.tr-hero-facts{text-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 18px rgba(0,0,0,.3)}
 @media(min-width:901px){.tr-hero-lede{max-width:none;white-space:nowrap}}
-/* підказка прокрутки: крапля біжить тонкою лінією */
-.tr-scroll{position:absolute;left:50%;bottom:26px;width:1px;height:58px;background:rgba(255,255,255,.28);overflow:hidden}
-.tr-scroll i{position:absolute;left:0;top:0;width:1px;height:20px;background:var(--white);animation:trDrop 2.2s var(--tr-ease) infinite}
-@keyframes trDrop{0%{transform:translateY(-22px)}70%,100%{transform:translateY(60px)}}
 /* послідовність появи: --i задає порядок */
 .js .tr-h-a{opacity:0;transform:translateY(18px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--i,0) * .12s + .55s)}
 .js .tr-ln>span{transform:translateY(108%);transition:transform 1.2s var(--tr-ease);transition-delay:calc(var(--i,0) * .12s + .5s)}
@@ -1728,7 +1724,6 @@ html.tr-lock{overflow:hidden}
 @media(max-width:900px){
   /* на телефоні низ першого екрана закриває нижнє меню, тож контент піднімаємо над ним */
   .tr-hero-in{padding-bottom:calc(var(--dock-h,0px) + 76px)}
-  .tr-scroll{bottom:calc(var(--dock-h,0px) + 18px);height:44px}
   .tr-credit{bottom:calc(var(--dock-h,0px) + 6px)}
   .tr-hero-bg::after{background:linear-gradient(180deg,rgba(26,13,5,.5) 0%,rgba(26,13,5,.3) 36%,rgba(26,13,5,.62) 70%,rgba(26,13,5,.84) 100%)}
   .tr-about-g{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"h" "ph" "f"}
@@ -1792,5 +1787,4 @@ html.tr-lock{overflow:hidden}
   .js .tr-ph.tr-rv img{transform:none}
   .js .tr-day-h::after,.js .tr-feats li::before,.js .tr-feats li:last-child::after{transform:none}
   .tr-break-ph{animation:none}
-  .tr-scroll i{animation:none}
 }
