@@ -428,6 +428,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     /* лінія стрічки й тонка смужка під навігацією заповнюються в міру прокрутки програми */
     const list = $('#trDays');
+    /* кінці лінії рівно в центрах першої й останньої точки. Точка стоїть по-різному
+       на компʼютері й телефоні, тож міряємо, а не хардкодимо */
+    let a = 0, b = 0;
+    const dotC = d => d.offsetTop + parseFloat(getComputedStyle(d, '::before').top) + parseFloat(getComputedStyle(d, '::before').height) / 2;
+    const ends = () => {
+      a = dotC(days[0]);
+      b = list.offsetHeight - dotC(days[days.length - 1]);
+      list.style.setProperty('--tl-a', a + 'px');
+      list.style.setProperty('--tl-b', b + 'px');
+    };
+    ends();
+    if ('ResizeObserver' in window) new ResizeObserver(() => { ends(); progress(); }).observe(list);
     let praf = 0, cur = '';
     const progress = () => {
       praf = 0;
@@ -438,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
       for (const d of days) { if (d.getBoundingClientRect().top <= line) id = d.id; else break; }
       if (id !== cur){ cur = id; setCur(id); }
       const r = list.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(4);
+      const p = Math.min(1, Math.max(0, (line - r.top - a) / (r.height - a - b))).toFixed(4);
       nav.style.setProperty('--p', p);
       list.style.setProperty('--p', p);
     };
