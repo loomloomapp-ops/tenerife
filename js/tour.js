@@ -377,12 +377,14 @@ function slideHTML(d, i, all){
 /* ================= рух ================= */
 /* заголовки розбиваємо на слова, кожне виїжджає з-під маски з невеликою затримкою */
 $$('.tr-split').forEach(h => {
-  /* \n переносить рядок завжди, | лише на телефоні (на компʼютері там просто пробіл) */
-  const lines = h.textContent.trim().split('\n').map(l => l.trim().split('|').map(p => p.trim().split(/\s+/)));
-  h.setAttribute('aria-label', lines.flat(2).join(' '));
+  /* \n переносить рядок завжди, | лише на телефоні, ~ лише на компʼютері (де переносу немає, там пробіл) */
+  const BR = { '\n': '<br>', '|': '<br class="tr-br-m">', '~': '<br class="tr-br-d">' };
+  const tokens = h.textContent.trim().replace(/\s*([\n|~])\s*/g, ' $1 ').split(/ +/).filter(Boolean);
+  h.setAttribute('aria-label', tokens.filter(t => !BR[t]).join(' '));
   let i = 0;
-  const word = w => `<span class="tr-w" aria-hidden="true"><span style="--w:${Math.min(i++, 10) * .045}s">${esc(w)}</span></span>`;
-  h.innerHTML = lines.map(l => l.map(p => p.map(word).join(' ')).join(' <br class="tr-br-m">')).join('<br>');
+  h.innerHTML = tokens.map(t => BR[t] ? ' ' + BR[t]
+    : `<span class="tr-w" aria-hidden="true"><span style="--w:${Math.min(i++, 10) * .045}s">${esc(t)}</span></span>`)
+    .join(' ').replace(/ +(?=<br)/g, ' ');
   h.classList.add('tr-rv');
 });
 
