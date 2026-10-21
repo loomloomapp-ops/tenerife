@@ -245,7 +245,9 @@ function dayHTML(d, i){
     e.preventDefault();
     openDlg(a.dataset.trBook);
   });
-  if (location.hash === '#book') openDlg();
+  /* вікно відкривається лише кнопкою. Старий #book в адресі (його ставила попередня версія сторінки)
+     прибираємо, щоб не заважав */
+  if (location.hash === '#book') history.replaceState(null, '', location.pathname + location.search);
 
   let guests = 2;
   const gOut = $('#tGuests');
