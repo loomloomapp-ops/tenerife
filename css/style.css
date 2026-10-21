@@ -1682,6 +1682,7 @@ html.tr-lock{overflow:hidden}
 .tr-final-in h2{color:var(--white);font-size:clamp(32px,4.4vw,68px);text-shadow:0 2px 24px rgba(0,0,0,.3)}
 .tr-final-in p{margin:22px 0 32px;max-width:44ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(255,255,255,.88)}
 .tr-final-in .btn{padding:17px 32px}
+.tr-br-m{display:none}
 /* на комп'ютері заголовок у два рядки, підзаголовок в один */
 @media(min-width:901px){.tr-final-in p{max-width:none;white-space:nowrap}}
 
@@ -1774,6 +1775,11 @@ html.tr-lock{overflow:hidden}
   .tr-daynav a{padding:9px 13px}
   .tr-final{padding-inline:0}
   .tr-final-card{min-height:520px}
+  /* заголовок у три рядки, вміст трохи нижче від краю картки */
+  .tr-br-m{display:inline}
+  .tr-final-in{padding:56px 24px 32px}
+  .tr-final-in h2{font-size:min(28px,7.4vw)}
+  .tr-final-in p{margin:18px 0 26px;font-size:15.5px}
   .tr-final-in .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){

@@ -377,10 +377,12 @@ function slideHTML(d, i, all){
 /* ================= рух ================= */
 /* заголовки розбиваємо на слова, кожне виїжджає з-під маски з невеликою затримкою */
 $$('.tr-split').forEach(h => {
-  const lines = h.textContent.trim().split('\n').map(l => l.trim().split(/\s+/));
-  h.setAttribute('aria-label', lines.map(l => l.join(' ')).join(' '));
+  /* \n переносить рядок завжди, | лише на телефоні (на компʼютері там просто пробіл) */
+  const lines = h.textContent.trim().split('\n').map(l => l.trim().split('|').map(p => p.trim().split(/\s+/)));
+  h.setAttribute('aria-label', lines.flat(2).join(' '));
   let i = 0;
-  h.innerHTML = lines.map(l => l.map(w => `<span class="tr-w" aria-hidden="true"><span style="--w:${Math.min(i++, 10) * .045}s">${esc(w)}</span></span>`).join(' ')).join('<br>');
+  const word = w => `<span class="tr-w" aria-hidden="true"><span style="--w:${Math.min(i++, 10) * .045}s">${esc(w)}</span></span>`;
+  h.innerHTML = lines.map(l => l.map(p => p.map(word).join(' ')).join(' <br class="tr-br-m">')).join('<br>');
   h.classList.add('tr-rv');
 });
 
