@@ -90,7 +90,7 @@ const fig = (p, cls = '', opts) => `<figure class="tr-ph tr-rv ${cls}">${pic(p, 
     <article class="tr-drow tr-drow-other tr-rv" style="--d:${TOUR.dates.length * .08}s">
       <span class="tr-dnum">${icon('compass')}</span>
       <div class="tr-dper"><small>Свої дати</small><b>${esc(TOUR.otherDates)}</b></div>
-      <p class="tr-dmeta-p">Збираєте свою компанію або не підходять дати групи? Напишіть, коли зручно.</p>
+      <p class="tr-dmeta-p">Збираєте свою компанію або не підходять дати групи? Напишіть, коли зручно</p>
       <a class="btn btn-ghost tr-dbtn" href="#book" data-tr-book="other">Запитати іншу дату ${icon('arrow-right')}</a>
     </article>`;
 })();
@@ -117,7 +117,7 @@ function dayHTML(d, i){
   <article class="tr-day${i % 2 ? ' is-flip' : ''}" id="${esc(d.id)}" aria-labelledby="${esc(d.id)}-h">
     <header class="tr-day-h">
       <span class="tr-day-n" aria-hidden="true"><small>День</small>${n}</span>
-      <h3 id="${esc(d.id)}-h"><span class="sr">День ${d.number}. </span>${esc(d.title)}</h3>
+      <h3 id="${esc(d.id)}-h"><span class="sr">День ${d.number}: </span>${esc(d.title).replace(/\n/g, '<br>')}</h3>
     </header>
     ${media}
     <div class="tr-day-txt">${text}${extra}${sched}</div>
@@ -130,7 +130,7 @@ function dayHTML(d, i){
   $('#trProgText').textContent = P.text;
   $('#trDays').innerHTML = P.items.map(dayHTML).join('');
   $('#trDayNav').innerHTML = `<div class="tr-daynav-in">${P.items.map(d =>
-    `<a href="#${esc(d.id)}"><b>${String(d.number).padStart(2, '0')}</b><span>${esc(d.title.split(/[.:—!]/)[0].trim())}</span></a>`).join('')}</div>`;
+    `<a href="#${esc(d.id)}"><b>${String(d.number).padStart(2, '0')}</b><span>${esc(d.title.split(/[\n.:—!]/)[0].trim())}</span></a>`).join('')}</div>`;
 })();
 
 /* ================= панорама ================= */
