@@ -88,19 +88,6 @@
   <p class="credit tr-credit" id="trHeroCredit"></p>
 </section>
 
-<!-- 02. Про острів -->
-<section class="sec tr-about" id="about">
-  <div class="wrap tr-about-g">
-    <div class="tr-about-h">
-      <span class="slash rv">Про острів</span>
-      <h2 class="tr-split" id="trAboutTitle">Тенеріфе — місце, де оживають мрії</h2>
-    </div>
-    <p class="tr-about-p rv" id="trAboutText"></p>
-    <figure class="tr-about-ph" id="trAboutPh"></figure>
-    <ol class="tr-feats" id="trFeats"></ol>
-  </div>
-</section>
-
 <!-- 03. Коротко про тур -->
 <section class="tr-over sec-paper2" aria-labelledby="trOverH">
   <div class="wrap">
@@ -110,6 +97,20 @@
       <p class="tr-over-big rv" id="trOverText"></p>
       <p class="tr-over-p rv rv-1" id="trOverText2"></p>
     </div>
+  </div>
+</section>
+
+<!-- 02. Про острів -->
+<section class="sec tr-about" id="about">
+  <div class="wrap tr-about-g">
+    <div class="tr-about-h">
+      <span class="slash rv">Про острів</span>
+      <h2 class="tr-split" id="trAboutTitle">Тенеріфе — місце, де оживають мрії</h2>
+      <!-- ширина опису дорівнює ширині заголовка -->
+      <p class="tr-about-p rv" id="trAboutText"></p>
+    </div>
+    <figure class="tr-about-ph" id="trAboutPh"></figure>
+    <ol class="tr-feats" id="trFeats"></ol>
   </div>
 </section>
 
@@ -131,12 +132,14 @@
 <section class="sec tr-prog" id="program">
   <div class="wrap">
     <div class="sec-h tr-prog-h">
-      <span class="slash rv">Програма туру</span>
-      <h2 class="tr-split" id="trProgTitle">8 днів, які залишаться з тобою назавжди</h2>
+      <div>
+        <span class="slash rv">Програма туру</span>
+        <h2 class="tr-split" id="trProgTitle">8 днів, які залишаться з тобою назавжди</h2>
+      </div>
       <p class="rv rv-1" id="trProgText"></p>
     </div>
   </div>
-  <nav class="tr-daynav" id="trDayNav" aria-label="Дні програми"></nav>
+  <nav class="tr-daynav" id="trDayNav" aria-label="Дні програми"><i class="tr-daynav-bar" aria-hidden="true"></i></nav>
   <div class="wrap tr-days" id="trDays"></div>
 </section>
 
@@ -195,44 +198,6 @@
   </div>
 </section>
 
-<!-- 11. Заявка -->
-<section class="sec sec-ink lead-sec tr-book" id="book">
-  <div class="wrap">
-    <div class="lead">
-      <div class="sec-h">
-        <span class="slash rv">Заявка</span>
-        <h2 class="tr-split">Забронюй свою подорож</h2>
-        <p class="rv rv-1" id="trFormText">Залиш заявку, і ми зв’яжемося з тобою, щоб розповісти всі деталі туру</p>
-        <dl class="tr-book-sum rv rv-2" id="trBookSum"></dl>
-      </div>
-      <form class="lead-form tr-form rv rv-1" id="trForm" novalidate>
-        <div class="f2">
-          <div class="fld"><label for="tName">Ім'я</label><input id="tName" name="name" autocomplete="name" placeholder="Оксана" required></div>
-          <div class="fld"><label for="tPhone">Телефон</label><input id="tPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required></div>
-        </div>
-        <div class="fld"><label for="tTg">Telegram <small>необовʼязково</small></label><input id="tTg" name="telegram" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="@username"></div>
-        <fieldset class="fld fld-choice" id="tDateF">
-          <legend>Бажана дата</legend>
-          <div class="choice tr-choice" id="tDates"></div>
-        </fieldset>
-        <div class="fld" id="tOtherW" hidden><label for="tOther">Які дати тобі зручні</label><input id="tOther" name="otherDates" placeholder="Наприклад, друга половина березня"></div>
-        <div class="fld">
-          <label id="tGuestsL">Кількість учасників</label>
-          <div class="stepper tr-stepper" role="group" aria-labelledby="tGuestsL">
-            <button type="button" data-tg="-1" aria-label="Менше учасників">−</button>
-            <output id="tGuests" aria-live="polite">2 учасники</output>
-            <button type="button" data-tg="1" aria-label="Більше учасників">+</button>
-          </div>
-        </div>
-        <div class="fld"><label for="tNote">Коментар <small>необовʼязково</small></label><textarea id="tNote" name="note" placeholder="Летимо вдвох, хочемо номер з видом на океан"></textarea></div>
-        <button class="btn btn-accent btn-block" type="submit" id="tSubmit">Надіслати заявку</button>
-        <p class="form-note" id="tNoteLine">Нічого не списуємо до підтвердження.</p>
-        <div class="tr-form-msg" id="tMsg" role="status" aria-live="polite"></div>
-      </form>
-    </div>
-  </div>
-</section>
-
 <!-- 12. Фінальний заклик -->
 <section class="tr-final" id="trFinal">
   <div class="wrap">
@@ -247,6 +212,43 @@
   </div>
 </section>
 </main>
+
+<!-- Заявка: вікно поверх сторінки. Відкривають кнопки з data-tr-book (дата підставляється сама) -->
+<dialog class="tr-dlg" id="book" aria-labelledby="trBookH">
+  <div class="tr-dlg-in">
+    <button class="x" type="button" data-dlg-close aria-label="Закрити">✕</button>
+    <div class="tr-dlg-side">
+      <span class="slash">Заявка</span>
+      <h2 id="trBookH">Забронюй свою подорож</h2>
+      <p id="trFormText">Залиш заявку, і ми зв’яжемося з тобою, щоб розповісти всі деталі туру</p>
+      <dl class="tr-book-sum" id="trBookSum"></dl>
+    </div>
+  <form class="lead-form tr-form" id="trForm" novalidate>
+    <div class="f2">
+      <div class="fld"><label for="tName">Ім'я</label><input id="tName" name="name" autocomplete="name" placeholder="Оксана" required></div>
+      <div class="fld"><label for="tPhone">Телефон</label><input id="tPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380 __ ___ __ __" required></div>
+    </div>
+    <div class="fld"><label for="tTg">Telegram <small>необовʼязково</small></label><input id="tTg" name="telegram" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="@username"></div>
+    <fieldset class="fld fld-choice" id="tDateF">
+      <legend>Бажана дата</legend>
+      <div class="choice tr-choice" id="tDates"></div>
+    </fieldset>
+    <div class="fld" id="tOtherW" hidden><label for="tOther">Які дати тобі зручні</label><input id="tOther" name="otherDates" placeholder="Наприклад, друга половина березня"></div>
+    <div class="fld">
+      <label id="tGuestsL">Кількість учасників</label>
+      <div class="stepper tr-stepper" role="group" aria-labelledby="tGuestsL">
+        <button type="button" data-tg="-1" aria-label="Менше учасників">−</button>
+        <output id="tGuests" aria-live="polite">2 учасники</output>
+        <button type="button" data-tg="1" aria-label="Більше учасників">+</button>
+      </div>
+    </div>
+    <div class="fld"><label for="tNote">Коментар <small>необовʼязково</small></label><textarea id="tNote" name="note" placeholder="Летимо вдвох, хочемо номер з видом на океан"></textarea></div>
+    <button class="btn btn-accent btn-block" type="submit" id="tSubmit">Надіслати заявку</button>
+    <p class="form-note" id="tNoteLine">Нічого не списуємо до підтвердження.</p>
+    <div class="tr-form-msg" id="tMsg" role="status" aria-live="polite"></div>
+  </form>
+  </div>
+</dialog>
 
 <footer class="foot">
   <div class="foot-in">

@@ -118,9 +118,10 @@ function dayHTML(d, i){
     <header class="tr-day-h">
       <span class="tr-day-n" aria-hidden="true"><small>День</small>${n}</span>
       <h3 id="${esc(d.id)}-h"><span class="sr">День ${d.number}: </span>${esc(d.title).replace(/\n/g, '<br>')}</h3>
+      ${sched}
     </header>
     ${media}
-    <div class="tr-day-txt">${text}${extra}${sched}</div>
+    <div class="tr-day-txt">${text}${extra}</div>
   </article>`;
 }
 
@@ -129,8 +130,8 @@ function dayHTML(d, i){
   $('#trProgTitle').textContent = P.title;
   $('#trProgText').textContent = P.text;
   $('#trDays').innerHTML = P.items.map(dayHTML).join('');
-  $('#trDayNav').innerHTML = `<div class="tr-daynav-in">${P.items.map(d =>
-    `<a href="#${esc(d.id)}"><b>${String(d.number).padStart(2, '0')}</b><span>${esc(d.title.split(/[\n.:—!]/)[0].trim())}</span></a>`).join('')}</div>`;
+  $('#trDayNav').insertAdjacentHTML('afterbegin', `<div class="tr-daynav-in">${P.items.map(d =>
+    `<a href="#${esc(d.id)}"><b>${String(d.number).padStart(2, '0')}</b><span>${esc(d.title.split(/[\n.:—!]/)[0].trim())}</span></a>`).join('')}</div>`);
 })();
 
 /* ================= панорама ================= */
@@ -225,17 +226,26 @@ function dayHTML(d, i){
   };
   f.addEventListener('change', e => { if (e.target.name === 'date') pickDate(e.target.value); });
 
-  /* кнопки біля дат і заклики «Забронювати» підставляють дату у форму й плавно ведуть до неї */
+  /* кнопки біля дат і заклики «Забронювати» відкривають заявку у вікні й підставляють дату.
+     Сторінка під вікном не прокручується, після закриття людина там, де й була */
+  const dlg = $('#book');
+  const openDlg = date => {
+    if (date) pickDate(date);
+    if (!dlg.open){ dlg.showModal(); document.documentElement.classList.add('tr-lock'); }
+    $('.tr-dlg-in', dlg).scrollTop = 0;
+    $('#tName').focus({ preventScroll: true });
+  };
+  dlg.addEventListener('close', () => document.documentElement.classList.remove('tr-lock'));
+  $$('[data-dlg-close]', dlg).forEach(b => b.onclick = () => dlg.close());
+  /* клік по затемненню поза вікном закриває його */
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   document.addEventListener('click', e => {
     const a = e.target.closest('[data-tr-book]');
     if (!a) return;
     e.preventDefault();
-    if (a.dataset.trBook) pickDate(a.dataset.trBook);
-    $('#book').scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
-    history.replaceState(null, '', '#book');
-    /* фокус після прокрутки, щоб клавіатура на телефоні не смикала сторінку посеред анімації */
-    setTimeout(() => $('#tName').focus({ preventScroll: true }), RM ? 0 : 700);
+    openDlg(a.dataset.trBook);
   });
+  if (location.hash === '#book') openDlg();
 
   let guests = 2;
   const gOut = $('#tGuests');
@@ -317,7 +327,7 @@ function dayHTML(d, i){
         <button class="tr-edit" type="button">Змінити дані</button>`;
       msg.querySelector('.tr-edit').onclick = () => { f.classList.remove('is-ready'); msg.className = 'tr-form-msg'; msg.innerHTML = ''; $('#tName').focus(); };
       msg.querySelector('a.btn').focus({ preventScroll: true });
-      f.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' });
+      $('.tr-dlg-in', dlg).scrollTop = 0;
       return;
     }
 
@@ -356,9 +366,10 @@ function dayHTML(d, i){
 /* ================= рух ================= */
 /* заголовки розбиваємо на слова, кожне виїжджає з-під маски з невеликою затримкою */
 $$('.tr-split').forEach(h => {
-  const words = h.textContent.trim().split(/\s+/);
-  h.setAttribute('aria-label', h.textContent.trim());
-  h.innerHTML = words.map((w, i) => `<span class="tr-w" aria-hidden="true"><span style="--w:${Math.min(i, 10) * .045}s">${esc(w)}</span></span>`).join(' ');
+  const lines = h.textContent.trim().split('\n').map(l => l.trim().split(/\s+/));
+  h.setAttribute('aria-label', lines.map(l => l.join(' ')).join(' '));
+  let i = 0;
+  h.innerHTML = lines.map(l => l.map(w => `<span class="tr-w" aria-hidden="true"><span style="--w:${Math.min(i++, 10) * .045}s">${esc(w)}</span></span>`).join(' ')).join('<br>');
   h.classList.add('tr-rv');
 });
 
@@ -395,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const on = a.getAttribute('href') === '#' + e.target.id;
         a.classList.toggle('on', on);
         if (on) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
+        $(a.getAttribute('href')).classList.toggle('is-cur', on);
         if (on){
           const box = a.parentElement;
           box.scrollTo({ left: a.offsetLeft - (box.clientWidth - a.offsetWidth) / 2, behavior: RM ? 'auto' : 'smooth' });
@@ -402,6 +414,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }), { rootMargin: '-45% 0px -50% 0px' });
     $$('.tr-day').forEach(d => spy.observe(d));
+
+    /* тонка лінія під смужкою днів показує, яку частину програми вже прогорнуто */
+    const days = $('#trDays');
+    let praf = 0;
+    const progress = () => {
+      praf = 0;
+      const r = days.getBoundingClientRect(), vh = innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * .5 - r.top) / r.height));
+      nav.style.setProperty('--p', p.toFixed(4));
+    };
+    addEventListener('scroll', () => { if (!praf) praf = requestAnimationFrame(progress); }, { passive: true });
+    progress();
   }
 
   /* легкий паралакс фото: лише миша, широкий екран і без «зменшення руху».
