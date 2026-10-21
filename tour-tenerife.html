@@ -138,7 +138,17 @@
     </div>
   </div>
   <nav class="tr-daynav" id="trDayNav" aria-label="Дні програми"><i class="tr-daynav-bar" aria-hidden="true"></i></nav>
-  <div class="wrap tr-days" id="trDays"></div>
+  <!-- стрічка днів ліворуч, праворуч фото поточного дня (на телефоні фото стоять у самих днях) -->
+  <div class="wrap tr-tl">
+    <div class="tr-tl-list" id="trDays"></div>
+    <aside class="tr-tl-media" id="trTlMedia" aria-hidden="true"></aside>
+  </div>
+  <div class="wrap">
+    <div class="tr-tl-cta">
+      <a class="btn btn-accent" href="#book" data-tr-book>Хочу в тур <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+      <span id="trTlSum"></span>
+    </div>
+  </div>
 </section>
 
 <!-- 06. Панорама -->

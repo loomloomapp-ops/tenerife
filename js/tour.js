@@ -87,9 +87,13 @@ const fig = (p, cls = '', opts) => `<figure class="tr-ph tr-rv ${cls}">${pic(p, 
     </article>`;
 })();
 
-/* ================= програма ================= */
-function dayHTML(d, i){
-  const n = String(d.number).padStart(2, '0');
+/* ================= програма =================
+   Стрічка днів, як у референсу: усі 8 днів читаються підряд, без зайвих кліків.
+   На компʼютері праворуч липке фото поточного дня, на телефоні фото гортаються в самому дні */
+const pad = n => String(n).padStart(2, '0');
+const shortTitle = d => d.title.split(/[\n.:—!]/)[0].trim();
+
+function dayHTML(d){
   const text = [
     d.intro ? `<p class="tr-day-intro">${esc(d.intro)}</p>` : '',
     ...(d.description || []).map((p, j) => `<p class="${j === 0 ? 'tr-day-lead' : ''}">${esc(p)}</p>`),
@@ -101,20 +105,31 @@ function dayHTML(d, i){
   const extra = d.extraInfo ? `<aside class="tr-day-extra"><b>${esc(d.extraInfo.title)}</b><span>${esc(d.extraInfo.text)}</span></aside>` : '';
   const sched = d.schedule ? `<p class="tr-day-time">${icon('clock')}<span>${esc(d.schedule[0])}</span><b>${esc(d.schedule[1])}</b></p>` : '';
   const imgs = d.images || [];
-  const media = imgs.length
-    ? `<div class="tr-day-media tr-m${Math.min(imgs.length, 3)}">${imgs.slice(0, 3).map((p, j) =>
-        fig(p, j === 0 ? 'tr-ph-main' : 'tr-ph-sub', { sizes: j === 0 ? '(max-width: 900px) 100vw, 52vw' : '(max-width: 900px) 50vw, 24vw' })).join('')}</div>`
-    : `<div class="tr-day-media tr-m0">${pending('фото для цього дня')}</div>`;
+  const strip = imgs.length
+    ? `<div class="tr-tday-ph">${imgs.map(p => fig(p, '', { sizes: '80vw' })).join('')}</div>`
+    : (DRAFT ? `<div class="tr-tday-ph">${pending('фото для цього дня')}</div>` : '');
   return `
-  <article class="tr-day${i % 2 ? ' is-flip' : ''}" id="${esc(d.id)}" aria-labelledby="${esc(d.id)}-h">
-    <header class="tr-day-h">
-      <span class="tr-day-n" aria-hidden="true"><small>День</small>${n}</span>
+  <article class="tr-tday tr-rv" id="${esc(d.id)}" aria-labelledby="${esc(d.id)}-h">
+    <div class="tr-tday-k" aria-hidden="true"><span>День</span><b>${pad(d.number)}</b></div>
+    <div class="tr-tday-b">
       <h3 id="${esc(d.id)}-h"><span class="sr">День ${d.number}: </span>${esc(d.title).replace(/\n/g, '<br>')}</h3>
       ${sched}
-    </header>
-    ${media}
-    <div class="tr-day-txt">${text}${extra}</div>
+      ${strip}
+      <div class="tr-day-txt">${text}${extra}</div>
+    </div>
   </article>`;
+}
+
+/* липке фото: по кадру на день, поточний проявляється поверх попереднього */
+function slideHTML(d, i, all){
+  const [main, sub] = d.images || [];
+  if (!main) return `<figure class="tr-tm-s${i ? '' : ' on'}" data-day="${esc(d.id)}">${pending('фото для цього дня')}</figure>`;
+  return `<figure class="tr-tm-s${i ? '' : ' on'}" data-day="${esc(d.id)}">
+    ${pic(main, { sizes: '40vw' })}
+    ${sub ? `<span class="tr-tm-sub">${pic(sub, { sizes: '16vw' })}</span>` : ''}
+    <figcaption><b>День ${pad(d.number)} / ${pad(all.length)}</b>${esc(main.caption || shortTitle(d))}</figcaption>
+    ${main.temp ? pending('фото для цього дня') : ''}
+  </figure>`;
 }
 
 (function program(){
@@ -122,8 +137,10 @@ function dayHTML(d, i){
   $('#trProgTitle').textContent = P.title;
   $('#trProgText').textContent = P.text;
   $('#trDays').innerHTML = P.items.map(dayHTML).join('');
+  $('#trTlMedia').innerHTML = P.items.map(slideHTML).join('');
+  $('#trTlSum').textContent = `${TOUR.days} ${plural(TOUR.days, ['день', 'дні', 'днів'])} · до ${TOUR.groupMax} учасників · ${TOUR.price} € ${TOUR.priceNote}`;
   $('#trDayNav').insertAdjacentHTML('afterbegin', `<div class="tr-daynav-in">${P.items.map(d =>
-    `<a href="#${esc(d.id)}"><b>${String(d.number).padStart(2, '0')}</b><span>${esc(d.title.split(/[\n.:—!]/)[0].trim())}</span></a>`).join('')}</div>`);
+    `<a href="#${esc(d.id)}"><b>${pad(d.number)}</b><span>${esc(shortTitle(d))}</span></a>`).join('')}</div>`);
 })();
 
 /* ================= панорама ================= */
@@ -372,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(() => $('#trHero').classList.add('is-in'));
 
   /* поява при скролі: кожен елемент анімується, коли сам заходить в екран */
-  const els = $$('.tr-rv, .tr-day');
+  const els = $$('.tr-rv');
   if (!('IntersectionObserver' in window) || RM) els.forEach(e => e.classList.add('in'));
   else {
     /* фото до появи повністю закрите clip-path, і для IntersectionObserver воно нульової площі,
@@ -390,33 +407,40 @@ document.addEventListener('DOMContentLoaded', () => {
     groups.forEach((_, t) => io.observe(t));
   }
 
-  /* навігація по днях: підсвічуємо день, який зараз на екрані, і докручуємо смужку до нього */
+  /* поточний день: підсвічуємо його в смужці днів, заповнюємо точки на лінії до нього
+     і показуємо його фото праворуч */
   const nav = $('#trDayNav');
   if (nav && 'IntersectionObserver' in window){
-    const links = $$('a', nav);
-    const spy = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return;
+    const days = $$('.tr-tday'), links = $$('a', nav), slides = $$('.tr-tm-s');
+    const setCur = id => {
+      const idx = days.findIndex(d => d.id === id);
+      days.forEach((d, i) => { d.classList.toggle('is-cur', i === idx); d.classList.toggle('is-past', i < idx); });
+      slides.forEach(s => s.classList.toggle('on', s.dataset.day === id));
       links.forEach(a => {
-        const on = a.getAttribute('href') === '#' + e.target.id;
+        const on = a.getAttribute('href') === '#' + id;
         a.classList.toggle('on', on);
-        if (on) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current');
-        $(a.getAttribute('href')).classList.toggle('is-cur', on);
         if (on){
+          a.setAttribute('aria-current', 'step');
           const box = a.parentElement;
           box.scrollTo({ left: a.offsetLeft - (box.clientWidth - a.offsetWidth) / 2, behavior: RM ? 'auto' : 'smooth' });
-        }
+        } else a.removeAttribute('aria-current');
       });
-    }), { rootMargin: '-45% 0px -50% 0px' });
-    $$('.tr-day').forEach(d => spy.observe(d));
-
-    /* тонка лінія під смужкою днів показує, яку частину програми вже прогорнуто */
-    const days = $('#trDays');
-    let praf = 0;
+    };
+    /* лінія стрічки й тонка смужка під навігацією заповнюються в міру прокрутки програми */
+    const list = $('#trDays');
+    let praf = 0, cur = '';
     const progress = () => {
       praf = 0;
-      const r = days.getBoundingClientRect(), vh = innerHeight;
-      const p = Math.min(1, Math.max(0, (vh * .5 - r.top) / r.height));
-      nav.style.setProperty('--p', p.toFixed(4));
+      /* поточний той день, чий верх уже пройшов 45% висоти екрана. Рахуємо на кожен кадр прокрутки,
+         тож навіть короткий день не проскочить при швидкому гортанні */
+      const line = innerHeight * .45;
+      let id = days[0].id;
+      for (const d of days) { if (d.getBoundingClientRect().top <= line) id = d.id; else break; }
+      if (id !== cur){ cur = id; setCur(id); }
+      const r = list.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(4);
+      nav.style.setProperty('--p', p);
+      list.style.setProperty('--p', p);
     };
     addEventListener('scroll', () => { if (!praf) praf = requestAnimationFrame(progress); }, { passive: true });
     progress();

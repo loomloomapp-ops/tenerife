@@ -1333,7 +1333,7 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
    Класи tr-rv отримують .in з js/tour.js, коли заходять в екран.
    ============================================================ */
 .tr-page{--tr-ease:cubic-bezier(.76,0,.24,1)}
-.tr-page .num,.tr-stats b,.tr-dper b,.tr-day-n,.tr-day-time b{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.tr-page .num,.tr-stats b,.tr-dper b,.tr-tday-k b,.tr-day-time b{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 
 /* мітка заглушки, видно лише з ?draft */
 .tr-todo{
@@ -1377,8 +1377,8 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 .js .tr-hero-bg{clip-path:inset(7% 5% 9% 5% round var(--r));transform:scale(1.08);transition:clip-path 1.6s var(--tr-ease),transform 2.4s var(--ease)}
 .js .tr-hero.is-in .tr-hero-bg{clip-path:inset(0 0 0 0 round 0);transform:none}
 .tr-hero-in{position:relative;width:100%;padding-top:calc(var(--top-h,78px) + 56px);padding-bottom:clamp(96px,12vh,140px)}
-.tr-eyebrow{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.88);margin-bottom:24px}
-.tr-eyebrow::before{content:'';width:40px;height:1px;background:var(--accent-light)}
+.tr-eyebrow{display:flex;align-items:baseline;gap:8px;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.88);margin-bottom:24px}
+.tr-eyebrow::before{content:'/';color:var(--accent-light);font-weight:700}
 .tr-h1{color:var(--white);font-size:clamp(40px,6.4vw,104px);line-height:.92;letter-spacing:-.01em}
 .tr-ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.04em}
 .tr-ln>span{display:inline-block}
@@ -1426,8 +1426,8 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 .tr-feats li:hover span{color:var(--accent);transform:translateX(8px)}
 
 /* ---------- 03 коротко про тур ---------- */
-.tr-over{padding-block:clamp(56px,6vw,104px)}
-.tr-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.tr-over{padding-block:0 clamp(56px,6vw,104px)}
+.tr-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--line)}
 .tr-stats>div{padding:clamp(22px,2.4vw,34px) clamp(14px,2vw,30px);border-left:1px solid var(--line)}
 .tr-stats>div:first-child{border-left:0;padding-left:0}
 .tr-stats dt{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
@@ -1484,27 +1484,47 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 .tr-daynav a:hover{color:var(--ink);border-color:var(--line)}
 .tr-daynav a.on{background:var(--ink);color:var(--white)}
 .tr-daynav a.on b{color:var(--accent-light)}
-.tr-days{display:grid;gap:clamp(80px,9vw,160px);padding-top:clamp(56px,6vw,100px)}
-.tr-day{
-  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;
-  grid-template-areas:"h m" "t m";column-gap:clamp(36px,5.4vw,104px);align-items:start;
-  scroll-margin-top:calc(var(--top-h,78px) + 80px)
-}
-.tr-day.is-flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"m h" "m t"}
-.tr-day-h{grid-area:h}
-.tr-day-media{grid-area:m}
-.tr-day-txt{grid-area:t;margin-top:30px;font-size:16px;line-height:1.66;color:var(--ink-2)}
-.tr-day-n{display:flex;align-items:flex-end;gap:16px;font-family:var(--disp);font-weight:700;font-size:clamp(80px,9.6vw,160px);line-height:.78;color:var(--accent);margin-bottom:clamp(20px,2.2vw,32px)}
-.tr-day-n small{order:2;-webkit-text-stroke:0;font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);line-height:1;padding-bottom:.4em}
-.tr-day h3{font-size:clamp(26px,2.7vw,44px);line-height:1.02;max-width:17ch}
-/* номер дня тонким контуром, а день, який зараз на екрані, заповнюється кольором */
-@supports (-webkit-text-stroke:1px){
-  .tr-day-n{color:transparent;-webkit-text-stroke:1.5px var(--accent);transition:color .6s var(--ease)}
-  .tr-day.is-cur .tr-day-n{color:var(--accent)}
-}
-.tr-day-h .tr-day-time{margin-top:22px}
-.tr-day-h::after{content:'';display:block;height:1px;margin-top:30px;background:var(--accent);transform-origin:left}
 .tr-day-txt p+p,.tr-day-txt p+dl,.tr-day-txt dl+p,.tr-day-txt div+p,.tr-day-txt p+div{margin-top:14px}
+/* стрічка днів: позначка дня, лінія з точками, текст. Праворуч липке фото поточного дня */
+.tr-tl{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(40px,5vw,96px);align-items:start;padding-top:clamp(48px,5vw,80px)}
+.tr-tl-list{position:relative;--k:clamp(72px,6.4vw,96px);--g:clamp(28px,3vw,52px)}
+.tr-tl-list::before,.tr-tl-list::after{content:'';position:absolute;left:calc(var(--k) + var(--g) / 2);top:14px;bottom:14px;width:1px;background:var(--line)}
+.tr-tl-list::after{background:var(--accent);transform-origin:top;transform:scaleY(var(--p,0))}
+.tr-tday{position:relative;display:grid;grid-template-columns:var(--k) minmax(0,1fr);column-gap:var(--g);padding-bottom:clamp(52px,5vw,84px);scroll-margin-top:calc(var(--top-h,78px) + 96px)}
+.tr-tday:last-child{padding-bottom:0}
+.tr-tday::before{
+  content:'';position:absolute;z-index:1;left:calc(var(--k) + var(--g) / 2 - 7px);top:8px;width:15px;height:15px;border-radius:50%;
+  background:var(--paper);border:1.5px solid var(--accent);transition:background .4s,box-shadow .4s,transform .4s var(--ease)
+}
+.tr-tday.is-past::before{background:var(--accent)}
+.tr-tday.is-cur::before{background:var(--accent);box-shadow:0 0 0 6px var(--accent-soft);transform:scale(1.12)}
+.tr-tday-k{text-align:right}
+.tr-tday-k span{display:block;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.tr-tday-k b{display:block;font-family:var(--disp);font-weight:700;font-size:clamp(40px,3.6vw,58px);line-height:.82;color:var(--accent);transition:color .5s var(--ease)}
+/* номер тонким контуром, поточний день заповнюється кольором */
+@supports (-webkit-text-stroke:1px){
+  .tr-tday-k b{color:transparent;-webkit-text-stroke:1.2px var(--accent)}
+  .tr-tday.is-cur .tr-tday-k b,.tr-tday.is-past .tr-tday-k b{color:var(--accent)}
+}
+.tr-tday h3{font-size:clamp(22px,2vw,32px);line-height:1.08;max-width:24ch;transition:color .4s}
+.tr-tday .tr-day-time{margin-top:16px}
+.tr-tday .tr-day-txt{margin-top:22px;max-width:62ch;font-size:15.5px;line-height:1.66;color:var(--ink-2)}
+.tr-tday-ph{display:none}
+.tr-tl-media{position:sticky;top:calc(var(--top-h,78px) + 90px);height:calc(100svh - var(--top-h,78px) - 130px);min-height:440px;max-height:780px}
+.tr-tm-s{position:absolute;inset:0;margin:0;border-radius:var(--r);overflow:hidden;background:var(--paper-2);opacity:0;transition:opacity .8s var(--ease)}
+.tr-tm-s.on{opacity:1}
+.tr-tm-s>img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.8s var(--ease)}
+.tr-tm-s.on>img{transform:none}
+.tr-tm-s::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,13,5,0) 55%,rgba(26,13,5,.62));pointer-events:none}
+.tr-tm-sub{position:absolute;right:20px;bottom:20px;z-index:2;width:32%;aspect-ratio:3/4;border-radius:18px;overflow:hidden;outline:6px solid rgba(255,255,255,.92);opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease) .15s,transform .9s var(--ease) .15s}
+.tr-tm-s.on .tr-tm-sub{opacity:1;transform:none}
+.tr-tm-sub img{width:100%;height:100%;object-fit:cover}
+.tr-tm-s figcaption{position:absolute;left:24px;bottom:22px;z-index:2;max-width:58%;color:var(--white);font-family:var(--disp);font-weight:700;font-size:clamp(17px,1.4vw,22px);line-height:1.15;text-transform:uppercase}
+.tr-tm-s figcaption b{display:block;font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.78);margin-bottom:8px;font-variant-numeric:lining-nums}
+.tr-tm-s .tr-todo{position:absolute;left:20px;top:20px;margin:0}
+.tr-tl-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:clamp(52px,5vw,84px);padding-top:clamp(28px,3vw,40px);border-top:1px solid var(--line)}
+.tr-tl-cta .btn{padding:17px 32px}
+.tr-tl-cta span{font-size:14px;color:var(--ink-3);font-variant-numeric:lining-nums}
 .tr-day-lead{font-size:clamp(17px,1.35vw,20px);line-height:1.5;color:var(--ink)}
 .tr-day-intro{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .tr-day-secs>div{padding:18px 0;border-top:1px solid var(--line)}
@@ -1524,30 +1544,6 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 .tr-day-time svg.ic{width:17px;height:17px;color:var(--accent)}
 .tr-day-time span{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
 .tr-day-time b{font-family:var(--disp);font-weight:700;font-size:18px;color:var(--ink)}
-/* поява дня: номер, заголовок, лінія, далі текст по черзі */
-.js .tr-day .tr-day-n,.js .tr-day h3,.js .tr-day-h .tr-day-time,.js .tr-day-txt>*{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease),color .6s var(--ease)}
-.js .tr-day-h .tr-day-time{transition-delay:.2s}
-.js .tr-day.in .tr-day-h .tr-day-time{opacity:1;transform:none}
-.js .tr-day h3{transition-delay:.12s}
-.js .tr-day-h::after{transform:scaleX(0);transition:transform 1.3s var(--ease) .3s}
-.js .tr-day-txt>:nth-child(1){transition-delay:.3s}.js .tr-day-txt>:nth-child(2){transition-delay:.38s}
-.js .tr-day-txt>:nth-child(3){transition-delay:.46s}.js .tr-day-txt>:nth-child(4){transition-delay:.54s}
-.js .tr-day-txt>:nth-child(n+5){transition-delay:.62s}
-.js .tr-day.in .tr-day-n,.js .tr-day.in h3,.js .tr-day.in .tr-day-txt>*{opacity:1;transform:none}
-.js .tr-day.in .tr-day-h::after{transform:none}
-/* фото дня: одне, два внахльост або три (велике й два менші) */
-.tr-day-media{position:relative}
-.tr-m1 .tr-ph{aspect-ratio:4/5}
-.tr-m2{padding:0 0 16% 0}
-.tr-m2 .tr-ph-main{width:80%;aspect-ratio:4/5}
-.tr-m2 .tr-ph-sub{position:absolute;right:0;bottom:0;width:42%;aspect-ratio:3/4;outline:8px solid var(--paper);--d:.22s}
-.is-flip .tr-m2 .tr-ph-main{margin-left:auto}
-.is-flip .tr-m2 .tr-ph-sub{right:auto;left:0}
-.tr-m3{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.tr-m3 .tr-ph-main{grid-column:1/-1;aspect-ratio:16/11}
-.tr-m3 .tr-ph-sub{aspect-ratio:4/5}
-.tr-m3 .tr-ph-sub:nth-child(2){--d:.15s}.tr-m3 .tr-ph-sub:nth-child(3){--d:.28s}
-.tr-m0{aspect-ratio:4/5;border:1px dashed var(--line);border-radius:var(--r);display:grid;place-items:center}
 .tr-ph-empty{aspect-ratio:4/5;border:1px dashed var(--accent);display:grid;place-items:center}
 .tr-ph-empty .tr-todo{position:static}
 
@@ -1676,10 +1672,11 @@ html.tr-lock{overflow:hidden}
 
 /* ---------- 12 фінал ---------- */
 .tr-final{padding-block:clamp(64px,7vw,124px)}
-.tr-final-card{position:relative;display:flex;align-items:flex-end;min-height:clamp(460px,72svh,760px);border-radius:var(--r);overflow:hidden;isolation:isolate;background:var(--ink)}
+.tr-final-card{position:relative;display:flex;align-items:flex-start;min-height:clamp(460px,72svh,760px);border-radius:var(--r);overflow:hidden;isolation:isolate;background:var(--ink)}
 .tr-final-ph{position:absolute;inset:-50px 0;z-index:-2}
 .tr-final-ph img{width:100%;height:100%;object-fit:cover}
-.tr-final-card::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(200deg,rgba(26,13,5,.05) 20%,rgba(26,13,5,.72) 88%)}
+/* текст стоїть угорі, на небі, щоб не перекривати людей на фото */
+.tr-final-card::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(26,13,5,.66) 0%,rgba(26,13,5,.32) 42%,rgba(26,13,5,0) 70%)}
 .tr-final-in{padding:clamp(28px,5vw,80px)}
 .tr-final-in h2{color:var(--white);font-size:clamp(32px,4.4vw,68px);text-shadow:0 2px 24px rgba(0,0,0,.3)}
 .tr-final-in p{margin:22px 0 32px;max-width:44ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(255,255,255,.88)}
@@ -1734,10 +1731,23 @@ html.tr-lock{overflow:hidden}
   .tr-drow{grid-template-columns:1fr;grid-template-areas:"n" "p" "m" "b";gap:14px}
   .tr-dnum{padding-top:0}
   .tr-dbtn{justify-self:stretch;margin-top:8px}
-  .tr-days{gap:80px}
-  .tr-day,.tr-day.is-flip{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"h" "m" "t"}
-  .tr-day-h::after{margin-top:24px;margin-bottom:28px}
-  .tr-day-n{font-size:clamp(72px,22vw,110px)}
+  /* стрічка на телефоні: лінія біля лівого краю, «День 01» над заголовком, фото гортаються в самому дні */
+  .tr-tl{grid-template-columns:1fr}
+  .tr-tl-media{display:none}
+  .tr-tl-list{--k:0px;--g:0px}
+  .tr-tl-list::before,.tr-tl-list::after{left:7px}
+  .tr-tday{grid-template-columns:minmax(0,1fr);padding-left:34px;padding-bottom:56px}
+  .tr-tday::before{left:0;top:4px}
+  .tr-tday-k{text-align:left;display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+  .tr-tday-k span{margin:0}
+  .tr-tday-k b{font-size:34px}
+  .tr-tday-ph{--r:18px;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin:20px calc(-1 * var(--gut)) 0 0;padding-right:var(--gut);scrollbar-width:none}
+  .tr-tday-ph::-webkit-scrollbar{display:none}
+  .tr-tday-ph .tr-ph{flex:0 0 82%;aspect-ratio:4/3;scroll-snap-align:start}
+  .tr-tday-ph .tr-ph:only-child{flex-basis:calc(100% - var(--gut))}
+  .tr-tday .tr-day-txt{margin-top:20px}
+  .tr-tl-cta .btn{flex:1 1 100%}
   .tr-stay-g,.tr-incl-g,.tr-faq-g{grid-template-columns:1fr}
   .tr-faq-g>.sec-h{position:static}
   .tr-prog-h{flex-direction:column;align-items:flex-start}
@@ -1750,17 +1760,12 @@ html.tr-lock{overflow:hidden}
   .tr-about-h h2{font-size:min(32px,8.8vw)}
   .tr-prog-h h2{font-size:min(30px,8.2vw)}
   .tr-eyebrow{font-size:11px;letter-spacing:.18em;margin-bottom:18px}
-  .tr-eyebrow::before{width:26px}
   .tr-hero-lede{margin-top:18px}
   .tr-hero-acts .btn{flex:1 1 100%}
   .tr-stats b{font-size:clamp(32px,11vw,46px)}
   .tr-stats .is-word b{font-size:22px}
   .tr-dper b{font-size:clamp(30px,10.6vw,44px)}
   .tr-dmeta{gap:8px 18px;font-size:13.5px}
-  .tr-m2{padding-bottom:20%}
-  .tr-m2 .tr-ph-main{width:84%}
-  .tr-m2 .tr-ph-sub{width:46%;outline-width:6px}
-  .tr-m3{gap:10px}
   .tr-day-time{border-radius:18px}
   .tr-terms-g{grid-template-columns:1fr;gap:28px}
   .tr-daynav-in{padding-inline:var(--gut)}
@@ -1773,9 +1778,9 @@ html.tr-lock{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   .js .tr-hero-bg,.js .tr-hero-bg{clip-path:none;transform:none}
   .js .tr-h-a,.js .tr-ln>span,.js .tr-split .tr-w>span,.js .tr-rv:not(.tr-split):not(.tr-ph),
-  .js .tr-day .tr-day-n,.js .tr-day h3,.js .tr-day-h .tr-day-time,.js .tr-day-txt>*{opacity:1;transform:none}
+  .tr-tm-s img,.tr-tm-sub{transform:none !important}
   .js .tr-ph.tr-rv{clip-path:none}
   .js .tr-ph.tr-rv img{transform:none}
-  .js .tr-day-h::after,.js .tr-feats li::before,.js .tr-feats li:last-child::after{transform:none}
+  .js .tr-feats li::before,.js .tr-feats li:last-child::after{transform:none}
   .tr-break-ph{animation:none}
 }
