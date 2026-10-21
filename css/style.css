@@ -1718,7 +1718,7 @@ html.tr-lock{overflow:hidden}
 }
 @media(max-width:900px){
   /* на телефоні низ першого екрана закриває нижнє меню, тож контент піднімаємо над ним */
-  .tr-hero-in{padding-bottom:calc(var(--dock-h,0px) + 76px)}
+  .tr-hero-in{padding-bottom:calc(var(--dock-h,0px) + 28px)}
   .tr-credit{bottom:calc(var(--dock-h,0px) + 6px)}
   .tr-hero-bg::after{background:linear-gradient(180deg,rgba(26,13,5,.5) 0%,rgba(26,13,5,.3) 36%,rgba(26,13,5,.62) 70%,rgba(26,13,5,.84) 100%)}
   .tr-about-g{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"h" "ph" "f"}
