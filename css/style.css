@@ -1170,9 +1170,13 @@ svg.ic{fill:currentColor;stroke:none;width:1em;height:1em;flex:none;display:inli
 }
 @media(max-width:980px){
   .kind-wide,.kind-pts,.exc-body{grid-template-columns:1fr}
+  /* minmax(0,…): інакше рядок мініатюр розпирає колонку ширше за вікно і текст обрізається справа */
+  .exc-body{grid-template-columns:minmax(0,1fr)}
   .exc-gal{position:static;padding:12px 12px 0}
   .exc-main{aspect-ratio:4/3}
   .exc-txt{padding:24px 20px 20px}
+  /* довгі слова («наймальовничіших») не мають виходити за край на вузьких телефонах */
+  .exc-txt h2{font-size:min(26px,7.2vw);overflow-wrap:break-word}
   .exc-acts .btn{flex:1 1 0;padding-inline:12px;font-size:12px}
   .steps,.steps:has(>:nth-child(3):last-child),.svc{grid-template-columns:1fr 1fr}
   .kinds{grid-template-columns:1fr}
