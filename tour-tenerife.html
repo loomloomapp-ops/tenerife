@@ -8,12 +8,12 @@
 <link rel="canonical" href="https://tenerife-indol.vercel.app/tour-tenerife.html">
 <meta property="og:title" content="Груповий тур на Тенеріфе — 8 днів від 750 € | SVOYI Tenerife">
 <meta property="og:description" content="Авторський груповий тур на Тенеріфе на 8 днів. Вулкан Тейде, океан, пляжі, морські прогулянки та атмосферні містечка. Група до 8 осіб.">
-<meta property="og:image" content="https://tenerife-indol.vercel.app/images/places/tours-2.webp">
+<meta property="og:image" content="https://tenerife-indol.vercel.app/images/tour/hero-1672.webp">
 <meta property="og:url" content="https://tenerife-indol.vercel.app/tour-tenerife.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="uk_UA">
 <link rel="icon" href="images/logo.png">
-<link rel="preload" as="image" href="images/places/hero-poster.webp" fetchpriority="high">
+<link rel="preload" as="image" href="images/tour/hero-1672.webp" imagesrcset="images/tour/hero-1000.webp 1000w, images/tour/hero-1672.webp 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
 <script type="application/ld+json">
 {
@@ -63,13 +63,10 @@
 <!-- Усі тексти, дати й фото цієї сторінки лежать у js/tour-data.js, розмітку блоків малює js/tour.js.
      Тут лише каркас і заголовки. ?draft показує заглушки для даних, яких ще немає. -->
 
-<!-- 01. Перший екран з відео -->
+<!-- 01. Перший екран з фото -->
 <section class="tr-hero" id="trHero">
   <div class="tr-hero-bg hero-bg">
-    <video id="trVideo" poster="images/places/hero-poster.webp" autoplay muted loop playsinline aria-hidden="true">
-      <source src="media/hero.webm" type="video/webm">
-      <source src="media/hero.mp4" type="video/mp4">
-    </video>
+    <img id="trHeroImg" src="images/tour/hero-1672.webp" srcset="images/tour/hero-1000.webp 1000w, images/tour/hero-1672.webp 1672w" sizes="100vw" alt="" fetchpriority="high">
   </div>
   <div class="tr-hero-in wrap">
     <p class="tr-eyebrow tr-h-a" style="--i:1">Авторський груповий тур</p>
@@ -77,8 +74,10 @@
       <span class="tr-ln"><span style="--i:2">Tenerife —</span></span>
       <span class="tr-ln"><span style="--i:3">острів вічної весни</span></span>
     </h1>
-    <p class="tr-hero-lede tr-h-a" style="--i:4" id="trLede">Авторський тур для тих, хто хоче відчути острів по-справжньому</p>
-    <div class="tr-hero-acts tr-h-a" style="--i:5">
+    <p class="tr-hero-lede tr-h-a" style="--i:4" id="trLede"><b>Авторський тур</b> для тих, хто хоче відчути острів по-справжньому</p>
+    <!-- найближчі дати: клік відкриває заявку з цією датою -->
+    <div class="tr-hero-dates tr-h-a" style="--i:5" id="trHeroDates"></div>
+    <div class="tr-hero-acts tr-h-a" style="--i:6">
       <a class="btn btn-accent" href="#book" data-tr-book>Забронювати місце <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
       <a class="btn btn-onink" href="#program">Програма туру</a>
     </div>
@@ -95,20 +94,6 @@
       <p class="tr-over-big rv" id="trOverText"></p>
       <p class="tr-over-p rv rv-1" id="trOverText2"></p>
     </div>
-  </div>
-</section>
-
-<!-- 02. Про острів -->
-<section class="sec tr-about" id="about">
-  <div class="wrap tr-about-g">
-    <div class="tr-about-h">
-      <span class="slash rv">Про острів</span>
-      <h2 class="tr-split" id="trAboutTitle">Тенеріфе — місце, де оживають мрії</h2>
-      <!-- ширина опису дорівнює ширині заголовка -->
-      <p class="tr-about-p rv" id="trAboutText"></p>
-    </div>
-    <figure class="tr-about-ph" id="trAboutPh"></figure>
-    <ol class="tr-feats" id="trFeats"></ol>
   </div>
 </section>
 
@@ -151,20 +136,13 @@
   </div>
 </section>
 
-<!-- 06. Панорама -->
-<section class="tr-break" id="trBreak" aria-labelledby="trBreakH">
-  <div class="tr-break-ph tr-par" id="trBreakPh"></div>
-  <h2 class="tr-break-h tr-split" id="trBreakH">Тенеріфе, який залишиться у твоєму серці</h2>
-  <p class="credit" id="trBreakCredit"></p>
-</section>
-
 <!-- 07. Проживання -->
 <section class="sec tr-stay" id="stay">
   <div class="wrap">
     <div class="tr-stay-g">
       <div class="sec-h">
-        <span class="slash rv">Проживання</span>
-        <h2 class="tr-split">Твій дім на Тенеріфе</h2>
+        <span class="slash rv">Твій дім на Тенеріфе</span>
+        <h2 class="tr-split" id="trStayTitle">Проживання</h2>
         <p class="rv rv-1" id="trStayText"></p>
       </div>
       <dl class="tr-stay-facts" id="trStayFacts"></dl>

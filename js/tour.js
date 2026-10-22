@@ -22,27 +22,18 @@ const fig = (p, cls = '', opts) => `<figure class="tr-ph tr-rv ${cls}">${pic(p, 
 /* ================= перший екран ================= */
 (function hero(){
   const h = TOUR.hero;
-  $('#trLede').textContent = h.lede;
-  $('#trHeroCredit').innerHTML = rich(h.credit);
-  const v = $('#trVideo');
-  /* без руху або з економією трафіку лишаємо заставку, відео не вантажимо */
-  const save = navigator.connection && navigator.connection.saveData;
-  if (RM || save){ v.removeAttribute('autoplay'); v.preload = 'none'; v.pause(); return; }
-  /* якщо відео не стартувало (iOS у режимі енергозбереження), лишається заставка, не чорний екран */
-  const p = v.play();
-  if (p && p.catch) p.catch(() => {});
-})();
-
-/* ================= про острів ================= */
-(function about(){
-  const a = TOUR.about;
-  $('#trAboutTitle').textContent = a.title;
-  $('#trAboutText').textContent = a.text;
-  $('#trAboutPh').innerHTML = `
-    <div class="tr-ph tr-rv tr-about-main">${pic(a.image, { sizes: '(max-width: 900px) 100vw, 46vw' })}</div>
-    ${a.image2 ? `<div class="tr-ph tr-rv tr-about-sm">${pic(a.image2, { sizes: '(max-width: 900px) 40vw, 18vw' })}</div>` : ''}`;
-  $('#trFeats').innerHTML = a.features.map((f, i) =>
-    `<li class="tr-rv" style="--d:${i * .08}s"><em>${String(i + 1).padStart(2, '0')}</em><span>${esc(f)}</span></li>`).join('');
+  $('#trLede').innerHTML = rich(h.lede);
+  const cr = $('#trHeroCredit');
+  cr.innerHTML = rich(h.credit);
+  cr.hidden = !h.credit;
+  const img = $('#trHeroImg');
+  img.src = h.image.src;
+  img.srcset = `${h.image.sm} 1000w, ${h.image.src} 1672w`;
+  img.alt = h.image.alt || '';
+  if (h.image.pos) img.style.objectPosition = h.image.pos;
+  /* дати туру одразу на першому екрані: клік відкриває заявку з цією датою */
+  $('#trHeroDates').innerHTML = `<span>${esc(h.datesTitle)}</span>` + TOUR.dates.map(d =>
+    `<a href="#book" data-tr-book="${esc(d.id)}"><small>${esc(d.label)}</small><b>${esc(d.from)}<i>—</i>${esc(d.to)}</b></a>`).join('');
 })();
 
 /* ================= коротко про тур ================= */
@@ -78,13 +69,13 @@ const fig = (p, cls = '', opts) => `<figure class="tr-ph tr-rv ${cls}">${pic(p, 
       ${d.available ? '<span class="tr-dstat">Є місця</span>' : ''}
       <a class="btn btn-accent tr-dbtn" href="#book" data-tr-book="${esc(d.id)}">Уточнити наявність місць ${icon('arrow-right')}</a>
     </article>`;
-  $('#trDates').innerHTML = TOUR.dates.map(row).join('') + `
+  $('#trDates').innerHTML = TOUR.dates.map(row).join('') + (!TOUR.otherDates ? '' : `
     <article class="tr-drow tr-drow-other tr-rv" style="--d:${TOUR.dates.length * .08}s">
       <span class="tr-dnum">${icon('compass')}</span>
       <div class="tr-dper"><small>Свої дати</small><b>${esc(TOUR.otherDates)}</b></div>
       <p class="tr-dmeta-p">Збираєте свою компанію або не підходять дати групи? Напишіть, коли зручно</p>
       <a class="btn btn-ghost tr-dbtn" href="#book" data-tr-book="other">Запитати іншу дату ${icon('arrow-right')}</a>
-    </article>`;
+    </article>`);
 })();
 
 /* ================= програма =================
@@ -120,15 +111,20 @@ function dayHTML(d){
   </article>`;
 }
 
-/* липке фото: по кадру на день, поточний проявляється поверх попереднього */
+/* липке фото: по слайду на день, поточний проявляється поверх попереднього,
+   а всередині дня фото змінюють одне одне. Адреси фото стоять у data-src і підставляються,
+   лише коли день стає поточним (і наступний наперед), щоб не вантажити всі кадри одразу */
 function slideHTML(d, i, all){
-  const [main, sub] = d.images || [];
-  if (!main) return `<figure class="tr-tm-s${i ? '' : ' on'}" data-day="${esc(d.id)}">${pending('фото для цього дня')}</figure>`;
+  const imgs = d.images || [];
+  if (!imgs.length) return `<figure class="tr-tm-s${i ? '' : ' on'}" data-day="${esc(d.id)}">${pending('фото для цього дня')}</figure>`;
+  const cap = p => p.caption || shortTitle(d);
   return `<figure class="tr-tm-s${i ? '' : ' on'}" data-day="${esc(d.id)}">
-    ${pic(main, { sizes: '40vw' })}
-    ${sub ? `<span class="tr-tm-sub">${pic(sub, { sizes: '16vw' })}</span>` : ''}
-    <figcaption><b>День ${pad(d.number)} / ${pad(all.length)}</b>${esc(main.caption || shortTitle(d))}</figcaption>
-    ${main.temp ? pending('фото для цього дня') : ''}
+    ${imgs.map((p, j) => pic(p, { sizes: '40vw', cls: j ? '' : 'on' })
+      .replace(/ (src|srcset)="/g, ' data-$1="').replace(' loading="lazy"', '')
+      .replace('<img ', `<img data-cap="${esc(cap(p))}" `)).join('')}
+    <figcaption><b>День ${pad(d.number)} / ${pad(all.length)}</b><span>${esc(cap(imgs[0]))}</span></figcaption>
+    ${imgs.length > 1 ? `<span class="tr-tm-dots">${imgs.map((_, j) => `<i${j ? '' : ' class="on"'}></i>`).join('')}</span>` : ''}
+    ${imgs[0].temp ? pending('фото для цього дня') : ''}
   </figure>`;
 }
 
@@ -143,17 +139,10 @@ function slideHTML(d, i, all){
     `<a href="#${esc(d.id)}"><b>${pad(d.number)}</b><span>${esc(shortTitle(d))}</span></a>`).join('')}</div>`);
 })();
 
-/* ================= панорама ================= */
-(function brk(){
-  const b = TOUR.break;
-  $('#trBreakH').textContent = b.title;
-  $('#trBreakPh').innerHTML = `<img src="${esc(b.image.src)}" srcset="${esc(b.image.sm)} 1000w, ${esc(b.image.src)} 1920w" sizes="100vw" alt="${esc(b.image.alt)}" loading="lazy" decoding="async">`;
-  $('#trBreakCredit').innerHTML = rich(b.credit);
-})();
-
 /* ================= проживання ================= */
 (function stay(){
   const s = TOUR.stay;
+  $('#trStayTitle').textContent = s.title;
   const t = $('#trStayText');
   t.innerHTML = [s.lede, s.text].filter(Boolean).map(rich).join('<br><br>') + (s.text ? '' : pending('опис апартаментів'));
   t.hidden = !t.innerHTML;
@@ -223,7 +212,7 @@ function slideHTML(d, i, all){
     ['Вартість', `${TOUR.price} € ${TOUR.priceNote}`]
   ].map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
 
-  const opts = [...TOUR.dates.map(d => [d.id, dateLabel(d)]), ['other', 'Інші дати']];
+  const opts = [...TOUR.dates.map(d => [d.id, dateLabel(d)]), ...(TOUR.otherDates ? [['other', 'Інші дати']] : [])];
   $('#tDates').innerHTML = opts.map(([v, t]) =>
     `<label><input type="radio" name="date" value="${esc(v)}"><span>${esc(t)}</span></label>`).join('');
   const otherW = $('#tOtherW');
@@ -416,10 +405,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = $('#trDayNav');
   if (nav && 'IntersectionObserver' in window){
     const days = $$('.tr-tday'), links = $$('a', nav), slides = $$('.tr-tm-s');
+    /* фото поточного дня по черзі, кожне близько 4 с. Слайди приховані на телефоні, тоді не гортаємо */
+    const load = s => s && $$('img[data-src]', s).forEach(im => {
+      if (im.dataset.srcset) im.srcset = im.dataset.srcset;
+      im.src = im.dataset.src; im.removeAttribute('data-src'); im.removeAttribute('data-srcset');
+    });
+    let rot = 0;
+    const rotate = s => {
+      clearInterval(rot);
+      const ims = $$('img', s), dots = $$('.tr-tm-dots i', s), cap = $('figcaption span', s);
+      if (ims.length < 2 || RM || !matchMedia('(min-width: 901px)').matches) return;
+      let k = ims.findIndex(im => im.classList.contains('on'));
+      rot = setInterval(() => {
+        if (document.hidden) return;
+        ims[k].classList.remove('on'); dots[k].classList.remove('on');
+        k = (k + 1) % ims.length;
+        ims[k].classList.add('on'); dots[k].classList.add('on');
+        cap.textContent = ims[k].dataset.cap;
+      }, 4000);
+    };
     const setCur = id => {
       const idx = days.findIndex(d => d.id === id);
       days.forEach((d, i) => { d.classList.toggle('is-cur', i === idx); d.classList.toggle('is-past', i < idx); });
       slides.forEach(s => s.classList.toggle('on', s.dataset.day === id));
+      load(slides[idx]); load(slides[idx + 1]);
+      rotate(slides[idx]);
       links.forEach(a => {
         const on = a.getAttribute('href') === '#' + id;
         a.classList.toggle('on', on);
